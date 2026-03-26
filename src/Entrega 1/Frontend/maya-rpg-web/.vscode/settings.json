@@ -1,0 +1,21 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.suggest.autoImports": true,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "cSpell.language": "pt-BR,en",
+  "cSpell.words": [
+    "maya",
+    "yamamoto",
+    "fisioterapia",
+    "prontuario",
+    "prescricao",
+    "exercicio",
+    "paciente"
+  ]
+}
