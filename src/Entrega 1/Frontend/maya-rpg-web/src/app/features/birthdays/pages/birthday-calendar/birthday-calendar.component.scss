@@ -1,0 +1,412 @@
+@use '../../../../shared/styles/variables' as *;
+@use '../../../../shared/styles/mixins' as *;
+
+.page {
+  padding: $spacing-xl;
+  max-width: 1100px;
+}
+
+.page-header {
+  margin-bottom: $spacing-xl;
+
+  .page-title {
+    font-size: $font-size-2xl;
+    font-weight: 700;
+    color: $maya-dark-teal;
+    margin: 0 0 $spacing-xs;
+  }
+
+  .page-subtitle {
+    font-size: $font-size-sm;
+    color: $maya-gray-400;
+    margin: 0;
+  }
+}
+
+.loading-state {
+  @include flex-center;
+  padding: 4rem;
+  color: $maya-gray-400;
+}
+
+// ── Destaques ─────────────────────────────────────
+.highlights-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-lg;
+  margin-bottom: $spacing-xl;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.highlight-card {
+  background: $maya-white;
+  border: 1px solid $maya-gray-200;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+
+  &.today-card {
+    background: linear-gradient(135deg, #fff8f0 0%, #fff3e8 100%);
+    border-color: rgba($maya-coral, 0.3);
+  }
+}
+
+.highlight-header {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-md;
+
+  .highlight-icon {
+    font-size: $font-size-xl;
+  }
+
+  .highlight-title {
+    font-size: $font-size-base;
+    font-weight: 600;
+    color: $maya-dark-teal;
+    margin: 0;
+  }
+}
+
+.birthday-chips {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.birthday-chip {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-sm;
+  border-radius: $radius-md;
+  background: rgba($maya-teal, 0.06);
+
+  &.today-chip {
+    background: rgba($maya-coral, 0.08);
+
+    .chip-avatar {
+      background: $maya-coral;
+    }
+  }
+}
+
+.chip-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: $maya-teal;
+  color: $maya-white;
+  font-size: $font-size-xs;
+  font-weight: 700;
+  @include flex-center;
+  flex-shrink: 0;
+}
+
+.chip-info {
+  display: flex;
+  flex-direction: column;
+
+  .chip-name {
+    font-size: $font-size-sm;
+    font-weight: 600;
+    color: $maya-gray-700;
+  }
+
+  .chip-age {
+    font-size: $font-size-xs;
+    color: $maya-gray-400;
+  }
+}
+
+.empty-text {
+  font-size: $font-size-sm;
+  color: $maya-gray-400;
+  margin: 0;
+}
+
+// ── Calendário ────────────────────────────────────
+.calendar-card {
+  background: $maya-white;
+  border: 1px solid $maya-gray-200;
+  border-radius: $radius-lg;
+  padding: $spacing-xl;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-lg;
+}
+
+.calendar-title-group {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+
+  .calendar-title {
+    font-size: $font-size-lg;
+    font-weight: 700;
+    color: $maya-dark-teal;
+    margin: 0;
+    text-transform: capitalize;
+  }
+}
+
+.nav-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: $radius-md;
+  border: 1px solid $maya-gray-200;
+  background: $maya-white;
+  color: $maya-dark-teal;
+  font-size: $font-size-xl;
+  cursor: pointer;
+  @include flex-center;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: $maya-teal;
+    color: $maya-white;
+    border-color: $maya-teal;
+  }
+}
+
+.today-btn {
+  font-size: $font-size-xs;
+  padding: 4px $spacing-sm;
+  border-radius: $radius-sm;
+  border: 1px solid $maya-teal;
+  background: transparent;
+  color: $maya-teal;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: $maya-teal;
+    color: $maya-white;
+  }
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: $spacing-xl;
+}
+
+.weekday-header {
+  text-align: center;
+  font-size: $font-size-xs;
+  font-weight: 600;
+  color: $maya-gray-400;
+  padding: $spacing-sm 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.calendar-cell {
+  min-height: 80px;
+  border-radius: $radius-md;
+  padding: $spacing-xs;
+  position: relative;
+  border: 1px solid transparent;
+  transition: background 0.1s;
+
+  &.empty {
+    background: transparent;
+    border: none;
+  }
+
+  &:not(.empty) {
+    background: $maya-off-white;
+
+    &:hover {
+      background: rgba($maya-teal, 0.04);
+    }
+  }
+
+  &.has-birthday {
+    background: rgba($maya-light-blue, 0.08);
+    border-color: rgba($maya-teal, 0.15);
+  }
+
+  &.is-today {
+    background: rgba($maya-teal, 0.1);
+    border-color: $maya-teal;
+
+    .cell-day {
+      background: $maya-teal;
+      color: $maya-white;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      @include flex-center;
+    }
+  }
+}
+
+.cell-day {
+  font-size: $font-size-xs;
+  font-weight: 600;
+  color: $maya-gray-400;
+  display: flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2px;
+}
+
+.cell-birthdays {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cell-birthday-item {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  cursor: default;
+}
+
+.cell-avatar {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: $maya-coral;
+  color: $maya-white;
+  font-size: 8px;
+  font-weight: 700;
+  @include flex-center;
+  flex-shrink: 0;
+}
+
+.cell-name {
+  font-size: 10px;
+  color: $maya-gray-700;
+  font-weight: 500;
+  @include text-truncate;
+}
+
+// ── Lista do mês ──────────────────────────────────
+.month-list {
+  border-top: 1px solid $maya-gray-200;
+  padding-top: $spacing-lg;
+
+  .month-list-title {
+    font-size: $font-size-base;
+    font-weight: 600;
+    color: $maya-dark-teal;
+    margin: 0 0 $spacing-md;
+    text-transform: capitalize;
+  }
+}
+
+.month-list-items {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.month-list-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-md;
+  border: 1px solid $maya-gray-100;
+  background: $maya-off-white;
+  transition: background 0.15s;
+
+  &:hover {
+    background: rgba($maya-teal, 0.04);
+  }
+
+  &.is-today {
+    background: rgba($maya-coral, 0.06);
+    border-color: rgba($maya-coral, 0.2);
+  }
+}
+
+.list-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 40px;
+
+  .list-day {
+    font-size: $font-size-lg;
+    font-weight: 700;
+    color: $maya-dark-teal;
+    line-height: 1;
+  }
+
+  .list-month {
+    font-size: $font-size-xs;
+    color: $maya-gray-400;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+.list-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: $maya-teal;
+  color: $maya-white;
+  font-size: $font-size-xs;
+  font-weight: 700;
+  @include flex-center;
+  flex-shrink: 0;
+}
+
+.list-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  .list-name {
+    font-size: $font-size-sm;
+    font-weight: 600;
+    color: $maya-gray-700;
+  }
+
+  .list-age {
+    font-size: $font-size-xs;
+    color: $maya-gray-400;
+  }
+}
+
+.today-badge {
+  font-size: $font-size-xs;
+  font-weight: 600;
+  color: $maya-coral;
+  white-space: nowrap;
+}
+
+.empty-month {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $spacing-xl;
+  color: $maya-gray-400;
+  gap: $spacing-sm;
+
+  .empty-icon {
+    font-size: 2rem;
+  }
+
+  p {
+    margin: 0;
+    font-size: $font-size-sm;
+  }
+}

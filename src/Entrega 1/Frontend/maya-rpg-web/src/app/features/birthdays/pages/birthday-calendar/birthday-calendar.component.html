@@ -1,0 +1,131 @@
+<div class="page">
+
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">🎂 Aniversários</h1>
+        <p class="page-subtitle">Acompanhe os aniversários dos seus pacientes</p>
+      </div>
+    </div>
+
+    <div class="loading-state" *ngIf="isLoading">
+      <p>Carregando...</p>
+    </div>
+
+    <div class="content" *ngIf="!isLoading">
+
+      <div class="highlights-row">
+
+        <div class="highlight-card" [class.today-card]="todayBirthdays.length > 0">
+          <div class="highlight-header">
+            <span class="highlight-icon">{{ todayBirthdays.length > 0 ? '🎉' : '📅' }}</span>
+            <h2 class="highlight-title">Hoje</h2>
+          </div>
+          <ng-container *ngIf="todayBirthdays.length > 0; else noToday">
+            <div class="birthday-chips">
+              <div class="birthday-chip today-chip" *ngFor="let b of todayBirthdays">
+                <span class="chip-avatar">{{ getInitials(b.patient.fullName) }}</span>
+                <div class="chip-info">
+                  <span class="chip-name">{{ b.patient.fullName }}</span>
+                  <span class="chip-age">{{ b.age }} anos 🎂</span>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #noToday>
+            <p class="empty-text">Nenhum aniversário hoje</p>
+          </ng-template>
+        </div>
+
+        <div class="highlight-card">
+          <div class="highlight-header">
+            <span class="highlight-icon">⏳</span>
+            <h2 class="highlight-title">Próximos 7 dias</h2>
+          </div>
+          <ng-container *ngIf="upcomingBirthdays.length > 0; else noUpcoming">
+            <div class="birthday-chips">
+              <div class="birthday-chip" *ngFor="let b of upcomingBirthdays">
+                <span class="chip-avatar">{{ getInitials(b.patient.fullName) }}</span>
+                <div class="chip-info">
+                  <span class="chip-name">{{ b.patient.fullName }}</span>
+                  <span class="chip-age">dia {{ b.day }} · {{ b.age }} anos</span>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #noUpcoming>
+            <p class="empty-text">Nenhum nos próximos 7 dias</p>
+          </ng-template>
+        </div>
+
+      </div>
+
+      <div class="calendar-card">
+
+        <div class="calendar-nav">
+          <button class="nav-btn" (click)="prevMonth()">‹</button>
+          <div class="calendar-title-group">
+            <h2 class="calendar-title">{{ monthNames[displayMonth] }} {{ displayYear }}</h2>
+            <button class="today-btn" (click)="goToToday()" *ngIf="!isCurrentMonth()">
+              Mês atual
+            </button>
+          </div>
+          <button class="nav-btn" (click)="nextMonth()">›</button>
+        </div>
+
+        <div class="calendar-grid">
+          <div class="weekday-header" *ngFor="let wd of weekDays">{{ wd }}</div>
+
+          <ng-container *ngFor="let cell of calendarDays; let i = index">
+            <div class="calendar-cell empty" *ngIf="cell === null"></div>
+            <ng-container *ngIf="cell !== null">
+              <div
+                class="calendar-cell"
+                [class.has-birthday]="cell.length > 0"
+                [class.is-today]="isToday(getDayFromIndex(i))"
+              >
+                <span class="cell-day">{{ getDayFromIndex(i) }}</span>
+                <div class="cell-birthdays">
+                  <div
+                    class="cell-birthday-item"
+                    *ngFor="let b of cell"
+                    [title]="b.patient.fullName + ' · ' + b.age + ' anos'"
+                  >
+                    <span class="cell-avatar">{{ getInitials(b.patient.fullName) }}</span>
+                    <span class="cell-name">{{ b.patient.fullName.split(' ')[0] }}</span>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+
+        <div class="month-list" *ngIf="birthdaysThisMonth.length > 0">
+          <h3 class="month-list-title">Todos em {{ monthNames[displayMonth] }}</h3>
+          <div class="month-list-items">
+            <div
+              class="month-list-item"
+              *ngFor="let b of birthdaysThisMonth"
+              [class.is-today]="b.isToday"
+            >
+              <div class="list-date">
+                <span class="list-day">{{ b.day }}</span>
+                <span class="list-month">{{ monthNames[b.month].slice(0, 3) }}</span>
+              </div>
+              <span class="list-avatar">{{ getInitials(b.patient.fullName) }}</span>
+              <div class="list-info">
+                <span class="list-name">{{ b.patient.fullName }}</span>
+                <span class="list-age">{{ b.age }} anos</span>
+              </div>
+              <span class="today-badge" *ngIf="b.isToday">🎉 Hoje!</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty-month" *ngIf="birthdaysThisMonth.length === 0">
+          <span class="empty-icon">🗓️</span>
+          <p>Nenhum aniversário em {{ monthNames[displayMonth] }}</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
