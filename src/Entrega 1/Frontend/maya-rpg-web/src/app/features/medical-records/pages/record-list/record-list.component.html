@@ -1,0 +1,57 @@
+<div class="page">
+  <div class="page-header">
+    <div>
+      <h1>Prontuários</h1>
+      <p class="page-subtitle">Histórico clínico e avaliações funcionais</p>
+    </div>
+    <button class="btn btn--primary" (click)="navigateToNew()">+ Novo Registro</button>
+  </div>
+
+  <div class="patient-select">
+    <label class="form-label">Selecione o paciente:</label>
+    <select class="form-input" (change)="onPatientSelect($any($event.target).value)">
+      <option value="">Escolha um paciente...</option>
+      <option *ngFor="let p of patients" [value]="p.id">{{ p.fullName }}</option>
+    </select>
+  </div>
+
+  <div class="loading" *ngIf="isLoading">Carregando...</div>
+
+  <div class="records-list" *ngIf="!isLoading && records.length > 0">
+    <div class="record-card" *ngFor="let record of records" (click)="navigateToDetail(record)">
+      <div class="card-top">
+        <div class="card-date">📅 {{ formatDate(record.date) }}</div>
+        <div class="card-actions" (click)="$event.stopPropagation()">
+          <div class="pain-badge" *ngIf="record.painLevel != null" [style.color]="getPainColor(record.painLevel)">
+            Dor: {{ record.painLevel }}/10
+          </div>
+          <button class="action-btn action-btn--danger" title="Excluir" (click)="openDeleteDialog(record)">🗑️</button>
+        </div>
+      </div>
+
+      <h3 class="card-complaint" *ngIf="record.chiefComplaint">{{ record.chiefComplaint }}</h3>
+
+      <p class="card-notes">{{ record.clinicalNotes | slice:0:150 }}{{ record.clinicalNotes.length > 150 ? '...' : '' }}</p>
+
+      <div class="card-meta">
+        <span *ngIf="record.postureAssessment">🧍 Avaliação postural</span>
+        <span *ngIf="record.treatmentPlan">📋 Plano de tratamento</span>
+        <span *ngIf="record.mobilityNotes">🤸 Mobilidade</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="!isLoading && selectedPatientId && records.length === 0">
+    <p class="empty-icon">📁</p>
+    <p class="empty-title">Nenhum registro encontrado</p>
+    <p class="empty-desc">Clique em "Novo Registro" para adicionar ao prontuário.</p>
+  </div>
+
+  <div class="empty-state" *ngIf="!isLoading && !selectedPatientId">
+    <p class="empty-icon">👆</p>
+    <p class="empty-title">Selecione um paciente</p>
+    <p class="empty-desc">Escolha um paciente acima para ver seu histórico clínico.</p>
+  </div>
+</div>
+
+<app-confirm-dialog [visible]="showDeleteDialog" title="Excluir registro" message="Tem certeza que deseja excluir este registro do prontuário? Esta ação não pode ser desfeita." confirmLabel="Excluir" [loading]="isDeleting" (confirmed)="confirmDelete()" (cancelled)="cancelDelete()"></app-confirm-dialog>

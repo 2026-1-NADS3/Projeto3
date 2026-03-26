@@ -1,0 +1,81 @@
+<div class="page">
+  <a routerLink="/medical-records" class="back-link">← Voltar para prontuários</a>
+
+  <div class="page-header">
+    <h1>Novo Registro Clínico</h1>
+  </div>
+
+  <div class="form-card">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <h3 class="section-title">Identificação</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="patientId" class="form-label">Paciente *</label>
+          <select id="patientId" formControlName="patientId" class="form-input"
+            [class.invalid]="f['patientId'].invalid && f['patientId'].touched">
+            <option value="">Selecione um paciente</option>
+            <option *ngFor="let p of patients" [value]="p.id">{{ p.fullName }}</option>
+          </select>
+          <span class="form-error" *ngIf="f['patientId'].invalid && f['patientId'].touched">Selecione um paciente</span>
+        </div>
+
+        <div class="form-group">
+          <label for="date" class="form-label">Data do atendimento *</label>
+          <input id="date" type="date" formControlName="date" class="form-input" />
+        </div>
+      </div>
+
+      <h3 class="section-title">Avaliação clínica</h3>
+
+      <div class="form-group">
+        <label for="chiefComplaint" class="form-label">Queixa principal</label>
+        <input id="chiefComplaint" type="text" formControlName="chiefComplaint" class="form-input"
+          placeholder="Ex: Dor na lombar ao sentar por longos períodos" />
+      </div>
+
+      <div class="form-group">
+        <label for="clinicalNotes" class="form-label">Notas clínicas *</label>
+        <textarea id="clinicalNotes" formControlName="clinicalNotes" class="form-input form-textarea" rows="4"
+          placeholder="Observações do atendimento..."
+          [class.invalid]="f['clinicalNotes'].invalid && f['clinicalNotes'].touched"></textarea>
+        <span class="form-error" *ngIf="f['clinicalNotes'].invalid && f['clinicalNotes'].touched">Notas clínicas são obrigatórias</span>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="painLevel" class="form-label">Nível de dor (0 a 10)</label>
+          <input id="painLevel" type="number" formControlName="painLevel" class="form-input"
+            min="0" max="10" placeholder="0" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="mobilityNotes" class="form-label">Notas de mobilidade</label>
+        <textarea id="mobilityNotes" formControlName="mobilityNotes" class="form-input form-textarea" rows="2"
+          placeholder="Amplitude de movimento, restrições..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="postureAssessment" class="form-label">Avaliação postural</label>
+        <textarea id="postureAssessment" formControlName="postureAssessment" class="form-input form-textarea" rows="2"
+          placeholder="Observações sobre postura, desvios, assimetrias..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="treatmentPlan" class="form-label">Plano de tratamento</label>
+        <textarea id="treatmentPlan" formControlName="treatmentPlan" class="form-input form-textarea" rows="3"
+          placeholder="Conduta terapêutica, orientações, próximos passos..."></textarea>
+      </div>
+
+      <div class="form-error-global" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+      <div class="form-actions">
+        <a routerLink="/medical-records" class="btn btn--secondary">Cancelar</a>
+        <button type="submit" class="btn btn--primary" [disabled]="isSaving">
+          {{ isSaving ? 'Salvando...' : 'Salvar registro' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
