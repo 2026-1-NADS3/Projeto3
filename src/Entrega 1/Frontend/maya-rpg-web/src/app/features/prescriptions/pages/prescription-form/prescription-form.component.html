@@ -1,0 +1,117 @@
+<div class="page">
+  <a routerLink="/prescriptions" class="back-link">← Voltar para prescrições</a>
+
+  <div class="page-header">
+    <h1>Nova Prescrição</h1>
+  </div>
+
+  <div class="form-card">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <h3 class="section-title">Informações da prescrição</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="patientId" class="form-label">Paciente *</label>
+          <select id="patientId" formControlName="patientId" class="form-input"
+            [class.invalid]="f['patientId'].invalid && f['patientId'].touched">
+            <option value="">Selecione um paciente</option>
+            <option *ngFor="let p of patients" [value]="p.id">{{ p.fullName }}</option>
+          </select>
+          <span class="form-error" *ngIf="f['patientId'].invalid && f['patientId'].touched">
+            Selecione um paciente
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="title" class="form-label">Título do plano *</label>
+          <input id="title" type="text" formControlName="title" class="form-input"
+            placeholder="Ex: Plano RPG - Dor Lombar"
+            [class.invalid]="f['title'].invalid && f['title'].touched" />
+          <span class="form-error" *ngIf="f['title'].invalid && f['title'].touched">
+            Título é obrigatório
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description" class="form-label">Descrição</label>
+        <textarea id="description" formControlName="description" class="form-input form-textarea"
+          rows="2" placeholder="Objetivo do plano..."></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="startDate" class="form-label">Data de início *</label>
+          <input id="startDate" type="date" formControlName="startDate" class="form-input"
+            [class.invalid]="f['startDate'].invalid && f['startDate'].touched" />
+        </div>
+        <div class="form-group">
+          <label for="endDate" class="form-label">Data de término</label>
+          <input id="endDate" type="date" formControlName="endDate" class="form-input" />
+        </div>
+      </div>
+
+      <!-- Exercícios -->
+      <h3 class="section-title">Exercícios do plano</h3>
+
+      <div class="add-exercise">
+        <select #exerciseSelect class="form-input">
+          <option value="">Selecione um exercício para adicionar</option>
+          <option *ngFor="let e of availableExercises" [value]="e.id">{{ e.title }}</option>
+        </select>
+        <button type="button" class="btn btn--secondary" (click)="addExercise(exerciseSelect.value); exerciseSelect.value = ''">
+          + Adicionar
+        </button>
+      </div>
+
+      <div class="exercises-list" *ngIf="selectedExercises.length > 0">
+        <div class="exercise-item" *ngFor="let ex of selectedExercises; let i = index">
+          <div class="exercise-header">
+            <span class="exercise-order">{{ ex.order }}</span>
+            <span class="exercise-title">{{ ex.title }}</span>
+            <div class="exercise-actions">
+              <button type="button" class="mini-btn" (click)="moveUp(i)" [disabled]="i === 0">↑</button>
+              <button type="button" class="mini-btn" (click)="moveDown(i)" [disabled]="i === selectedExercises.length - 1">↓</button>
+              <button type="button" class="mini-btn mini-btn--danger" (click)="removeExercise(i)">✕</button>
+            </div>
+          </div>
+          <div class="exercise-fields">
+            <div class="mini-field">
+              <label>Séries</label>
+              <input type="number" [(ngModel)]="ex.sets" [ngModelOptions]="{standalone: true}" min="0" />
+            </div>
+            <div class="mini-field">
+              <label>Repetições</label>
+              <input type="number" [(ngModel)]="ex.repetitions" [ngModelOptions]="{standalone: true}" min="0" />
+            </div>
+            <div class="mini-field">
+              <label>Sustentação (s)</label>
+              <input type="number" [(ngModel)]="ex.holdTimeSeconds" [ngModelOptions]="{standalone: true}" min="0" />
+            </div>
+            <div class="mini-field">
+              <label>Frequência</label>
+              <input type="text" [(ngModel)]="ex.frequency" [ngModelOptions]="{standalone: true}" placeholder="3x/semana" />
+            </div>
+            <div class="mini-field mini-field--wide">
+              <label>Notas</label>
+              <input type="text" [(ngModel)]="ex.notes" [ngModelOptions]="{standalone: true}" placeholder="Observações..." />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="no-exercises" *ngIf="selectedExercises.length === 0">
+        Nenhum exercício adicionado. Selecione acima para compor o plano.
+      </div>
+
+      <div class="form-error-global" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+      <div class="form-actions">
+        <a routerLink="/prescriptions" class="btn btn--cancel">Cancelar</a>
+        <button type="submit" class="btn btn--primary" [disabled]="isSaving">
+          {{ isSaving ? 'Salvando...' : 'Criar prescrição' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

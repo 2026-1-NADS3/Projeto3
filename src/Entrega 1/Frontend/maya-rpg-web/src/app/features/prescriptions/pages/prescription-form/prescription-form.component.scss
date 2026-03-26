@@ -1,0 +1,88 @@
+@use '../../../../shared/styles/variables' as *;
+@use '../../../../shared/styles/mixins' as *;
+
+.back-link { display: inline-block; font-size: $font-size-sm; color: $maya-teal; margin-bottom: $spacing-md; text-decoration: none; }
+.back-link:hover { color: $maya-dark-teal; text-decoration: underline; }
+.page-header { margin-bottom: $spacing-lg; }
+
+.form-card { @include card; padding: $spacing-xl; }
+
+.section-title {
+  font-size: $font-size-base; font-weight: 600; color: $maya-gray-600;
+  margin-bottom: $spacing-md; padding-bottom: $spacing-sm;
+  border-bottom: 1px solid $maya-gray-100;
+  &:not(:first-child) { margin-top: $spacing-xl; }
+}
+
+.form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: $spacing-md; margin-bottom: $spacing-md; }
+.form-group { display: flex; flex-direction: column; gap: $spacing-xs; }
+.form-label { font-size: $font-size-sm; font-weight: 500; color: $maya-gray-600; }
+.form-input { @include input-base; &.invalid { border-color: $maya-danger; } }
+.form-textarea { resize: vertical; min-height: 60px; }
+.form-error { font-size: $font-size-xs; color: $maya-danger; }
+.form-error-global {
+  padding: $spacing-sm $spacing-md; background: rgba($maya-danger, 0.08);
+  border: 1px solid rgba($maya-danger, 0.2); border-radius: $radius-md;
+  font-size: $font-size-sm; color: $maya-danger; text-align: center; margin-top: $spacing-md;
+}
+
+// Add exercise
+.add-exercise { display: flex; gap: $spacing-sm; margin-bottom: $spacing-md; }
+.add-exercise select { flex: 1; }
+
+.btn { @include button-base; padding: 10px 20px; text-decoration: none; }
+.btn--primary { background: $maya-teal; color: $maya-white; &:hover:not(:disabled) { background: $maya-dark-teal; } }
+.btn--secondary { background: $maya-gray-100; color: $maya-gray-600; &:hover { background: $maya-gray-200; } }
+.btn--cancel { background: $maya-gray-100; color: $maya-gray-600; &:hover { background: $maya-gray-200; } }
+
+// Exercises list
+.exercises-list { display: flex; flex-direction: column; gap: $spacing-sm; margin-bottom: $spacing-md; }
+
+.exercise-item {
+  border: 1px solid $maya-gray-200; border-radius: $radius-md;
+  padding: $spacing-md; background: $maya-off-white;
+}
+
+.exercise-header {
+  display: flex; align-items: center; gap: $spacing-sm; margin-bottom: $spacing-sm;
+}
+.exercise-order {
+  @include flex-center; width: 28px; height: 28px; border-radius: $radius-full;
+  background: $maya-teal; color: $maya-white; font-size: $font-size-xs; font-weight: 600; flex-shrink: 0;
+}
+.exercise-title { flex: 1; font-size: $font-size-sm; font-weight: 500; color: $maya-gray-700; }
+.exercise-actions { display: flex; gap: 4px; }
+
+.mini-btn {
+  border: 1px solid $maya-gray-200; background: $maya-white; border-radius: 4px;
+  padding: 2px 8px; font-size: $font-size-xs; cursor: pointer;
+  &:hover:not(:disabled) { border-color: $maya-teal; color: $maya-teal; }
+  &:disabled { opacity: 0.3; cursor: not-allowed; }
+  &--danger:hover:not(:disabled) { border-color: $maya-danger; color: $maya-danger; }
+}
+
+.exercise-fields {
+  display: flex; flex-wrap: wrap; gap: $spacing-sm;
+}
+
+.mini-field {
+  display: flex; flex-direction: column; gap: 2px;
+  label { font-size: $font-size-xs; color: $maya-gray-400; }
+  input {
+    padding: 4px 8px; border: 1px solid $maya-gray-200; border-radius: 4px;
+    font-size: $font-size-sm; width: 100px; font-family: $font-primary;
+    &:focus { outline: none; border-color: $maya-teal; }
+  }
+  &--wide input { width: 200px; }
+}
+
+.no-exercises {
+  text-align: center; padding: $spacing-lg; color: $maya-gray-400;
+  font-size: $font-size-sm; border: 1px dashed $maya-gray-200; border-radius: $radius-md;
+  margin-bottom: $spacing-md;
+}
+
+.form-actions {
+  display: flex; justify-content: flex-end; gap: $spacing-sm;
+  margin-top: $spacing-xl; padding-top: $spacing-lg; border-top: 1px solid $maya-gray-100;
+}

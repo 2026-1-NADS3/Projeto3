@@ -1,0 +1,52 @@
+<div class="page">
+  <div class="page-header">
+    <div>
+      <h1>Prescrições</h1>
+      <p class="page-subtitle">Planos de exercícios prescritos por paciente</p>
+    </div>
+    <button class="btn btn--primary" (click)="navigateToNew()">+ Nova Prescrição</button>
+  </div>
+
+  <div class="loading" *ngIf="isLoading">Carregando...</div>
+
+  <div class="prescriptions-list" *ngIf="!isLoading && prescriptions.length > 0">
+    <div
+      class="prescription-card"
+      *ngFor="let p of prescriptions"
+      (click)="navigateToDetail(p)"
+    >
+      <div class="card-top">
+        <div class="card-info">
+          <h3 class="card-title">{{ p.title }}</h3>
+          <p class="card-patient">Paciente: <strong>{{ getPatientName(p.patientId) }}</strong></p>
+        </div>
+        <div class="card-right" (click)="$event.stopPropagation()">
+          <span class="status-pill" [class.active]="p.isActive" [class.inactive]="!p.isActive">
+            {{ p.isActive ? 'Ativa' : 'Inativa' }}
+          </span>
+          <button
+            class="action-btn"
+            *ngIf="p.isActive"
+            title="Desativar"
+            (click)="openDeactivateDialog(p)"
+          >⏸️</button>
+        </div>
+      </div>
+
+      <p class="card-desc" *ngIf="p.description">{{ p.description }}</p>
+
+      <div class="card-meta">
+        <span>📋 {{ p.exercises.length }} exercício{{ p.exercises.length !== 1 ? 's' : '' }}</span>
+        <span>📅 {{ formatDate(p.startDate) }} → {{ formatDate(p.endDate) }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="!isLoading && prescriptions.length === 0">
+    <p class="empty-icon">📋</p>
+    <p class="empty-title">Nenhuma prescrição cadastrada</p>
+    <p class="empty-desc">Clique em "Nova Prescrição" para criar um plano de exercícios.</p>
+  </div>
+</div>
+
+<app-confirm-dialog [visible]="showDeactivateDialog" title="Desativar prescrição" [message]="'Desativar esta prescrição? O paciente não verá mais este plano no app.'" confirmLabel="Desativar" [loading]="isDeactivating" (confirmed)="confirmDeactivate()" (cancelled)="cancelDeactivate()"></app-confirm-dialog>
