@@ -1,0 +1,39 @@
+@use '../../../../shared/styles/variables' as *;
+@use '../../../../shared/styles/mixins' as *;
+
+.dashboard {
+  h1 {
+    margin-bottom: $spacing-xs;
+  }
+
+  .subtitle {
+    color: $maya-gray-400;
+    font-size: $font-size-sm;
+    margin-bottom: $spacing-xl;
+  }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: $spacing-lg;
+}
+
+.stat-card {
+  @include card;
+  padding: $spacing-xl;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.stat-value {
+  font-size: $font-size-3xl;
+  font-weight: 700;
+  color: $maya-teal;
+}
+
+.stat-label {
+  font-size: $font-size-sm;
+  color: $maya-gray-400;
+}

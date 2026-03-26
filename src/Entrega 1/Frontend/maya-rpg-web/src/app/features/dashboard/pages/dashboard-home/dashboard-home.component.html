@@ -1,0 +1,91 @@
+<div class="dashboard">
+
+    <!-- Header -->
+    <div class="dashboard-header">
+      <div>
+        <h1 class="greeting">{{ greeting }}, {{ getFirstName() }} 👋</h1>
+        <p class="date-label">{{ formatDate(today) }}</p>
+      </div>
+    </div>
+
+    <!-- Aniversários de hoje -->
+    <div class="birthday-banner" *ngIf="birthdaysToday.length > 0 && !isLoading">
+      <span class="birthday-icon">🎂</span>
+      <div class="birthday-text">
+        <strong>Aniversário hoje!</strong>
+        <span *ngFor="let b of birthdaysToday; let last = last">
+          {{ b.name }} ({{ b.age }} anos){{ !last ? ', ' : '' }}
+        </span>
+      </div>
+      <a routerLink="/birthdays" class="birthday-link">Ver todos →</a>
+    </div>
+
+    <!-- Cards de estatísticas -->
+    <div class="stats-grid">
+
+      <a routerLink="/patients" class="stat-card stat-card--teal">
+        <div class="stat-icon">👥</div>
+        <div class="stat-body">
+          <span class="stat-value" *ngIf="!isLoading">{{ totalActivePatients }}</span>
+          <span class="stat-value loading-pulse" *ngIf="isLoading">--</span>
+          <span class="stat-label">Pacientes ativos</span>
+        </div>
+        <span class="stat-arrow">→</span>
+      </a>
+
+      <a routerLink="/exercises" class="stat-card stat-card--blue">
+        <div class="stat-icon">🏋️</div>
+        <div class="stat-body">
+          <span class="stat-value" *ngIf="!isLoading">{{ totalExercises }}</span>
+          <span class="stat-value loading-pulse" *ngIf="isLoading">--</span>
+          <span class="stat-label">Exercícios cadastrados</span>
+        </div>
+        <span class="stat-arrow">→</span>
+      </a>
+
+      <a routerLink="/medical-records" class="stat-card stat-card--coral">
+        <div class="stat-icon">📁</div>
+        <div class="stat-body">
+          <span class="stat-value" *ngIf="!isLoading">{{ birthdaysToday.length > 0 ? '🎉' : '📋' }}</span>
+          <span class="stat-value loading-pulse" *ngIf="isLoading">--</span>
+          <span class="stat-label">Prontuários</span>
+        </div>
+        <span class="stat-arrow">→</span>
+      </a>
+
+      <a routerLink="/birthdays" class="stat-card stat-card--success">
+        <div class="stat-icon">🎂</div>
+        <div class="stat-body">
+          <span class="stat-value" *ngIf="!isLoading">{{ birthdaysToday.length }}</span>
+          <span class="stat-value loading-pulse" *ngIf="isLoading">--</span>
+          <span class="stat-label">Aniversários hoje</span>
+        </div>
+        <span class="stat-arrow">→</span>
+      </a>
+
+    </div>
+
+    <!-- Atalhos rápidos -->
+    <div class="quick-actions">
+      <h2 class="section-title">Ações rápidas</h2>
+      <div class="actions-grid">
+        <a routerLink="/patients/new" class="action-card">
+          <span class="action-icon">➕</span>
+          <span class="action-label">Novo paciente</span>
+        </a>
+        <a routerLink="/medical-records/new" class="action-card">
+          <span class="action-icon">📝</span>
+          <span class="action-label">Novo prontuário</span>
+        </a>
+        <a routerLink="/prescriptions" class="action-card">
+          <span class="action-icon">📋</span>
+          <span class="action-label">Prescrições</span>
+        </a>
+        <a routerLink="/exercises/new" class="action-card">
+          <span class="action-icon">🏋️</span>
+          <span class="action-label">Novo exercício</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
