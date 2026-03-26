@@ -1,0 +1,22 @@
+@use '../../../../shared/styles/variables' as *;
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.layout-main {
+  flex: 1;
+  margin-left: $sidebar-width;
+  transition: margin-left 0.3s ease;
+
+  .sidebar-collapsed & {
+    margin-left: $sidebar-collapsed-width;
+  }
+}
+
+.layout-content {
+  padding: $spacing-xl;
+  margin-top: $header-height;
+  min-height: calc(100vh - #{$header-height});
+}

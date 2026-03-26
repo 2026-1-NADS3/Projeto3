@@ -1,0 +1,95 @@
+@use '../../../../shared/styles/variables' as *;
+@use '../../../../shared/styles/mixins' as *;
+
+.header {
+  @include flex-between;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: $sidebar-width;
+  height: $header-height;
+  padding: 0 $spacing-xl;
+  background-color: $maya-white;
+  border-bottom: 1px solid $maya-gray-200;
+  z-index: 90;
+  transition: left 0.3s ease;
+
+  :host-context(.sidebar-collapsed) & {
+    left: $sidebar-collapsed-width;
+  }
+}
+
+.page-title {
+  font-size: $font-size-xl;
+  font-weight: 600;
+  color: $maya-gray-700;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $radius-md;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: $maya-gray-100;
+  }
+}
+
+.user-avatar {
+  @include flex-center;
+  width: 36px;
+  height: 36px;
+  border-radius: $radius-full;
+  background-color: $maya-teal;
+  color: $maya-white;
+  font-size: $font-size-sm;
+  font-weight: 600;
+}
+
+.user-name {
+  font-size: $font-size-sm;
+  color: $maya-gray-600;
+  font-weight: 500;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: $spacing-xs;
+  min-width: 160px;
+  background-color: $maya-white;
+  border: 1px solid $maya-gray-200;
+  border-radius: $radius-md;
+  box-shadow: $shadow-lg;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  border: none;
+  background: none;
+  text-align: left;
+  font-family: $font-primary;
+  font-size: $font-size-sm;
+  color: $maya-gray-600;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $maya-gray-100;
+    color: $maya-danger;
+  }
+}

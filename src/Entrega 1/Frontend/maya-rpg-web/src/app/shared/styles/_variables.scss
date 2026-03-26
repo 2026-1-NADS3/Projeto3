@@ -1,0 +1,75 @@
+// ===========================================
+// Maya Yamamoto RPG - Design Tokens
+// Baseado na identidade visual da clínica
+// ===========================================
+
+// --- Cores Principais ---
+$maya-teal: #2B7A8C;
+$maya-coral: #E8845C;
+$maya-light-blue: #6BC5D2;
+
+// --- Cores Secundárias ---
+$maya-beige: #D4C5A9;
+$maya-brown: #8B6F47;
+$maya-dark-teal: #1A4F5C;
+
+// --- Neutros ---
+$maya-white: #FFFFFF;
+$maya-off-white: #F8F7F4;
+$maya-gray-100: #F1EFE8;
+$maya-gray-200: #E2DFD5;
+$maya-gray-300: #C4C0B4;
+$maya-gray-400: #9A9689;
+$maya-gray-500: #6E6B62;
+$maya-gray-600: #4A4842;
+$maya-gray-700: #2E2D29;
+$maya-black: #1A1918;
+
+// --- Semânticas ---
+$maya-success: #3A9E6F;
+$maya-warning: #E6A23C;
+$maya-danger: #E25C5C;
+$maya-info: $maya-teal;
+
+// --- Tipografia ---
+$font-primary: 'Roboto', sans-serif;
+$font-display: 'Roboto', sans-serif; // Aristo Pro Semibold se disponível
+
+$font-size-xs: 0.75rem;   // 12px
+$font-size-sm: 0.875rem;  // 14px
+$font-size-base: 1rem;    // 16px
+$font-size-lg: 1.125rem;  // 18px
+$font-size-xl: 1.25rem;   // 20px
+$font-size-2xl: 1.5rem;   // 24px
+$font-size-3xl: 1.875rem; // 30px
+
+// --- Espaçamento ---
+$spacing-xs: 0.25rem;  // 4px
+$spacing-sm: 0.5rem;   // 8px
+$spacing-md: 1rem;     // 16px
+$spacing-lg: 1.5rem;   // 24px
+$spacing-xl: 2rem;     // 32px
+$spacing-2xl: 3rem;    // 48px
+
+// --- Border radius ---
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 12px;
+$radius-xl: 16px;
+$radius-full: 50%;
+
+// --- Sombras ---
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+$shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+// --- Breakpoints ---
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+
+// --- Sidebar ---
+$sidebar-width: 260px;
+$sidebar-collapsed-width: 72px;
+$header-height: 64px;

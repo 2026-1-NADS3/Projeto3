@@ -1,0 +1,127 @@
+@use '../../../../shared/styles/variables' as *;
+@use '../../../../shared/styles/mixins' as *;
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: $sidebar-width;
+  background-color: $maya-dark-teal;
+  color: $maya-white;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease;
+  z-index: 100;
+  overflow: hidden;
+
+  &.collapsed {
+    width: $sidebar-collapsed-width;
+  }
+}
+
+.sidebar-header {
+  @include flex-center;
+  height: $header-height;
+  padding: $spacing-md;
+  border-bottom: 1px solid rgba($maya-white, 0.1);
+}
+
+.logo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: $spacing-xs;
+
+  &-maya {
+    font-family: $font-display;
+    font-size: $font-size-2xl;
+    font-weight: 700;
+    color: $maya-light-blue;
+    letter-spacing: 2px;
+  }
+
+  &-yamamoto {
+    font-size: $font-size-xs;
+    color: $maya-gray-300;
+    letter-spacing: 1px;
+  }
+
+  &-rpg {
+    font-family: $font-display;
+    font-size: $font-size-sm;
+    font-weight: 600;
+    color: $maya-coral;
+    letter-spacing: 1px;
+  }
+}
+
+.logo-icon {
+  font-family: $font-display;
+  font-size: $font-size-2xl;
+  font-weight: 700;
+  color: $maya-light-blue;
+}
+
+.sidebar-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: $spacing-md $spacing-sm;
+  gap: $spacing-xs;
+  overflow-y: auto;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-md;
+  color: rgba($maya-white, 0.7);
+  font-size: $font-size-sm;
+  font-weight: 400;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  text-decoration: none;
+
+  &:hover {
+    background-color: rgba($maya-white, 0.08);
+    color: $maya-white;
+  }
+
+  &.active {
+    background-color: rgba($maya-light-blue, 0.15);
+    color: $maya-light-blue;
+    font-weight: 500;
+  }
+}
+
+.nav-icon {
+  font-size: $font-size-lg;
+  width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.nav-label {
+  @include text-truncate;
+}
+
+.toggle-btn {
+  @include flex-center;
+  height: 44px;
+  margin: $spacing-sm;
+  border: none;
+  border-radius: $radius-md;
+  background-color: rgba($maya-white, 0.06);
+  color: rgba($maya-white, 0.5);
+  cursor: pointer;
+  font-size: $font-size-sm;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: rgba($maya-white, 0.12);
+    color: $maya-white;
+  }
+}
