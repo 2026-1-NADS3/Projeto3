@@ -1,0 +1,80 @@
+<div class="page">
+  <div class="page-header">
+    <div>
+      <h1>Banco de Exercícios</h1>
+      <p class="page-subtitle">{{ totalExercises }} exercício{{ totalExercises !== 1 ? 's' : '' }} cadastrado{{ totalExercises !== 1 ? 's' : '' }}</p>
+    </div>
+    <button class="btn btn--primary" (click)="navigateToNew()">+ Novo Exercício</button>
+  </div>
+
+  <div class="toolbar">
+    <app-search-input
+      placeholder="Buscar por título, descrição ou tag..."
+      (search)="onSearch($event)"
+    ></app-search-input>
+
+    <div class="filter-tabs">
+      <button
+        *ngFor="let opt of categoryOptions"
+        class="filter-tab"
+        [class.active]="categoryFilter === opt.value"
+        (click)="onCategoryFilter(opt.value)"
+      >
+        {{ opt.label }}
+      </button>
+    </div>
+  </div>
+
+  <div class="loading" *ngIf="isLoading">Carregando...</div>
+
+  <div class="exercises-grid" *ngIf="!isLoading && exercises.length > 0">
+    <div
+      class="exercise-card"
+      *ngFor="let exercise of exercises"
+      (click)="navigateToDetail(exercise)"
+    >
+      <div class="card-header">
+        <span class="category-badge" [ngClass]="getCategoryClass(exercise.category)">
+          {{ getCategoryLabel(exercise.category) }}
+        </span>
+        <div class="card-actions" (click)="$event.stopPropagation()">
+          <button class="action-btn" title="Editar" (click)="navigateToEdit(exercise)">✏️</button>
+          <button class="action-btn action-btn--danger" title="Excluir" (click)="openDeleteDialog(exercise)">🗑️</button>
+        </div>
+      </div>
+
+      <h3 class="card-title">{{ exercise.title }}</h3>
+      <p class="card-desc">{{ exercise.description }}</p>
+
+      <div class="card-tags" *ngIf="exercise.tags.length">
+        <span class="tag" *ngFor="let tag of exercise.tags">{{ tag }}</span>
+      </div>
+
+      <p class="card-instructions">{{ exercise.instructions | slice:0:100 }}{{ exercise.instructions.length > 100 ? '...' : '' }}</p>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="!isLoading && exercises.length === 0">
+    <p class="empty-icon">🏋️</p>
+    <p class="empty-title" *ngIf="!searchTerm && !categoryFilter">Nenhum exercício cadastrado</p>
+    <p class="empty-title" *ngIf="searchTerm || categoryFilter">Nenhum exercício encontrado</p>
+    <p class="empty-desc" *ngIf="!searchTerm && !categoryFilter">Clique em "Novo Exercício" para começar.</p>
+    <p class="empty-desc" *ngIf="searchTerm || categoryFilter">Tente ajustar a busca ou os filtros.</p>
+  </div>
+
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button class="page-btn" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">← Anterior</button>
+    <button *ngFor="let p of pages" class="page-btn" [class.active]="p === currentPage" (click)="goToPage(p)">{{ p }}</button>
+    <button class="page-btn" [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">Próxima →</button>
+  </div>
+</div>
+
+<app-confirm-dialog
+  [visible]="showDeleteDialog"
+  title="Excluir exercício"
+  [message]="'Tem certeza que deseja excluir o exercício ' + (deletingExercise?.title || '') + '?'"
+  confirmLabel="Excluir"
+  [loading]="isDeleting"
+  (confirmed)="confirmDelete()"
+  (cancelled)="cancelDelete()"
+></app-confirm-dialog>

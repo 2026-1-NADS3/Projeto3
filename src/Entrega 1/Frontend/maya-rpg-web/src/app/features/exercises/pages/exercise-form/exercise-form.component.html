@@ -1,0 +1,92 @@
+<div class="page">
+  <a routerLink="/exercises" class="back-link">← Voltar para exercícios</a>
+
+  <div class="page-header">
+    <h1>{{ isEditing ? 'Editar Exercício' : 'Novo Exercício' }}</h1>
+  </div>
+
+  <div class="loading" *ngIf="isLoading">Carregando...</div>
+
+  <div class="form-card" *ngIf="!isLoading">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <h3 class="section-title">Informações do exercício</h3>
+
+      <div class="form-row">
+        <div class="form-group form-group--lg">
+          <label for="title" class="form-label">Título *</label>
+          <input
+            id="title" type="text" formControlName="title"
+            class="form-input" placeholder="Ex: Alongamento de cadeia posterior"
+            [class.invalid]="f['title'].invalid && f['title'].touched"
+          />
+          <span class="form-error" *ngIf="f['title'].invalid && f['title'].touched">
+            <span *ngIf="f['title'].errors?.['required']">Título é obrigatório</span>
+            <span *ngIf="f['title'].errors?.['minlength']">Mínimo de 3 caracteres</span>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="category" class="form-label">Categoria *</label>
+          <select id="category" formControlName="category" class="form-input">
+            <option *ngFor="let opt of categoryOptions" [value]="opt.value">{{ opt.label }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description" class="form-label">Descrição *</label>
+        <textarea
+          id="description" formControlName="description"
+          class="form-input form-textarea" rows="3"
+          placeholder="Descrição do exercício..."
+          [class.invalid]="f['description'].invalid && f['description'].touched"
+        ></textarea>
+        <span class="form-error" *ngIf="f['description'].invalid && f['description'].touched">
+          Descrição é obrigatória
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="instructions" class="form-label">Instruções de execução *</label>
+        <textarea
+          id="instructions" formControlName="instructions"
+          class="form-input form-textarea" rows="5"
+          placeholder="Passo a passo de como executar o exercício..."
+          [class.invalid]="f['instructions'].invalid && f['instructions'].touched"
+        ></textarea>
+        <span class="form-error" *ngIf="f['instructions'].invalid && f['instructions'].touched">
+          Instruções são obrigatórias
+        </span>
+      </div>
+
+      <h3 class="section-title">Mídia e tags</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="videoUrl" class="form-label">URL do vídeo</label>
+          <input
+            id="videoUrl" type="url" formControlName="videoUrl"
+            class="form-input" placeholder="https://youtube.com/watch?v=..."
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="tags" class="form-label">Tags (separadas por vírgula)</label>
+          <input
+            id="tags" type="text" [(ngModel)]="tagsInput" [ngModelOptions]="{standalone: true}"
+            class="form-input" placeholder="lombar, alongamento, posterior"
+          />
+        </div>
+      </div>
+
+      <div class="form-error-global" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+      <div class="form-actions">
+        <a routerLink="/exercises" class="btn btn--secondary">Cancelar</a>
+        <button type="submit" class="btn btn--primary" [disabled]="isSaving">
+          {{ isSaving ? 'Salvando...' : (isEditing ? 'Salvar alterações' : 'Cadastrar exercício') }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

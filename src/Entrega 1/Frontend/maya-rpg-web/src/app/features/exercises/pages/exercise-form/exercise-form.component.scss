@@ -1,0 +1,51 @@
+@use '../../../../shared/styles/variables' as *;
+@use '../../../../shared/styles/mixins' as *;
+
+.back-link {
+  display: inline-block;
+  font-size: $font-size-sm;
+  color: $maya-teal;
+  margin-bottom: $spacing-md;
+  &:hover { color: $maya-dark-teal; text-decoration: underline; }
+}
+.page-header { margin-bottom: $spacing-lg; }
+.loading { @include flex-center; padding: $spacing-2xl; color: $maya-gray-400; }
+
+.form-card { @include card; padding: $spacing-xl; }
+
+.section-title {
+  font-size: $font-size-base; font-weight: 600; color: $maya-gray-600;
+  margin-bottom: $spacing-md; padding-bottom: $spacing-sm;
+  border-bottom: 1px solid $maya-gray-100;
+  &:not(:first-child) { margin-top: $spacing-xl; }
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: $spacing-md; margin-bottom: $spacing-md;
+}
+.form-group {
+  display: flex; flex-direction: column; gap: $spacing-xs;
+  &--lg { grid-column: span 2; @media (max-width: $breakpoint-md) { grid-column: span 1; } }
+}
+.form-label { font-size: $font-size-sm; font-weight: 500; color: $maya-gray-600; }
+.form-input {
+  @include input-base;
+  &.invalid { border-color: $maya-danger; &:focus { box-shadow: 0 0 0 3px rgba($maya-danger, 0.15); } }
+}
+.form-textarea { resize: vertical; min-height: 100px; }
+.form-error { font-size: $font-size-xs; color: $maya-danger; }
+.form-error-global {
+  padding: $spacing-sm $spacing-md; background-color: rgba($maya-danger, 0.08);
+  border: 1px solid rgba($maya-danger, 0.2); border-radius: $radius-md;
+  font-size: $font-size-sm; color: $maya-danger; text-align: center; margin-top: $spacing-md;
+}
+
+.form-actions {
+  display: flex; justify-content: flex-end; gap: $spacing-sm;
+  margin-top: $spacing-xl; padding-top: $spacing-lg; border-top: 1px solid $maya-gray-100;
+}
+.btn { @include button-base; padding: 10px 20px; text-decoration: none; }
+.btn--primary { background-color: $maya-teal; color: $maya-white; &:hover:not(:disabled) { background-color: $maya-dark-teal; } }
+.btn--secondary { background-color: $maya-gray-100; color: $maya-gray-600; &:hover { background-color: $maya-gray-200; } }

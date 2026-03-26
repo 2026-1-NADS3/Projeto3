@@ -1,0 +1,181 @@
+@use '../../../../shared/styles/variables' as *;
+@use '../../../../shared/styles/mixins' as *;
+
+.page-header {
+  @include flex-between;
+  margin-bottom: $spacing-lg;
+}
+
+.page-subtitle {
+  font-size: $font-size-sm;
+  color: $maya-gray-400;
+  margin-top: 2px;
+}
+
+.btn { @include button-base; }
+.btn--primary {
+  background-color: $maya-teal;
+  color: $maya-white;
+  &:hover { background-color: $maya-dark-teal; }
+}
+
+.toolbar {
+  @include flex-between;
+  gap: $spacing-md;
+  margin-bottom: $spacing-lg;
+  flex-wrap: wrap;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 4px;
+  background: $maya-gray-100;
+  border-radius: $radius-md;
+  padding: 3px;
+  flex-wrap: wrap;
+}
+
+.filter-tab {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  font-family: $font-primary;
+  font-size: $font-size-xs;
+  font-weight: 500;
+  color: $maya-gray-500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  &:hover { color: $maya-gray-700; }
+  &.active { background: $maya-white; color: $maya-teal; box-shadow: $shadow-sm; }
+}
+
+.loading {
+  @include flex-center;
+  padding: $spacing-2xl;
+  color: $maya-gray-400;
+  font-size: $font-size-sm;
+}
+
+// Cards grid
+.exercises-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: $spacing-lg;
+}
+
+.exercise-card {
+  @include card;
+  padding: $spacing-lg;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+  &:hover {
+    box-shadow: $shadow-md;
+    transform: translateY(-2px);
+  }
+}
+
+.card-header {
+  @include flex-between;
+  margin-bottom: $spacing-sm;
+}
+
+.category-badge {
+  display: inline-flex;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: $font-size-xs;
+  font-weight: 500;
+}
+
+.cat--stretching { background: rgba(#2B7A8C, 0.1); color: #2B7A8C; }
+.cat--strengthening { background: rgba(#E8845C, 0.1); color: #c46840; }
+.cat--posture { background: rgba(#8B6F47, 0.1); color: #8B6F47; }
+.cat--breathing { background: rgba(#6BC5D2, 0.1); color: #3a9eaa; }
+.cat--mobility { background: rgba(#3A9E6F, 0.1); color: #2d7a56; }
+.cat--balance { background: rgba(#E6A23C, 0.1); color: #b07d2a; }
+
+.card-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.action-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background-color 0.15s;
+  &:hover { background-color: $maya-gray-100; }
+  &--danger:hover { background-color: rgba($maya-danger, 0.08); }
+}
+
+.card-title {
+  font-size: $font-size-base;
+  font-weight: 600;
+  color: $maya-gray-700;
+  margin-bottom: 4px;
+}
+
+.card-desc {
+  font-size: $font-size-sm;
+  color: $maya-gray-500;
+  margin-bottom: $spacing-sm;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: $spacing-sm;
+}
+
+.tag {
+  padding: 2px 8px;
+  background: $maya-gray-100;
+  border-radius: 4px;
+  font-size: $font-size-xs;
+  color: $maya-gray-500;
+}
+
+.card-instructions {
+  font-size: $font-size-xs;
+  color: $maya-gray-400;
+  line-height: 1.5;
+  border-top: 1px solid $maya-gray-100;
+  padding-top: $spacing-sm;
+}
+
+// Empty state
+.empty-state {
+  @include flex-center;
+  flex-direction: column;
+  padding: $spacing-2xl;
+  text-align: center;
+}
+.empty-icon { font-size: 48px; margin-bottom: $spacing-md; }
+.empty-title { font-size: $font-size-lg; font-weight: 500; color: $maya-gray-600; margin-bottom: $spacing-xs; }
+.empty-desc { font-size: $font-size-sm; color: $maya-gray-400; }
+
+// Pagination
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-top: $spacing-lg;
+}
+.page-btn {
+  padding: 6px 12px;
+  border: 1px solid $maya-gray-200;
+  border-radius: $radius-md;
+  background: $maya-white;
+  font-family: $font-primary;
+  font-size: $font-size-sm;
+  color: $maya-gray-600;
+  cursor: pointer;
+  &:hover:not(:disabled) { border-color: $maya-teal; color: $maya-teal; }
+  &.active { background: $maya-teal; border-color: $maya-teal; color: $maya-white; }
+  &:disabled { opacity: 0.4; cursor: not-allowed; }
+}
