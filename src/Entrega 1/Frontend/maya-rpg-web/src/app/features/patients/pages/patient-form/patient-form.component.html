@@ -1,0 +1,157 @@
+<div class="page">
+  <a routerLink="/patients" class="back-link">← Voltar para pacientes</a>
+
+  <div class="page-header">
+    <h1>{{ isEditing ? 'Editar Paciente' : 'Novo Paciente' }}</h1>
+  </div>
+
+  <div class="loading" *ngIf="isLoading">Carregando...</div>
+
+  <div class="form-card" *ngIf="!isLoading">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <!-- Dados pessoais -->
+      <h3 class="section-title">Dados pessoais</h3>
+
+      <div class="form-row">
+        <div class="form-group form-group--lg">
+          <label for="fullName" class="form-label">Nome completo *</label>
+          <input
+            id="fullName"
+            type="text"
+            formControlName="fullName"
+            class="form-input"
+            placeholder="Nome completo do paciente"
+            [class.invalid]="f['fullName'].invalid && f['fullName'].touched"
+          />
+          <span class="form-error" *ngIf="f['fullName'].invalid && f['fullName'].touched">
+            <span *ngIf="f['fullName'].errors?.['required']">Nome é obrigatório</span>
+            <span *ngIf="f['fullName'].errors?.['minlength']">Mínimo de 3 caracteres</span>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="cpf" class="form-label">CPF *</label>
+          <input
+            id="cpf"
+            type="text"
+            formControlName="cpf"
+            class="form-input"
+            placeholder="000.000.000-00"
+            mask="000.000.000-00"
+            [class.invalid]="f['cpf'].invalid && f['cpf'].touched"
+          />
+          <span class="form-error" *ngIf="f['cpf'].invalid && f['cpf'].touched">
+            CPF é obrigatório
+          </span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email" class="form-label">E-mail *</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="form-input"
+            placeholder="paciente@email.com"
+            [class.invalid]="f['email'].invalid && f['email'].touched"
+          />
+          <span class="form-error" *ngIf="f['email'].invalid && f['email'].touched">
+            <span *ngIf="f['email'].errors?.['required']">E-mail é obrigatório</span>
+            <span *ngIf="f['email'].errors?.['email']">E-mail inválido</span>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="phone" class="form-label">Telefone *</label>
+          <input
+            id="phone"
+            type="text"
+            formControlName="phone"
+            class="form-input"
+            placeholder="(00) 00000-0000"
+            mask="(00) 00000-0000"
+            [class.invalid]="f['phone'].invalid && f['phone'].touched"
+          />
+          <span class="form-error" *ngIf="f['phone'].invalid && f['phone'].touched">
+            Telefone é obrigatório
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="birthDate" class="form-label">Data de nascimento *</label>
+          <input
+            id="birthDate"
+            type="date"
+            formControlName="birthDate"
+            class="form-input"
+            [class.invalid]="f['birthDate'].invalid && f['birthDate'].touched"
+          />
+          <span class="form-error" *ngIf="f['birthDate'].invalid && f['birthDate'].touched">
+            Data de nascimento é obrigatória
+          </span>
+        </div>
+      </div>
+
+      <!-- Endereço -->
+      <h3 class="section-title">Endereço</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cep" class="form-label">CEP</label>
+          <input
+            id="cep"
+            type="text"
+            formControlName="cep"
+            class="form-input"
+            placeholder="00000-000"
+            mask="00000-000"
+          />
+        </div>
+      </div>
+
+      <!-- Status e observações -->
+      <h3 class="section-title">Informações clínicas</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="status" class="form-label">Status *</label>
+          <select
+            id="status"
+            formControlName="status"
+            class="form-input"
+          >
+            <option *ngFor="let opt of statusOptions" [value]="opt.value">
+              {{ opt.label }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="notes" class="form-label">Observações gerais</label>
+        <textarea
+          id="notes"
+          formControlName="notes"
+          class="form-input form-textarea"
+          rows="4"
+          placeholder="Informações relevantes sobre o paciente..."
+        ></textarea>
+      </div>
+
+      <!-- Error -->
+      <div class="form-error-global" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Actions -->
+      <div class="form-actions">
+        <a routerLink="/patients" class="btn btn--secondary">Cancelar</a>
+        <button type="submit" class="btn btn--primary" [disabled]="isSaving">
+          {{ isSaving ? 'Salvando...' : (isEditing ? 'Salvar alterações' : 'Cadastrar paciente') }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

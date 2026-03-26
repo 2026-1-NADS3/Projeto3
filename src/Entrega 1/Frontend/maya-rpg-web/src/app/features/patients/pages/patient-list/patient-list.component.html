@@ -1,0 +1,105 @@
+<div class="page">
+  <!-- Header -->
+  <div class="page-header">
+    <div>
+      <h1>Pacientes</h1>
+      <p class="page-subtitle">{{ totalPatients }} paciente{{ totalPatients !== 1 ? 's' : '' }} cadastrado{{ totalPatients !== 1 ? 's' : '' }}</p>
+    </div>
+    <button class="btn btn--primary" (click)="navigateToNew()">
+      + Novo Paciente
+    </button>
+  </div>
+
+  <!-- Toolbar: busca + filtros -->
+  <div class="toolbar">
+    <app-search-input
+      placeholder="Buscar por nome, e-mail ou CPF..."
+      (search)="onSearch($event)"
+    ></app-search-input>
+
+    <div class="filter-tabs">
+      <button
+        *ngFor="let opt of statusOptions"
+        class="filter-tab"
+        [class.active]="statusFilter === opt.value"
+        (click)="onStatusFilter(opt.value)"
+      >
+        {{ opt.label }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" *ngIf="isLoading">
+    Carregando...
+  </div>
+
+  <!-- Tabela -->
+  <div class="table-wrapper" *ngIf="!isLoading && patients.length > 0">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th>Telefone</th>
+          <th>Status</th>
+          <th>Cadastro</th>
+          <th class="th-actions">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let patient of patients" class="table-row" (click)="navigateToDetail(patient)">
+          <td class="td-name">{{ patient.fullName }}</td>
+          <td class="td-muted">{{ patient.email }}</td>
+          <td class="td-muted">{{ patient.phone }}</td>
+          <td>
+            <app-status-badge [status]="patient.status"></app-status-badge>
+          </td>
+          <td class="td-muted">{{ formatDate(patient.createdAt) }}</td>
+          <td class="td-actions" (click)="$event.stopPropagation()">
+            <button class="action-btn" title="Editar" (click)="navigateToEdit(patient)">✏️</button>
+            <button class="action-btn action-btn--danger" title="Excluir" (click)="openDeleteDialog(patient)">🗑️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Empty state -->
+  <div class="empty-state" *ngIf="!isLoading && patients.length === 0">
+    <p class="empty-icon">👥</p>
+    <p class="empty-title" *ngIf="!searchTerm && !statusFilter">Nenhum paciente cadastrado</p>
+    <p class="empty-title" *ngIf="searchTerm || statusFilter">Nenhum paciente encontrado</p>
+    <p class="empty-desc" *ngIf="!searchTerm && !statusFilter">Clique em "Novo Paciente" para começar.</p>
+    <p class="empty-desc" *ngIf="searchTerm || statusFilter">Tente ajustar a busca ou os filtros.</p>
+  </div>
+
+  <!-- Paginação -->
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button class="page-btn" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+      ← Anterior
+    </button>
+    <button
+      *ngFor="let p of pages"
+      class="page-btn"
+      [class.active]="p === currentPage"
+      (click)="goToPage(p)"
+    >
+      {{ p }}
+    </button>
+    <button class="page-btn" [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
+      Próxima →
+    </button>
+  </div>
+</div>
+
+<!-- Dialog de confirmação de exclusão -->
+<app-confirm-dialog
+  [visible]="showDeleteDialog"
+  title="Excluir paciente"
+  [message]="'Tem certeza que deseja excluir o paciente ' + (deletingPatient?.fullName || '') + '? Esta ação não pode ser desfeita.'"
+  confirmLabel="Excluir"
+  [loading]="isDeleting"
+  (confirmed)="confirmDelete()"
+  (cancelled)="cancelDelete()"
+></app-confirm-dialog>

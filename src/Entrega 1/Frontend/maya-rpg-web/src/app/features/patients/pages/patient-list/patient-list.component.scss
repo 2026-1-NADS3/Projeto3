@@ -1,0 +1,212 @@
+@use '../../../../shared/styles/variables' as *;
+@use '../../../../shared/styles/mixins' as *;
+
+.page-header {
+  @include flex-between;
+  margin-bottom: $spacing-lg;
+}
+
+.page-subtitle {
+  font-size: $font-size-sm;
+  color: $maya-gray-400;
+  margin-top: 2px;
+}
+
+.btn {
+  @include button-base;
+}
+
+.btn--primary {
+  background-color: $maya-teal;
+  color: $maya-white;
+  &:hover { background-color: $maya-dark-teal; }
+}
+
+// Toolbar
+.toolbar {
+  @include flex-between;
+  gap: $spacing-md;
+  margin-bottom: $spacing-lg;
+  flex-wrap: wrap;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 4px;
+  background: $maya-gray-100;
+  border-radius: $radius-md;
+  padding: 3px;
+}
+
+.filter-tab {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  font-family: $font-primary;
+  font-size: $font-size-xs;
+  font-weight: 500;
+  color: $maya-gray-500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: $maya-gray-700;
+  }
+
+  &.active {
+    background: $maya-white;
+    color: $maya-teal;
+    box-shadow: $shadow-sm;
+  }
+}
+
+// Loading
+.loading {
+  @include flex-center;
+  padding: $spacing-2xl;
+  color: $maya-gray-400;
+  font-size: $font-size-sm;
+}
+
+// Table
+.table-wrapper {
+  @include card;
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    background: $maya-gray-100;
+  }
+
+  th {
+    padding: 12px 16px;
+    text-align: left;
+    font-size: $font-size-xs;
+    font-weight: 600;
+    color: $maya-gray-500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .th-actions {
+    text-align: right;
+    width: 100px;
+  }
+}
+
+.table-row {
+  border-bottom: 1px solid $maya-gray-100;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: rgba($maya-teal, 0.03);
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  td {
+    padding: 14px 16px;
+    font-size: $font-size-sm;
+  }
+}
+
+.td-name {
+  font-weight: 500;
+  color: $maya-gray-700;
+}
+
+.td-muted {
+  color: $maya-gray-500;
+}
+
+.td-actions {
+  text-align: right;
+}
+
+.action-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background-color 0.15s;
+
+  &:hover {
+    background-color: $maya-gray-100;
+  }
+
+  &--danger:hover {
+    background-color: rgba($maya-danger, 0.08);
+  }
+}
+
+// Empty state
+.empty-state {
+  @include flex-center;
+  flex-direction: column;
+  padding: $spacing-2xl;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: $spacing-md;
+}
+
+.empty-title {
+  font-size: $font-size-lg;
+  font-weight: 500;
+  color: $maya-gray-600;
+  margin-bottom: $spacing-xs;
+}
+
+.empty-desc {
+  font-size: $font-size-sm;
+  color: $maya-gray-400;
+}
+
+// Pagination
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin-top: $spacing-lg;
+}
+
+.page-btn {
+  padding: 6px 12px;
+  border: 1px solid $maya-gray-200;
+  border-radius: $radius-md;
+  background: $maya-white;
+  font-family: $font-primary;
+  font-size: $font-size-sm;
+  color: $maya-gray-600;
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover:not(:disabled) {
+    border-color: $maya-teal;
+    color: $maya-teal;
+  }
+
+  &.active {
+    background: $maya-teal;
+    border-color: $maya-teal;
+    color: $maya-white;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
