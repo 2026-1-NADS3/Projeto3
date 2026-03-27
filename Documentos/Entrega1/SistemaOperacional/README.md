@@ -1,63 +1,188 @@
-# FECAP - Fundação de Comércio Álvares Penteado
+## **Documentação do Projeto: Automação de Infraestrutura e Monitoramento**
 
-<p align="center">
-<a href= "https://www.fecap.br/"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhZPrRa89Kma0ZZogxm0pi-tCn_TLKeHGVxywp-LXAFGR3B1DPouAJYHgKZGV0XTEf4AE&usqp=CAU" alt="FECAP - Fundação de Comércio Álvares Penteado" border="0"></a>
-</p>
-
-# Nome do projeto: Instituto alma website
-
-## Nome do grupo: TechCare
-
-## Integrantes: <a href="https://www.linkedin.com/in/victor-bancatelli/">Victor Bancatelli</a>, <a href="https://www.linkedin.com/in/nicolasnitta/">Nicolas Hayato Nitta</a>, <a href="https://www.linkedin.com/in/nelsonreisgomes/">Nelson dos Reis Gomes Souza</a>, <a href="https://www.linkedin.com/in/karine-aparecida-cardoso-alves-b903a2366/">Karine Aparecida Cardoso Alves</a>
-
-## Professores Orientadores: <a href="https://www.linkedin.com/in/jefferson-o-silva/">Jefferson de Oliveira Silva</a>, <a href="https://www.linkedin.com/in/francisco-escobar/">Francisco Escobar</a>, <a href="https://www.linkedin.com/in/aimarlopes/">Aimar Martins Lopes</a>, <a href="https://www.linkedin.com/in/rodrigo-da-rosa-phd/">Rodrigo da Rosa</a>, 
-
-## Descrição
-
-<p align="center">
-<img src="Imagens/mayaRPGBaneer.png" alt="Logo Maya/TechCare" border="0">
-</p>
+###### Este projeto contém scripts de automação em Shell Script (Bash) desenvolvidos para um ambiente Linux (Ubuntu Server). O objetivo é garantir a disponibilidade e realizar o backup de uma aplicação backend construída em NestJS com banco de dados PostgreSQL.
 
 
-O projeto consiste no desenvolvimento de um aplicativo de agenda integrado a um site institucional para a TechCare, com foco em otimizar o gerenciamento de horários e o atendimento ao cliente. A solução tem como objetivo facilitar tanto a organização da profissional Maya quanto a experiência dos clientes no agendamento de serviços.
-<br><br>
-O aplicativo permitirá o controle eficiente de horários, clientes e serviços, reduzindo conflitos de agenda e melhorando a produtividade. Já o site institucional será responsável por apresentar a Maya, seus serviços e a proposta da TechCare, transmitindo profissionalismo, confiança e praticidade para atrair e fidelizar clientes.
-<br><br>
-Dessa forma, o projeto busca unir tecnologia e organização para oferecer uma experiência simples, moderna e acessível, atendendo às necessidades tanto da profissional quanto de seu público.
 
 
-## 🛠 Estrutura de pastas
 
--Raiz<br>
-|<br>
-|-->documentos<br>
-  &emsp;|-->antigos<br>
-  &emsp;|Documentação.docx<br>
-|-->executáveis<br>
-  &emsp;|-->windows<br>
-  &emsp;|-->android<br>
-  &emsp;|-->HTML<br>
-|-->imagens<br>
-|-->src<br>
-  &emsp;|-->Backend<br>
-  &emsp;|-->Frontend<br>
-|readme.md<br>
+##### **Scripts Desenvolvidos**
 
-A pasta raiz contem dois arquivos que devem ser alterados:
+* &nbsp;gerenciar.sh: Inicia, para, reinicia e monitora a saúde do backend e do banco de dados.
+* &nbsp;monitoramento.sh: Coleta métricas de hardware (CPU, RAM, Disco) e gera alertas.
+* &nbsp;backup.sh: Realiza o dump do banco de dados e compacta o código-fonte.
 
-<b>README.MD</b>: Arquivo que serve como guia e explicação geral sobre seu projeto. O mesmo que você está lendo agora.
 
-Há também 4 pastas que seguem da seguinte forma:
 
-<b>documentos</b>: Toda a documentação estará nesta pasta.
+##### **Visão Geral dos Conceitos Aplicados**
 
-<b>executáveis</b>: Binários e executáveis do projeto devem estar nesta pasta.
+Os scripts utilizam recursos avançados do Shell Scripting para garantir eficiência e robustez:
 
-<b>imagens</b>: Imagens do sistema
 
-<b>src</b>: Pasta que contém o código fonte.
 
-## 🎓 Referências
+* Pipes (|): Utilizados para filtrar saídas de comandos complexos (top, df, awk).
 
-Aqui estão as referências usadas no projeto.
+
+
+* Redirecionamentos (>, >>, 2>): Empregados para gestão de logs e captura de erros.
+
+
+
+* Estruturas de Controle: Uso de case, if/else e laços while para lógica de monitoramento contínuo.
+
+
+
+* Gestão de Processos: Monitoramento via PID (Process ID) para evitar duplicidade de execução.
+
+
+
+##### **Detalhamento dos Scripts**
+
+###### 1\. Gerenciamento de Serviços (gerenciar.sh)
+
+Objetivo: Atuar como o "orquestrador" do ambiente, controlando a inicialização e parada segura dos componentes.
+
+
+
+Principais Funcionalidades:
+
+Verificação de dependência: O app só inicia se o PostgreSQL estiver acessível.
+
+Gestão de PID: Evita que múltiplos processos do NestJS sejam abertos na mesma porta.
+
+Modo Monitor: Verifica a cada 10 segundos se o app caiu e tenta reiniciá-lo automaticamente até 3 vezes.
+
+
+
+**Como usar:**
+
+Bash
+
+./gerenciar.sh start   # Inicia os serviços
+
+./gerenciar.sh status  # Mostra CPU e Memória consumida pelo App
+
+./gerenciar.sh monitor # Mantém o App vivo automaticamente
+
+
+
+###### **2. Monitoramento de Hardware (monitoramento.sh)**
+
+Objetivo: Monitorar a saúde do servidor e gerar alertas visuais e em log quando os recursos atingem níveis críticos.
+
+
+
+Métricas Coletadas:
+
+
+
+CPU: Extraído via top, calculando o uso real subtraindo o tempo ocioso (idle).
+
+Memória: Calculado via free (Razão entre memória usada e total).
+
+Disco: Verificação da partição raiz via df.
+
+
+
+**Como usar:**
+
+Bash
+
+./monitoramento.sh           # Coleta métrica pontual
+
+./monitoramento.sh continuo  # Monitoramento em tempo real (loop de 30s)
+
+./monitoramento.sh relatorio # Resumo de alertas e total de registros
+
+
+
+###### 3\. Backup e Manutenção (backup.sh)
+
+Objetivo: Garantir a continuidade do negócio através de backups redundantes (Código + Banco) e limpeza automática.
+
+
+
+Estratégia de Backup:
+
+Banco de Dados: Utiliza pg\_dump com compressão gzip em tempo real via pipe.
+
+Código-Fonte: Compactação tar.gz da pasta do projeto NestJS.
+
+Autolimpeza: Função que remove automaticamente arquivos com mais de 7 dias para evitar lotação do disco.
+
+
+
+**Como usar:**
+
+Bash
+
+./backup.sh        # Executa backup completo e limpeza
+
+./backup.sh limpar # Remove apenas arquivos antigos (> 7 dias)
+
+
+
+##### **Automação com Cron Job**
+
+Para que o sistema seja autogerenciável, as seguintes tarefas foram planejadas para o crontab -e:
+
+
+
+Bash
+
+\# Monitoramento de hardware que roda automático todo dia às 8h (Gera histórico de performance)
+
+0 8 \* \* \* /home/usuario/monitoramento.sh >> ~/logs/monitoramento.log 2>\&1
+
+
+
+\# Backup completo e limpeza de disco todos os dias às 02:00 AM
+
+0 2 \* \* \* /home/usuario/backup.sh >> ~/logs/backup.log 2>\&1
+
+
+
+Embora o agendamento pudesse ser automatizado via script usando o comando crontab -, optei pela configuração manual via crontab -e. Isso segue as boas práticas de administração de sistemas, garantindo que o controle de tarefas agendadas permaneça centralizado e visível ao administrador do sistema.
+
+
+
+##### **Como Executar os Testes**
+
+
+
+* Dar permissão de execução:
+
+Bash
+
+chmod +x \*.sh
+
+
+
+* Verificar status atual do hardware:
+
+Bash
+
+./monitorar\_sistema.sh status
+
+
+
+* Simular um backup manual:
+
+Bash
+
+./backup\_sistema.sh
+
+
+
+###### Estrutura de Diretórios Esperada
+
+Os scripts criam automaticamente a seguinte árvore caso não exista:
+
+
+
+~/logs/: Centraliza arquivos .log, .pid e histórico de erros.
+
+
+
+~/backups/: Armazena os arquivos .sql.gz e .tar.gz.
 
