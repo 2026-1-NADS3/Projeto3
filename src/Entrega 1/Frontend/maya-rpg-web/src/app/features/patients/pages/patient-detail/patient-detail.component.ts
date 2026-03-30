@@ -206,6 +206,13 @@ export class PatientDetailComponent implements OnInit {
   }
 
   private loadPatient(id: string): void {
+    const state = window.history.state as { patient?: Patient };
+
+    if (state?.patient) {
+      this.patient = state.patient;
+      return;
+    }
+
     this.isLoading = true;
     this.patientRepo.getById(id).subscribe({
       next: (patient) => {
@@ -221,7 +228,9 @@ export class PatientDetailComponent implements OnInit {
 
   goToEdit(): void {
     if (this.patient) {
-      this.router.navigate(['/patients', this.patient.id, 'edit']);
+      this.router.navigate(['/patients', this.patient.id, 'edit'], {
+        state: { patient: this.patient },
+      });
     }
   }
 

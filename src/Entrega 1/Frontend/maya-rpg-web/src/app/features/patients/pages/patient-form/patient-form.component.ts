@@ -57,6 +57,7 @@ export class PatientFormComponent implements OnInit {
       cep: [''],
       status: [PatientStatus.PENDING, [Validators.required]],
       notes: [''],
+      lgpdConsent: [false],
     });
   }
 
@@ -90,6 +91,7 @@ export class PatientFormComponent implements OnInit {
       birthDate: this.formatDateForInput(patient.birthDate),
       status: patient.status,
       notes: patient.notes || '',
+      lgpdConsent: !!patient.lgpdConsentAt,
     });
   }
 
@@ -103,10 +105,11 @@ export class PatientFormComponent implements OnInit {
     this.errorMessage = '';
 
     const formValue = this.form.value;
-    const { cep, ...patientData } = formValue;
+    const { cep, lgpdConsent, ...patientData } = formValue;
     const data = {
       ...patientData,
       birthDate: new Date(patientData.birthDate),
+      lgpdConsentAt: lgpdConsent ? new Date() : null,
     };
 
     const request = this.isEditing
@@ -124,7 +127,7 @@ export class PatientFormComponent implements OnInit {
       },
     });
   }
-
+  
   private formatDateForInput(date: Date): string {
     const d = new Date(date);
     return d.toISOString().split('T')[0];

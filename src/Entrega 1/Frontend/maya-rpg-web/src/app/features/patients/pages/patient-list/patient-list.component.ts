@@ -99,12 +99,14 @@ export class PatientListComponent implements OnInit {
 
   navigateToEdit(patient: Patient): void {
     this.router.navigate(['/patients', patient.id, 'edit'], {
-      state: { patient }
+      state: { patient },
     });
   }
 
   navigateToDetail(patient: Patient): void {
-    this.router.navigate(['/patients', patient.id]);
+    this.router.navigate(['/patients', patient.id], {
+      state: { patient },
+    });
   }
 
   openDeleteDialog(patient: Patient): void {
