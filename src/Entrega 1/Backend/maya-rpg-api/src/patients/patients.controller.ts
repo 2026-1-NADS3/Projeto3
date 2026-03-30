@@ -21,7 +21,6 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 export class PatientsController {
   constructor(private readonly patientsService: PatientsService) {}
 
-  // GET /api/patients?page=1&pageSize=10&search=ana&status=ACTIVE
   @Get()
   findAll(
     @Query('page') page?: number,
@@ -31,32 +30,30 @@ export class PatientsController {
     @Query('sortBy') sortBy?: string,
     @Query('sortOrder') sortOrder?: 'ASC' | 'DESC',
   ) {
-    return this.patientsService.findAll(
-      page || 1,
-      pageSize || 10,
-      search,
-      status,
-      sortBy,
-      sortOrder,
-    );
+    return this.patientsService.findAll(page || 1, pageSize || 10, search, status, sortBy, sortOrder);
   }
 
-  // GET /api/patients/:id
+  // Rota do paciente logado — deve vir ANTES de :id
+  @Get('me')
+  @UseGuards(JwtAuthGuard)
+  getMe(@Req() req: any) {
+    return this.patientsService.findByUserId(req.user.sub || req.user.id);
+  }
+
   @Get(':id')
   findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.patientsService.findOne(id);
   }
 
-  // POST /api/patients
   @Post()
+  @UseGuards(JwtAuthGuard)
   create(@Body() dto: CreatePatientDto, @Req() req: any) {
-    const professionalId = req.user.sub || req.user.id;
-
-    return this.patientsService.create(dto, professionalId);    
+    const professionalId = req.user?.sub || req.user?.id || null;
+    return this.patientsService.create(dto, professionalId);
   }
 
-  // PATCH /api/patients/:id
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   update(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdatePatientDto,
@@ -64,8 +61,8 @@ export class PatientsController {
     return this.patientsService.update(id, dto);
   }
 
-  // DELETE /api/patients/:id
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   remove(@Param('id', ParseUUIDPipe) id: string) {
     return this.patientsService.remove(id);
   }

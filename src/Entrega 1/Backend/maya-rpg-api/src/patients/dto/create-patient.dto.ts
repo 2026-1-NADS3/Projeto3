@@ -4,8 +4,10 @@ import {
   IsOptional,
   IsEnum,
   IsDateString,
+  IsDateString as IsDate,
   MinLength,
 } from 'class-validator';
+import { Type } from 'class-transformer';
 import { PatientStatus } from '../../common/enums/patient-status.enum';
 
 export class CreatePatientDto {
@@ -32,4 +34,7 @@ export class CreatePatientDto {
   @IsString()
   @IsOptional()
   notes?: string;
+
+  @IsOptional()
+  lgpdConsentAt?: Date | null;
 }

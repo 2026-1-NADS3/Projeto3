@@ -4,13 +4,23 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { PatientStatus } from '../../common/enums/patient-status.enum';
+import { User } from '../../auth/entities/user.entity';
 
 @Entity('patients')
 export class Patient {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column({ nullable: true })
+  userId: string;
+
+  @ManyToOne(() => User, { nullable: true, onDelete: 'SET NULL' })
+  @JoinColumn({ name: 'userId' })
+  user: User;
 
   @Column()
   fullName: string;
