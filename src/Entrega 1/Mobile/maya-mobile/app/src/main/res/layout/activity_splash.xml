@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/bg_gradient">
+
+    <TextView
+        android:id="@+id/tvMaya"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="maya"
+        android:textSize="48sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:letterSpacing="0.1"
+        android:fontFamily="sans-serif-light" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="4dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="yamamoto"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF"
+            android:alpha="0.8"
+            android:letterSpacing="0.05" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  rpg"
+            android:textSize="14sp"
+            android:textColor="#E8845C"
+            android:textStyle="bold"
+            android:letterSpacing="0.05" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BEM-VINDO"
+        android:textSize="14sp"
+        android:textColor="#FFFFFF"
+        android:alpha="0.7"
+        android:letterSpacing="0.2"
+        android:layout_marginTop="24dp" />
+
+    <ImageButton
+        android:id="@+id/btnNext"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/bg_circle_button"
+        android:src="@drawable/ic_arrow_forward"
+        android:contentDescription="Próximo" />
+
+</LinearLayout>
