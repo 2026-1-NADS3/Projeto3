@@ -49,11 +49,11 @@ export class PatientsController {
 
   // POST /api/patients
   @Post()
-  @UseGuards(JwtAuthGuard)
   create(@Body() dto: CreatePatientDto, @Req() req: any) {
     const professionalId = req.user.sub || req.user.id;
-    return this.patientsService.create(dto, professionalId);
-}
+
+    return this.patientsService.create(dto, professionalId);    
+  }
 
   // PATCH /api/patients/:id
   @Patch(':id')
