@@ -39,11 +39,6 @@ export const routes: Routes = [
           import('./features/medical-records/medical-records.routes').then((m) => m.MEDICAL_RECORDS_ROUTES),
       },
       {
-        path: 'birthdays',
-        loadChildren: () =>
-          import ('./features/birthdays/birthdays.routes').then((m) => m.BIRTHDAYS_ROUTES),
-      },
-      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full',
