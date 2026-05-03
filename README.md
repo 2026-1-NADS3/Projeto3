@@ -57,7 +57,11 @@ Há também 4 pastas que seguem da seguinte forma:
 
 <b>src</b>: Pasta que contém o código fonte.
 
+## 📋 Licença/License
+<a href="https://github.com/2026-1-NADS3/Projeto3">TechCare</a> © 2026 by <a href="https://example.com">Victor Bancatelli, Nelson Reis, Nicolas Nitta, Karine Cardoso</a> is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
+
 ## 🎓 Referências
 
 Aqui estão as referências usadas no projeto.
+1. https://github.com/fecaphub/Template_PI
 
