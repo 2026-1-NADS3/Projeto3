@@ -1,24 +1,53 @@
-# Maya RPG Web — Painel do Profissional
+<div align="center">
 
-Sistema web para acompanhamento de pacientes de Reeducação Postural Global (RPG) da Clínica Maya Yoshiko Yamamoto.
+![React](https://img.shields.io/badge/React_19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white)
 
-## Projeto Interdisciplinar — FECAP 3º Semestre ADS 2026
+<br/>
 
-### Stack
+# 🌐 Maya RPG Web
+### Painel do Profissional e Admin
 
-- **Frontend:** React 19 + TypeScript + Vite
-- **Roteamento:** TanStack Router
-- **Estado e dados:** TanStack Query + services HTTP com Axios
-- **Interface:** Tailwind CSS 4, Radix UI e componentes reutilizáveis em `src/components`
-- **Backend:** API REST NestJS (`maya-rpg-api`)
-- **Banco de Dados:** PostgreSQL
+*Clínica Maya Yoshiko Yamamoto — PI 3ADS FECAP 2026*
 
-### Pré-requisitos
+</div>
+
+---
+
+## 📖 Sobre
+
+Painel web para acompanhamento de pacientes de **Reeducação Postural Global (RPG)** da Clínica Maya Yoshiko Yamamoto.
+
+> Este módulo é o **painel do profissional/admin**. O app mobile do paciente e o backend API estão em módulos separados.
+
+---
+
+## 🛠️ Stack de Tecnologias
+
+| Categoria | Tecnologia | Função |
+|-----------|-----------|--------|
+| ![React](https://img.shields.io/badge/React_19-61DAFB?style=flat&logo=react&logoColor=black) | React 19 + TypeScript | Framework frontend e linguagem |
+| ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white) | Vite | Build tool e servidor de desenvolvimento |
+| 🔀 | TanStack Router | Roteamento tipado |
+| 🔄 | TanStack Query | Cache e sincronização de dados com a API |
+| ![Tailwind](https://img.shields.io/badge/Tailwind-06B6D4?style=flat&logo=tailwindcss&logoColor=white) | Tailwind CSS 4 + Radix UI | Estilização e componentes acessíveis |
+| ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=axios&logoColor=white) | Axios | Camada HTTP para consumo da API REST |
+| ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat&logo=postgresql&logoColor=white) | PostgreSQL (via API) | Banco de dados |
+
+---
+
+## 📋 Pré-requisitos
 
 - Node.js 22+
 - npm 10+
+- Backend rodando em `http://localhost:3000/api` (veja o [README da API](../backend/README.md))
 
-### Setup
+---
+
+## 🚀 Setup
 
 ```bash
 # 1. Clone o repositório
@@ -28,153 +57,173 @@ cd maya-rpg-web
 # 2. Instale as dependências
 npm install
 
-# 3. Rode o backend local em http://localhost:3000/api
-# Consulte o README do repositório maya-rpg-api
-
-# 4. Rode o servidor de desenvolvimento
+# 3. Inicie o servidor de desenvolvimento
 npm run dev
-
-# 5. Acesse no navegador
-# http://localhost:5173
+# Acesse http://localhost:5173
 ```
 
-Por padrão, `src/lib/env.ts` usa `http://localhost:3000/api` em desenvolvimento.
-Em build de produção, o web aponta para a API hospedada no Render.
+Em desenvolvimento, `src/lib/env.ts` aponta para `http://localhost:3000/api`.  
+Em produção, o web aponta para a API hospedada no Render.
 
-### Extensões VS Code recomendadas
+### Scripts disponíveis
 
-Ao abrir o projeto no VS Code, ele vai sugerir automaticamente as extensões. Aceite a instalação de todas:
+| Comando | Descrição |
+|---------|-----------|
+| `npm run dev` | Servidor de desenvolvimento |
+| `npm run build` | Build de produção |
+| `npm run lint` | Verificação de padronização |
 
-- Prettier
-- ESLint
-- GitLens
-- EditorConfig
-- Code Spell Checker (PT-BR)
+> Validação em **10/05/2026**: `npm run build` OK · `npm run lint` OK (0 erros, 8 avisos de Fast Refresh).
+>
+> ⚠️ O build emitiu aviso de bundle acima de 500 kB — melhoria futura com code splitting, sem impacto na entrega.
 
-### Estrutura de pastas
+---
 
-```text
+## 📂 Estrutura de Pastas
+
+```
 src/
-├── components/            # Shell da aplicação e componentes de UI
-│   └── ui/                # Componentes base reutilizáveis
-├── contexts/              # Contextos React, incluindo autenticação
-├── hooks/                 # Hooks compartilhados
-├── lib/                   # Utilitários, ambiente e helpers de formulário
-├── routes/                # Rotas TanStack Router
-│   ├── auth/              # Login, cadastro e recuperação de senha
-│   ├── pacientes*         # CRUD e detalhe de pacientes
-│   ├── exercicios*        # Banco de exercícios
-│   ├── prescricoes*       # Prescrições por paciente
-│   ├── prontuarios        # Prontuário eletrônico
-│   ├── agenda             # Agenda complementar
-│   └── usuarios           # Gestão de usuários
-├── services/              # Integração com API REST
-├── types/                 # Tipos, entidades e enums do domínio
+│
+├── 📁 components/         # Shell da aplicação e componentes de UI
+│   └── 📁 ui/             # Componentes base reutilizáveis
+│
+├── 📁 contexts/           # Contextos React (autenticação, etc.)
+├── 📁 hooks/              # Hooks compartilhados
+├── 📁 lib/                # Utilitários, env e helpers de formulário
+│
+├── 📁 routes/
+│   ├── 📁 auth/           # Login, cadastro e recuperação de senha
+│   ├── 📁 pacientes*/     # CRUD e detalhe de pacientes
+│   ├── 📁 exercicios*/    # Banco de exercícios
+│   ├── 📁 prescricoes*/   # Prescrições por paciente
+│   ├── 📁 prontuarios/    # Prontuário eletrônico
+│   ├── 📁 agenda/         # Agenda (complementar)
+│   └── 📁 usuarios/       # Gestão de usuários
+│
+├── 📁 services/           # Integração com a API REST
+├── 📁 types/              # Tipos, entidades e enums do domínio
 ├── main.tsx               # Entrada React
 └── router.tsx             # Configuração do roteador
 ```
 
-### Padrões do projeto
+---
 
-- **Commits:** Conventional Commits (`feat:`, `fix:`, `docs:`, `refactor:`, `test:`)
-- **Branches:** `main` (produção), `develop` (integração), `feature/*` (funcionalidades)
-- **Código:** componentes React, rotas por arquivo e services concretos para API REST
+## ✅ Funcionalidades Implementadas
 
-### Fluxo de Dados
+| Funcionalidade | Implementação | Status |
+|----------------|--------------|:------:|
+| Gestão de pacientes (CRUD, busca, filtros, status) | `routes/pacientes*` + `patientService` | ✅ |
+| Prontuário eletrônico com histórico | `routes/prontuarios.tsx` + detalhe do paciente | ✅ |
+| Banco de exercícios (título, descrição, tags, mídia) | `routes/exercicios*` + `mediaService` | ✅ |
+| Prescrição de exercícios por paciente | `routes/prescricoes*` + `prescriptionService` | ✅ |
+| Painel com indicadores | `routes/index.tsx` + `dashboardService` | ✅ |
+| Gestão de usuários e permissões (Admin/Profissional) | `routes/usuarios.tsx` + controles de auth | ✅ |
+| Bloqueio LGPD antes de prescrição | Detalhe do paciente + formulário de prescrição | ✅ |
+| Histórico de check-ins na aba Evolução | `GET /exercise-executions/patient/:patientId` | ✅ |
+| Desativar prescrição ativa | `PATCH /prescriptions/:id/deactivate` | ✅ |
+| Agenda/lembretes | `routes/agenda.tsx` | 🔄 Opcional |
+| Avaliação funcional dedicada | Campos no prontuário | 🔄 Parcial |
+| Rotinas como entidade própria | Via prescrição | 🔄 Parcial |
 
-O fluxo principal agora é simples:
+---
 
-```text
-Rotas e componentes -> services em src/services -> ApiService/Axios -> API REST
+## 🔄 Fluxo de Dados
+
+```
+Rotas / Componentes
+       │
+       ▼
+ src/services/          ◀── TanStack Query (cache + refetch)
+       │
+       ▼
+   Axios (HTTP)
+       │
+       ▼
+   API REST (NestJS)    ──▶  PostgreSQL
 ```
 
-Não há mais `InjectionToken` ou interfaces de repository para recursos com uma única implementação. Isso reduz indireção sem remover a separação entre telas, tipos compartilhados e acesso HTTP.
+Não há camada de repositórios ou `InjectionToken` para recursos com uma única implementação — menos indireção, sem perder separação de responsabilidades.
 
-### Dados Reais e Fallbacks
+### Fontes de dados e fallbacks
 
-- Dados clínicos e operacionais principais vêm da API REST: pacientes, prontuários, exercícios, prescrições, execuções/check-ins, dashboard e usuários.
-- Preferências de interface, como tema e informações locais de configuração, continuam em `localStorage`.
-- Agenda/consultas não usam mais fallback silencioso em `localStorage`; se a API falhar, a tela mostra erro para evitar confundir dado local com dado persistido.
-- Fontes externas do Google não são baixadas no build. O app usa uma pilha segura de fontes do sistema para manter `npm run build` funcionando offline/CI.
+- **Dados clínicos:** sempre da API REST (pacientes, prontuários, exercícios, prescrições, check-ins, dashboard, usuários).
+- **Preferências de UI:** `localStorage` (tema, configurações locais).
+- **Agenda:** exibe erro explícito se a API falhar — sem fallback silencioso.
+- **Fontes:** pilha de fontes do sistema (sem download do Google Fonts), garantindo build offline e em CI.
 
-### Git Flow
+---
+
+## 🔗 Integração Ponta a Ponta
+
+```
+┌──────────────────────────────────────────────────────────┐
+│                    SOLUÇÃO INTEGRADA                     │
+│                                                          │
+│  📱 Mobile Android                                       │
+│  └── Consome prescrições reais                           │
+│  └── Salva check-ins no Room (offline)                   │
+│  └── Sincroniza com /check-ins/sync                      │
+│                   │                                      │
+│                   ▼                                      │
+│  🔧 Backend / API (NestJS)                               │
+│  └── Protege rotas por JWT e perfil                      │
+│  └── Persiste dados clínicos no PostgreSQL               │
+│  └── Aplica regras de LGPD                               │
+│  └── Expõe /exercise-executions/patient/:id              │
+│                   │                                      │
+│                   ▼                                      │
+│  🌐 Web (este módulo)                                    │
+│  └── Exibe prescrições e dados do paciente               │
+│  └── Bloqueia plano sem LGPD aceita                      │
+│  └── Mostra evolução e check-ins reais na aba Evolução   │
+└──────────────────────────────────────────────────────────┘
+```
+
+Para dados demo, inicie a API com `SEED_DEMO_DATA=true`.
+
+---
+
+## 🔀 Git Flow
 
 ```bash
-# Criar branch develop
+# Branch de integração
 git checkout -b develop
 
-# Criar feature branch
+# Feature branch
 git checkout -b feature/nome-da-feature develop
 
-# Ao finalizar, merge na develop
+# Merge ao finalizar
 git checkout develop
 git merge feature/nome-da-feature
 ```
 
-### Cronograma (alinhado ao PI)
+**Padrão de commits:** Conventional Commits — `feat:`, `fix:`, `docs:`, `refactor:`, `test:`
 
-| Semanas | Entrega                           |
-| ------- | --------------------------------- |
-| 1-2     | Scaffold + Core + Design system   |
-| 3-4     | Auth + CRUD Pacientes             |
-| 5-6     | Banco de Exercícios + Prescrições |
-| 7-8     | Prontuário + Dashboard            |
-| 9-10    | Integração com API + testes       |
-| 11-12   | Ajustes de UX + documentação      |
-| 13      | Entrega final + apresentação      |
+---
 
-## Alinhamento com o Projeto Interdisciplinar
+## 💻 Extensões Recomendadas (VS Code)
 
-Este repositório representa o **Módulo Web — Profissional/Admin** da solução Clínica Maya RPG. O aplicativo Android/mobile do paciente e o backend/API são projetos separados.
+O projeto inclui configuração de extensões recomendadas. Ao abrir no VS Code, aceite a instalação de:
 
-### Cobertura do módulo web
+- **Prettier** — formatação automática
+- **ESLint** — análise estática
+- **GitLens** — histórico e blame inline
+- **EditorConfig** — consistência de estilo
+- **Code Spell Checker (PT-BR)** — correção ortográfica
 
-| Requisito do PDF                                                   | Implementação no web                                                        | Status                                  |
-| ------------------------------------------------------------------ | --------------------------------------------------------------------------- | --------------------------------------- |
-| Gestão de pacientes com CRUD, busca, filtros e status              | `src/routes/pacientes*` + `patientService`                                  | Completo                                |
-| Prontuário eletrônico com observações e histórico por paciente     | `src/routes/prontuarios.tsx` + detalhe do paciente                          | Completo                                |
-| Banco de exercícios com título, descrição, tags e mídia            | `src/routes/exercicios*` + `mediaService`                                   | Completo                                |
-| Prescrição de exercícios por paciente com frequência e orientações | `src/routes/prescricoes*` + `prescriptionService`                           | Completo                                |
-| Painel de acompanhamento com indicadores simples                   | `src/routes/index.tsx` + `dashboardService`                                 | Completo, depende da API                |
-| Gestão de usuários e permissões Admin/Profissional                 | `src/routes/usuarios.tsx` + controles de autenticação                       | Completo, depende da API                |
-| LGPD/consentimento antes de prescrição                             | Bloqueio em detalhe do paciente e formulário de prescrição                  | Completo                                |
-| Rotinas/planos organizados                                         | Prescrição agrupa exercícios e parâmetros do plano                          | Parcial, sem entidade própria de rotina |
-| Avaliação funcional                                                | Campos clínicos no prontuário: dor, mobilidade, postura e plano terapêutico | Parcial, sem tela dedicada              |
-| Agenda/lembretes                                                   | `src/routes/agenda.tsx` e endpoints de consultas                            | Opcional/Extensão                       |
+---
 
-### Contratos REST integrados
+## 📚 Documentação Adicional
 
-Além dos endpoints já consumidos por autenticação, pacientes, exercícios, prescrições, prontuários e dashboard, o web usa estes contratos alinhados com a API:
+| Documento | Link |
+|-----------|------|
+| 📋 Requisitos Implementados | [REQUISITOS_IMPLEMENTADOS.md](../../Documentos/Entrega2/ProgramacaoMobile/REQUISITOS_IMPLEMENTADOS.md) |
+| 🎬 Roteiro de Demonstração | [ROTEIRO_DEMONSTRACAO.md](../../Documentos/Entrega2/ProgramacaoMobile/ROTEIRO_DEMONSTRACAO.md) |
 
-| Recurso                     | Endpoint                                                         | Uso no web                                                                         |
-| --------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| Execuções/check-ins         | `GET /exercise-executions/patient/:patientId?page=1&pageSize=20` | Histórico de exercícios executados, dor e observações na aba Evolução do paciente. |
-| Desativar prescrição        | `PATCH /prescriptions/:id/deactivate`                            | Encerrar plano ativo para que o paciente não veja mais no app.                     |
-| Listar usuários             | `GET /users?page=1&pageSize=50`                                  | Gestão administrativa de profissionais e admins.                                   |
-| Status de usuário           | `PATCH /users/:id/status`                                        | Ativar/inativar usuário staff.                                                     |
-| Consultas/agenda (opcional) | `GET /appointments?startDate=&endDate=`                          | Exibição complementar no dashboard e calendário quando a API disponibiliza agenda. |
-| Criar consulta (opcional)   | `POST /appointments`                                             | Agenda semanal do painel profissional.                                             |
-| Satisfação (opcional)       | `GET /appointments/satisfaction`                                 | Indicador simples complementar quando houver avaliações de atendimento.            |
+---
 
-### Integração ponta a ponta
+<div align="center">
 
-- **Mobile Android:** consome prescrições reais, salva check-ins por exercício no Room e sincroniza com `/check-ins/sync`.
-- **Backend/API:** protege rotas por JWT/perfil, persiste dados clínicos, aplica LGPD e expõe `/exercise-executions/patient/:patientId`.
-- **Web:** mostra prescrições, bloqueia plano sem LGPD e exibe evolução/check-ins reais na aba do paciente.
+**Equipe TechCare** · FECAP — Centro Universitário · ADS 2026
 
-Para dados demo, rode a API com `SEED_DEMO_DATA=true` e consulte o roteiro em `../../Documentos/Entrega2/ProgramacaoMobile/ROTEIRO_DEMONSTRACAO.md`.
-
-### Validação local
-
-```bash
-npm run build
-npm run lint
-```
-
-Validação realizada em 10/05/2026:
-
-- `npm run build`: OK fora do sandbox; dentro do sandbox o Vite/esbuild recebeu `Access is denied` ao resolver diretórios do usuário.
-- `npm run lint`: OK, sem erros e com 8 warnings de Fast Refresh (`react-refresh/only-export-components`).
-- Integração com os contratos REST do backend conferida nos services.
-
-Observação: o build gerou apenas aviso de bundle acima de 500 kB. Isso não bloqueia a Entrega 2, mas pode ser melhorado depois com code splitting ou `manualChunks`.
+</div>
