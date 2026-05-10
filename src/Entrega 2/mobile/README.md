@@ -103,8 +103,10 @@ O Room guarda a sessão localmente em `exercise_sessions` e sincroniza quando ho
 ---
 
 ## 📄 Documentação Adicional
-- [Manual de Instalação e Testes (PDF)](docs/manual_entrega2.pdf)
-- [Arquitetura de Banco de Dados](docs/database_schema.md)
+- [Requisitos implementados](../../../Documentos/Entrega2/ProgramacaoMobile/REQUISITOS_IMPLEMENTADOS.md)
+- [Roteiro de demonstração](../../../Documentos/Entrega2/ProgramacaoMobile/ROTEIRO_DEMONSTRACAO.md)
+- [Setup de ambiente](../../../Documentos/Entrega2/ProgramacaoMobile/AMBIENTE_SETUP.md)
+- [Validação final](../../../Documentos/Entrega2/ProgramacaoMobile/VALIDACAO_FINAL.md)
 
 ---
 **Equipe**: Maya RPG Dev Team  

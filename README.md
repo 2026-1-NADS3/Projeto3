@@ -4,7 +4,7 @@
 <a href= "https://www.fecap.br/"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhZPrRa89Kma0ZZogxm0pi-tCn_TLKeHGVxywp-LXAFGR3B1DPouAJYHgKZGV0XTEf4AE&usqp=CAU" alt="FECAP - Fundação de Comércio Álvares Penteado" border="0"></a>
 </p>
 
-# Nome do projeto: Aplicativo Mobile – Maya RPG
+# Nome do projeto: Sistema Mobile e Web - Maya RPG
 
 ## Nome do grupo: TechCare
 
@@ -19,43 +19,38 @@
 </p>
 
 
-O projeto consiste no desenvolvimento de um aplicativo de agenda integrado a um site institucional para a TechCare, com foco em otimizar o gerenciamento de horários e o atendimento ao cliente. A solução tem como objetivo facilitar tanto a organização da profissional Maya quanto a experiência dos clientes no agendamento de serviços.
+O projeto consiste no desenvolvimento de uma solução integrada para a Clínica Maya Yoshiko Yamamoto, com foco em Reeducação Postural Global (RPG). A solução reúne aplicativo Android para pacientes, módulo web para profissional/admin, backend REST e banco de dados.
 <br><br>
-O aplicativo permitirá o controle eficiente de horários, clientes e serviços, reduzindo conflitos de agenda e melhorando a produtividade. Já o site institucional será responsável por apresentar a Maya, seus serviços e a proposta da TechCare, transmitindo profissionalismo, confiança e praticidade para atrair e fidelizar clientes.
+O aplicativo permite que o paciente acesse o plano de exercícios prescrito, visualize orientações e mídias, registre execução dos exercícios, informe nível de dor e acompanhe sua evolução. O módulo web permite que a profissional gerencie pacientes, prontuários, banco de exercícios, prescrições, agenda e indicadores simples.
 <br><br>
-Dessa forma, o projeto busca unir tecnologia e organização para oferecer uma experiência simples, moderna e acessível, atendendo às necessidades tanto da profissional quanto de seu público.
+Dessa forma, o projeto centraliza dados clínicos e operacionais, melhora a comunicação com pacientes e apoia o acompanhamento contínuo do tratamento de RPG.
 
 
 ## 🛠 Estrutura de pastas
 
--Raiz<br>
-|<br>
-|-->documentos<br>
-  &emsp;|-->antigos<br>
-  &emsp;|Documentação.docx<br>
-|-->executáveis<br>
-  &emsp;|-->windows<br>
-  &emsp;|-->android<br>
-  &emsp;|-->HTML<br>
-|-->imagens<br>
-|-->src<br>
-  &emsp;|-->Backend<br>
-  &emsp;|-->Frontend<br>
-|readme.md<br>
+```text
+Projeto3/
+├── Documentos/
+│   ├── Banner/
+│   ├── Entrega1/
+│   └── Entrega2/
+├── Imagens/
+└── src/
+    ├── Entrega 1/
+    │   ├── Backend/
+    │   ├── Frontend/
+    │   └── Mobile/
+    └── Entrega 2/
+        ├── backend/
+        ├── mobile/
+        └── web/
+```
 
-A pasta raiz contem dois arquivos que devem ser alterados:
+<b>Documentos</b>: relatórios, PDFs de UX, qualidade, cloud native, programação mobile e banner.
 
-<b>README.MD</b>: Arquivo que serve como guia e explicação geral sobre seu projeto. O mesmo que você está lendo agora.
+<b>Imagens</b>: imagens institucionais e materiais visuais do projeto.
 
-Há também 4 pastas que seguem da seguinte forma:
-
-<b>documentos</b>: Toda a documentação estará nesta pasta.
-
-<b>executáveis</b>: Binários e executáveis do projeto devem estar nesta pasta.
-
-<b>imagens</b>: Imagens do sistema
-
-<b>src</b>: Pasta que contém o código fonte.
+<b>src</b>: código-fonte das entregas. A Entrega 2 contém a API NestJS, o app Android e o painel web React/Vite.
 
 ## 📋 Licença/License
 <a href="https://github.com/2026-1-NADS3/Projeto3">TechCare</a> © 2026 by <a href="https://example.com">Victor Bancatelli, Nelson Reis, Nicolas Nitta, Karine Cardoso</a> is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">

@@ -29,7 +29,7 @@ O conjunto está preparado para demonstração acadêmica em ambiente local cont
 - backend: API NestJS com autenticação, prescrições, check-ins, prontuário, upload e Swagger.
 - mobile: aplicativo Android do paciente com consumo de API REST, Room, sincronização, notificações e evolução.
 - web: módulo complementar para profissional e admin com pacientes, exercícios, prescrições, prontuário e dashboard.
-- docs: documentação final da Entrega 2.
+- documentação: relatórios e evidências em `../../Documentos/Entrega2`.
 
 ## Backend
 
@@ -97,9 +97,9 @@ Status validado:
 
 - npm install OK.
 - npm run build OK.
-- lint com pendência de Prettier/CRLF legado.
+- npm run lint OK.
 - rotas, services e integração com a API mantidos.
-- src/environments/ e src/assets/images/login/ removidos por estarem vazios.
+- web implementado em React + Vite + TanStack Router.
 
 Cobertura funcional do web:
 
@@ -114,19 +114,20 @@ Como rodar o web:
 
 1. Instalar dependências com npm install.
 2. Executar npm run build.
-3. Executar npm run lint quando for necessário avaliar a pendência de formatação.
+3. Executar npm run lint para validar a padronização.
 
 ## Documentação
 
-- [REQUISITOS_IMPLEMENTADOS.md](docs/REQUISITOS_IMPLEMENTADOS.md)
-- [ROTEIRO_DEMONSTRACAO.md](docs/ROTEIRO_DEMONSTRACAO.md)
-- [AMBIENTE_SETUP.md](docs/AMBIENTE_SETUP.md)
-- [RELATORIO_CLOUD_NATIVE.md](docs/RELATORIO_CLOUD_NATIVE.md)
-- [TESTES_E_QUALIDADE.md](docs/TESTES_E_QUALIDADE.md)
-- [UX_HEART_E_PROTOTIPO.md](docs/UX_HEART_E_PROTOTIPO.md)
-- [DOCUMENTO_EXTENSAO_COM_EMPRESA.md](docs/DOCUMENTO_EXTENSAO_COM_EMPRESA.md)
-- [VALIDACAO_FINAL.md](docs/VALIDACAO_FINAL.md)
-- [ROTEIRO_PITCH_BANNER.md](docs/ROTEIRO_PITCH_BANNER.md)
+- [Requisitos implementados](../../Documentos/Entrega2/ProgramacaoMobile/REQUISITOS_IMPLEMENTADOS.md)
+- [Roteiro de demonstração](../../Documentos/Entrega2/ProgramacaoMobile/ROTEIRO_DEMONSTRACAO.md)
+- [Setup de ambiente](../../Documentos/Entrega2/ProgramacaoMobile/AMBIENTE_SETUP.md)
+- [Validação final](../../Documentos/Entrega2/ProgramacaoMobile/VALIDACAO_FINAL.md)
+- [Relatório Cloud Native](../../Documentos/Entrega2/SistemaOperacional/RELATORIO_CLOUD_NATIVE.md)
+- [Relatório de UX - Entrega 2](<../../Documentos/Entrega2/UserExperienceDigital/Relátorio da Segunda Entrega UX.pdf>)
+- [Relatório de Qualidade e Testes](<../../Documentos/Entrega2/TesteQualidadeSoftware/Qualidade e Testes de Software (DevOps) - Grupo TechCare .pdf>)
+- [Banner](../../Documentos/Banner/Banner_FECAP_ADS3_TECHCARE.pptx.pdf)
+
+O documento de extensão com empresa pertence à entrega de outro integrante e não é mantido neste escopo individual.
 
 ## Observações importantes
 

@@ -90,9 +90,9 @@ Este documento resume a aderência da solução aos requisitos consolidados do P
 | Backup | Backup do banco de desenvolvimento | scripts/backup_db.sh | OK |
 | Gerenciamento de processos | Iniciar, parar, status e restart | scripts/manage_services.sh | OK |
 | Deploy automatizado | Execução orientada por Docker | scripts/deploy.sh | OK |
-| Pipes e redirecionamento | Documentado no relatório cloud native | docs/RELATORIO_CLOUD_NATIVE.md | Documentado |
+| Pipes e redirecionamento | Documentado no relatório cloud native | `../SistemaOperacional/RELATORIO_CLOUD_NATIVE.md` | Documentado |
 | Variáveis de ambiente | Uso de .env e .env.example | Status validado da API | OK |
-| Cron jobs e permissões | Documentados como parte do relatório | docs/RELATORIO_CLOUD_NATIVE.md | Documentado |
+| Cron jobs e permissões | Documentados como parte do relatório | `../SistemaOperacional/RELATORIO_CLOUD_NATIVE.md` | Documentado |
 | Containerização | API e banco rodando em containers | docker-compose e validação validada | OK |
 | Volume persistente | pg_data e volumes de uploads/logs | docker-compose.yml | OK |
 
@@ -100,31 +100,31 @@ Este documento resume a aderência da solução aos requisitos consolidados do P
 
 | Requisito | Implementação | Evidência / arquivo | Status |
 |---|---|---|---|
-| Testes unitários | Base documental cobre 4 testes unitários | docs/TESTES_E_QUALIDADE.md | Documentado |
-| Testes de integração | Base documental cobre 2 testes de integração | docs/TESTES_E_QUALIDADE.md | Documentado |
+| Testes unitários | Base documental cobre 4 testes unitários | `../TesteQualidadeSoftware/Qualidade e Testes de Software (DevOps) - Grupo TechCare .pdf` | Documentado |
+| Testes de integração | Base documental cobre 2 testes de integração | `../TesteQualidadeSoftware/Qualidade e Testes de Software (DevOps) - Grupo TechCare .pdf` | Documentado |
 | Teste de carga | load-test.js mantido como evidência | Status validado da API | OK |
-| Teste de aceitação | Teste de aceitação documentado com roteiro manual do fluxo principal | docs/TESTES_E_QUALIDADE.md | Documentado |
-| Processo de qualidade | Documentado com ISO/IEC 25010 | docs/TESTES_E_QUALIDADE.md | Documentado |
+| Teste de aceitação | Teste de aceitação documentado com roteiro manual do fluxo principal | `../TesteQualidadeSoftware/Qualidade e Testes de Software (DevOps) - Grupo TechCare .pdf` | Documentado |
+| Processo de qualidade | Documentado com ISO/IEC 25010 | `../TesteQualidadeSoftware/Qualidade e Testes de Software (DevOps) - Grupo TechCare .pdf` | Documentado |
 | Build e validação | Backend, mobile e web validados | Status geral da entrega | Validado |
 
 ## UX da Entrega 2
 
 | Requisito | Implementação | Evidência / arquivo | Status |
 |---|---|---|---|
-| HEART Framework | Métricas para H, E, A, R e T | docs/UX_HEART_E_PROTOTIPO.md | Documentado |
-| Protótipo de alta fidelidade | Interface planejada para mobile e web | docs/UX_HEART_E_PROTOTIPO.md | Documentado |
+| HEART Framework | Métricas para H, E, A, R e T | `../UserExperienceDigital/Relátorio da Segunda Entrega UX.pdf` | Documentado |
+| Protótipo de alta fidelidade | Interface planejada para mobile e web | `../UserExperienceDigital/Relátorio da Segunda Entrega UX.pdf` | Documentado |
 | Identidade visual | Aplicação da identidade da Clínica Maya | README do web e README do mobile | OK |
 | Componentes consistentes | Estrutura visual coerente entre telas | Documentação UX | OK |
 | Navegação funcional | Fluxos de navegação dos módulos | README do mobile e README do web | OK |
-| Relação com a Entrega 1 | Evolução da base anterior | docs/UX_HEART_E_PROTOTIPO.md | Documentado |
+| Relação com a Entrega 1 | Evolução da base anterior | `../UserExperienceDigital/Relátorio da Segunda Entrega UX.pdf` | Documentado |
 
 ## Banner e Pitch
 
 | Requisito | Implementação | Evidência / arquivo | Status |
 |---|---|---|---|
-| Banner | Roteiro e suporte de apresentação | docs/ROTEIRO_PITCH_BANNER.md | Documentado |
-| Pitch de 4 minutos | Estrutura de fala objetiva e cronológica | docs/ROTEIRO_PITCH_BANNER.md | OK |
-| Critérios de apresentação | Criatividade, impacto social, tempo e embasamento | docs/ROTEIRO_PITCH_BANNER.md | Documentado |
+| Banner | Roteiro e suporte de apresentação | `../../Banner/Banner_FECAP_ADS3_TECHCARE.pptx.pdf` | Documentado |
+| Pitch de 4 minutos | Estrutura de fala objetiva e cronológica | `ROTEIRO_DEMONSTRACAO.md` | OK |
+| Critérios de apresentação | Criatividade, impacto social, tempo e embasamento | `../../Banner/Banner_FECAP_ADS3_TECHCARE.pptx.pdf` | Documentado |
 
 ## Observações finais
 

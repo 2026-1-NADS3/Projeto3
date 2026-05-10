@@ -107,9 +107,9 @@ Antes de deploy em produção, aplique:
 psql "$DATABASE_URL" -f scripts/migrations/2026-05-02_add_exercise_id_to_check_ins.sql
 ```
 
-O roteiro completo está em `docs/final-demo-roteiro.md`.
+O roteiro completo da demonstração está em `../../../Documentos/Entrega2/ProgramacaoMobile/ROTEIRO_DEMONSTRACAO.md`.
 
-O checklist de aderência ao PDF do Projeto Interdisciplinar está em `docs/pi-entrega-checklist.md`.
+O checklist de aderência ao PDF do Projeto Interdisciplinar está em `../../../Documentos/Entrega2/ProgramacaoMobile/REQUISITOS_IMPLEMENTADOS.md`.
 
 ## Segurança E LGPD
 

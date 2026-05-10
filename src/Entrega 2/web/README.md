@@ -6,9 +6,10 @@ Sistema web para acompanhamento de pacientes de Reeducação Postural Global (RP
 
 ### Stack
 
-- **Frontend:** Angular 21 + TypeScript + Tailwind CSS 4
-- **Arquitetura:** Angular feature-first (`features` + `shared` + services concretos)
-- **Estilos:** SCSS + Tailwind, alinhado à identidade visual da clínica
+- **Frontend:** React 19 + TypeScript + Vite
+- **Roteamento:** TanStack Router
+- **Estado e dados:** TanStack Query + services HTTP com Axios
+- **Interface:** Tailwind CSS 4, Radix UI e componentes reutilizáveis em `src/components`
 - **Backend:** API REST NestJS (`maya-rpg-api`)
 - **Banco de Dados:** PostgreSQL
 
@@ -16,7 +17,6 @@ Sistema web para acompanhamento de pacientes de Reeducação Postural Global (RP
 
 - Node.js 22+
 - npm 10+
-- Angular CLI (`npm install -g @angular/cli`)
 
 ### Setup
 
@@ -32,20 +32,19 @@ npm install
 # Consulte o README do repositório maya-rpg-api
 
 # 4. Rode o servidor de desenvolvimento
-ng serve
+npm run dev
 
 # 5. Acesse no navegador
-# http://localhost:4200
+# http://localhost:5173
 ```
 
-Por padrão, `src/environments/environment.ts` usa `http://localhost:3000/api`.
-O build de produção usa `src/environments/environment.prod.ts`, apontando para a API hospedada no Render.
+Por padrão, `src/lib/env.ts` usa `http://localhost:3000/api` em desenvolvimento.
+Em build de produção, o web aponta para a API hospedada no Render.
 
 ### Extensões VS Code recomendadas
 
 Ao abrir o projeto no VS Code, ele vai sugerir automaticamente as extensões. Aceite a instalação de todas:
 
-- Angular Language Service
 - Prettier
 - ESLint
 - GitLens
@@ -54,42 +53,39 @@ Ao abrir o projeto no VS Code, ele vai sugerir automaticamente as extensões. Ac
 
 ### Estrutura de pastas
 
-```
-src/app/
-├── core/                  # Tipos compartilhados e enums do domínio
-│   ├── entities/          # Interfaces das entidades
-│   ├── enums/             # Enumerações do domínio
-│   └── interfaces/        # Tipos de request/response compartilhados
-├── data/                  # Integração com API e sessão
-│   ├── interceptors/      # HTTP interceptors (auth, error)
-│   └── services/          # ApiService, AuthService e services por recurso
-├── features/              # Módulos de funcionalidade (lazy-loaded)
-│   ├── auth/              # Login, recuperação de senha
-│   ├── dashboard/         # Painel de indicadores
-│   ├── patients/          # CRUD de pacientes
-│   ├── exercises/         # Banco de exercícios
-│   ├── prescriptions/     # Prescrições por paciente
-│   ├── medical-records/   # Prontuário eletrônico
-│   ├── birthdays/         # Calendário de aniversariantes
-│   └── users/             # Gestão de usuários (apenas ADMIN)
-└── shared/                # Componentes e estilos reutilizáveis
-    ├── components/        # UI components genéricos
-    ├── layout/            # Sidebar, Header, MainLayout
-    ├── styles/            # Design tokens, mixins SCSS
+```text
+src/
+├── components/            # Shell da aplicação e componentes de UI
+│   └── ui/                # Componentes base reutilizáveis
+├── contexts/              # Contextos React, incluindo autenticação
+├── hooks/                 # Hooks compartilhados
+├── lib/                   # Utilitários, ambiente e helpers de formulário
+├── routes/                # Rotas TanStack Router
+│   ├── auth/              # Login, cadastro e recuperação de senha
+│   ├── pacientes*         # CRUD e detalhe de pacientes
+│   ├── exercicios*        # Banco de exercícios
+│   ├── prescricoes*       # Prescrições por paciente
+│   ├── prontuarios        # Prontuário eletrônico
+│   ├── agenda             # Agenda complementar
+│   └── usuarios           # Gestão de usuários
+├── services/              # Integração com API REST
+├── types/                 # Tipos, entidades e enums do domínio
+├── main.tsx               # Entrada React
+└── router.tsx             # Configuração do roteador
 ```
 
 ### Padrões do projeto
 
 - **Commits:** Conventional Commits (`feat:`, `fix:`, `docs:`, `refactor:`, `test:`)
 - **Branches:** `main` (produção), `develop` (integração), `feature/*` (funcionalidades)
-- **Código:** componentes standalone, lazy routes e services concretos injetados diretamente
+- **Código:** componentes React, rotas por arquivo e services concretos para API REST
 
 ### Fluxo de Dados
 
 O fluxo principal agora é simples:
 
 ```text
-Componentes de feature -> services em data/services -> ApiService -> API REST
+Rotas e componentes -> services em src/services -> ApiService/Axios -> API REST
 ```
 
 Não há mais `InjectionToken` ou interfaces de repository para recursos com uma única implementação. Isso reduz indireção sem remover a separação entre telas, tipos compartilhados e acesso HTTP.
@@ -117,15 +113,15 @@ git merge feature/nome-da-feature
 
 ### Cronograma (alinhado ao PI)
 
-| Semanas | Entrega |
-|---------|---------|
-| 1-2     | Scaffold + Core + Design system |
-| 3-4     | Auth + CRUD Pacientes |
+| Semanas | Entrega                           |
+| ------- | --------------------------------- |
+| 1-2     | Scaffold + Core + Design system   |
+| 3-4     | Auth + CRUD Pacientes             |
 | 5-6     | Banco de Exercícios + Prescrições |
-| 7-8     | Prontuário + Dashboard |
-| 9-10    | Integração com API + testes |
-| 11-12   | Ajustes de UX + documentação |
-| 13      | Entrega final + apresentação |
+| 7-8     | Prontuário + Dashboard            |
+| 9-10    | Integração com API + testes       |
+| 11-12   | Ajustes de UX + documentação      |
+| 13      | Entrega final + apresentação      |
 
 ## Alinhamento com o Projeto Interdisciplinar
 
@@ -133,32 +129,32 @@ Este repositório representa o **Módulo Web — Profissional/Admin** da soluç�
 
 ### Cobertura do módulo web
 
-| Requisito do PDF | Implementação no web | Status |
-|---|---|---|
-| Gestão de pacientes com CRUD, busca, filtros e status | `features/patients` + `PatientService` | Completo |
-| Prontuário eletrônico com observações e histórico por paciente | `features/medical-records` + aba de prontuário em paciente | Completo |
-| Banco de exercícios com título, descrição, tags e mídia | `features/exercises` + `MediaService` | Completo |
-| Prescrição de exercícios por paciente com frequência e orientações | `features/prescriptions` + `PrescriptionService` | Completo |
-| Painel de acompanhamento com indicadores simples | `features/dashboard` + `DashboardService` | Completo, depende da API |
-| Gestão de usuários e permissões Admin/Profissional | `features/users`, `authGuard`, `roleGuard` | Completo, depende da API |
-| LGPD/consentimento antes de prescrição | Bloqueio em detalhe do paciente e formulário de prescrição | Completo |
-| Rotinas/planos organizados | Prescrição agrupa exercícios e parâmetros do plano | Parcial, sem entidade própria de rotina |
-| Avaliação funcional | Campos clínicos no prontuário: dor, mobilidade, postura e plano terapêutico | Parcial, sem tela dedicada |
-| Agenda/lembretes | `features/appointments` e lembrete via WhatsApp no paciente | Opcional/Extensão |
+| Requisito do PDF                                                   | Implementação no web                                                        | Status                                  |
+| ------------------------------------------------------------------ | --------------------------------------------------------------------------- | --------------------------------------- |
+| Gestão de pacientes com CRUD, busca, filtros e status              | `src/routes/pacientes*` + `patientService`                                  | Completo                                |
+| Prontuário eletrônico com observações e histórico por paciente     | `src/routes/prontuarios.tsx` + detalhe do paciente                          | Completo                                |
+| Banco de exercícios com título, descrição, tags e mídia            | `src/routes/exercicios*` + `mediaService`                                   | Completo                                |
+| Prescrição de exercícios por paciente com frequência e orientações | `src/routes/prescricoes*` + `prescriptionService`                           | Completo                                |
+| Painel de acompanhamento com indicadores simples                   | `src/routes/index.tsx` + `dashboardService`                                 | Completo, depende da API                |
+| Gestão de usuários e permissões Admin/Profissional                 | `src/routes/usuarios.tsx` + controles de autenticação                       | Completo, depende da API                |
+| LGPD/consentimento antes de prescrição                             | Bloqueio em detalhe do paciente e formulário de prescrição                  | Completo                                |
+| Rotinas/planos organizados                                         | Prescrição agrupa exercícios e parâmetros do plano                          | Parcial, sem entidade própria de rotina |
+| Avaliação funcional                                                | Campos clínicos no prontuário: dor, mobilidade, postura e plano terapêutico | Parcial, sem tela dedicada              |
+| Agenda/lembretes                                                   | `src/routes/agenda.tsx` e endpoints de consultas                            | Opcional/Extensão                       |
 
 ### Contratos REST integrados
 
 Além dos endpoints já consumidos por autenticação, pacientes, exercícios, prescrições, prontuários e dashboard, o web usa estes contratos alinhados com a API:
 
-| Recurso | Endpoint | Uso no web |
-|---------|----------|------------|
-| Execuções/check-ins | `GET /exercise-executions/patient/:patientId?page=1&pageSize=20` | Histórico de exercícios executados, dor e observações na aba Evolução do paciente. |
-| Desativar prescrição | `PATCH /prescriptions/:id/deactivate` | Encerrar plano ativo para que o paciente não veja mais no app. |
-| Listar usuários | `GET /users?page=1&pageSize=50` | Gestão administrativa de profissionais e admins. |
-| Status de usuário | `PATCH /users/:id/status` | Ativar/inativar usuário staff. |
-| Consultas/agenda (opcional) | `GET /appointments?startDate=&endDate=` | Exibição complementar no dashboard e calendário quando a API disponibiliza agenda. |
-| Criar consulta (opcional) | `POST /appointments` | Agenda semanal do painel profissional. |
-| Satisfação (opcional) | `GET /appointments/satisfaction` | Indicador simples complementar quando houver avaliações de atendimento. |
+| Recurso                     | Endpoint                                                         | Uso no web                                                                         |
+| --------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Execuções/check-ins         | `GET /exercise-executions/patient/:patientId?page=1&pageSize=20` | Histórico de exercícios executados, dor e observações na aba Evolução do paciente. |
+| Desativar prescrição        | `PATCH /prescriptions/:id/deactivate`                            | Encerrar plano ativo para que o paciente não veja mais no app.                     |
+| Listar usuários             | `GET /users?page=1&pageSize=50`                                  | Gestão administrativa de profissionais e admins.                                   |
+| Status de usuário           | `PATCH /users/:id/status`                                        | Ativar/inativar usuário staff.                                                     |
+| Consultas/agenda (opcional) | `GET /appointments?startDate=&endDate=`                          | Exibição complementar no dashboard e calendário quando a API disponibiliza agenda. |
+| Criar consulta (opcional)   | `POST /appointments`                                             | Agenda semanal do painel profissional.                                             |
+| Satisfação (opcional)       | `GET /appointments/satisfaction`                                 | Indicador simples complementar quando houver avaliações de atendimento.            |
 
 ### Integração ponta a ponta
 
@@ -166,21 +162,17 @@ Além dos endpoints já consumidos por autenticação, pacientes, exercícios, p
 - **Backend/API:** protege rotas por JWT/perfil, persiste dados clínicos, aplica LGPD e expõe `/exercise-executions/patient/:patientId`.
 - **Web:** mostra prescrições, bloqueia plano sem LGPD e exibe evolução/check-ins reais na aba do paciente.
 
-Para dados demo, rode a API com `SEED_DEMO_DATA=true` e siga o roteiro em `maya-rpg-api/docs/final-demo-roteiro.md`.
+Para dados demo, rode a API com `SEED_DEMO_DATA=true` e consulte o roteiro em `../../Documentos/Entrega2/ProgramacaoMobile/ROTEIRO_DEMONSTRACAO.md`.
 
 ### Validação local
 
 ```bash
 npm run build
-npm test -- --watch=false
+npm run lint
 ```
 
-Cobertura de testes atualmente protegida:
+Validações esperadas:
 
-- Guard de permissões ADMIN/PROFESSIONAL.
-- Login e armazenamento de tokens.
-- Filtros/paginação de pacientes via HTTP.
-- Bloqueio de prescrição sem aceite LGPD.
-- Navegação para novo prontuário a partir do paciente.
-- Upload de mídia rejeitando arquivos não-imagem.
-- Agenda usando API sem persistência local silenciosa.
+- build de produção pelo Vite.
+- lint com ESLint/Prettier.
+- integração com os contratos REST do backend.

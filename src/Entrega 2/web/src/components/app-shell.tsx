@@ -408,36 +408,36 @@ export function Badge({
 }
 
 export const Button = forwardRef<
- HTMLButtonElement,
- {
- children: ReactNode;
- variant?: "primary" | "ghost" | "outline" | "gold" | "soft";
- className?: string;
- asChild?: boolean;
- } & React.ButtonHTMLAttributes<HTMLButtonElement>
+  HTMLButtonElement,
+  {
+    children: ReactNode;
+    variant?: "primary" | "ghost" | "outline" | "gold" | "soft";
+    className?: string;
+    asChild?: boolean;
+  } & React.ButtonHTMLAttributes<HTMLButtonElement>
 >(({ children, variant = "primary", className = "", asChild = false, ...rest }, ref) => {
- const variants: Record<string, string> = {
- primary: "bg-primary text-primary-foreground hover:opacity-90 shadow-soft",
- gold: "bg-gold text-gold-foreground hover:opacity-90 shadow-soft",
- outline: "border border-border bg-card text-foreground hover:bg-muted",
- ghost: "text-foreground hover:bg-muted",
- soft: "bg-primary/10 text-primary hover:bg-primary/15",
- };
- const Comp = asChild ? Slot : "button";
- return (
- <Comp
- ref={ref}
- className={
- "inline-flex h-10 items-center gap-2 rounded-full px-4 text-sm font-medium transition disabled:opacity-50 " +
- variants[variant] +
- " " +
- className
- }
- {...rest}
- >
- {children}
- </Comp>
- );
+  const variants: Record<string, string> = {
+    primary: "bg-primary text-primary-foreground hover:opacity-90 shadow-soft",
+    gold: "bg-gold text-gold-foreground hover:opacity-90 shadow-soft",
+    outline: "border border-border bg-card text-foreground hover:bg-muted",
+    ghost: "text-foreground hover:bg-muted",
+    soft: "bg-primary/10 text-primary hover:bg-primary/15",
+  };
+  const Comp = asChild ? Slot : "button";
+  return (
+    <Comp
+      ref={ref}
+      className={
+        "inline-flex h-10 items-center gap-2 rounded-full px-4 text-sm font-medium transition disabled:opacity-50 " +
+        variants[variant] +
+        " " +
+        className
+      }
+      {...rest}
+    >
+      {children}
+    </Comp>
+  );
 });
 Button.displayName = "Button";
 
