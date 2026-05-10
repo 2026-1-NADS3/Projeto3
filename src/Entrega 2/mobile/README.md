@@ -53,6 +53,21 @@ Recursos em `app/src/main/res/`:
 
 ---
 
+## Validação Realizada
+
+Validação realizada em 10/05/2026:
+
+```bash
+gradlew.bat :app:testDebugUnitTest
+gradlew.bat :app:assembleDebug
+```
+
+Resultado: ambos os comandos finalizaram com código 0. No sandbox do Codex, o Gradle não conseguiu baixar a distribuição por bloqueio de rede (`Permission denied: getsockopt`); reexecutado fora do sandbox, testes unitários e build debug passaram.
+
+Essas validações sustentam a aderência aos requisitos da Entrega 2: API REST com JSON, persistência local com SQLite/Room, check-in por exercício, dor de 0 a 10, histórico/evolução, notificações, múltiplas Activities, Intents, Fragment real e layouts em ConstraintLayout.
+
+---
+
 ## 🛠️ Instruções de Configuração e Uso
 
 ### 1. Preparação do Ambiente

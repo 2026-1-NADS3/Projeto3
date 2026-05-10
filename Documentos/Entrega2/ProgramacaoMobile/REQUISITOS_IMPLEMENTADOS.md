@@ -30,6 +30,8 @@ Este documento resume a aderência da solução aos requisitos consolidados do P
 
 ## Mobile
 
+Validação objetiva em 10/05/2026: `gradlew.bat :app:testDebugUnitTest` e `gradlew.bat :app:assembleDebug` finalizaram com código 0 fora do sandbox.
+
 | Requisito | Implementação | Evidência / arquivo | Status |
 |---|---|---|---|
 | Cadastro e autenticação | Login com JWT e recuperação de acesso | README do mobile e fluxos de autenticação | OK |
@@ -55,6 +57,8 @@ Este documento resume a aderência da solução aos requisitos consolidados do P
 
 ## Web
 
+Validação objetiva em 10/05/2026: `npm run build` OK fora do sandbox e `npm run lint` OK com 8 warnings de Fast Refresh, sem erros.
+
 | Requisito | Implementação | Evidência / arquivo | Status |
 |---|---|---|---|
 | Gestão de pacientes | CRUD com busca, filtros e status | README do web | OK |
@@ -69,6 +73,8 @@ Este documento resume a aderência da solução aos requisitos consolidados do P
 
 ## Backend, API e Banco
 
+Validação objetiva em 10/05/2026: `npm run build` OK, `npm test -- --runInBand` OK com 6 suites e 23 testes, `docker compose config` OK.
+
 | Requisito | Implementação | Evidência / arquivo | Status |
 |---|---|---|---|
 | Autenticação | JWT, refresh token e proteção por perfil | README da API | OK |
@@ -79,6 +85,7 @@ Este documento resume a aderência da solução aos requisitos consolidados do P
 | Dockerfile.db | Artefato acadêmico mantido | Status validado da API | OK |
 | docker-compose.yml | API + DB com volume persistente | Status validado da API | OK |
 | Scripts | Automação em Shell mantida | Pasta scripts da API | OK |
+| Healthcheck | API em `/api/docs` e banco via `pg_isready` | docker-compose.yml | OK |
 
 ## Cloud Native e Linux
 

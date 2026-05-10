@@ -4,23 +4,22 @@
 
 A solução foi validada para demonstração acadêmica em ambiente local containerizado.
 
+Validação técnica atualizada em 10/05/2026.
+
 ## Escopo validado diretamente
 
-- Mobile: build OK, 15 testes OK, dor 0–10, Fragment real, ConstraintLayout, Room, Retrofit, SyncWorker, FCM/ReminderWorker.
-- Cloud/API containerizada: `npm ci` OK, build OK, 23 testes OK, Docker Compose OK, API e DB healthy, `/api/docs` OK, scripts mantidos (setup, monitoramento, backup, manage_services, deploy).
+- Mobile: build debug OK, testes unitários OK, dor 0–10, Fragment real, ConstraintLayout, Room, Retrofit, SyncWorker, FCM/ReminderWorker.
+- Cloud/API containerizada: build OK, 23 testes OK, Docker Compose config OK, healthchecks documentados para API e DB, scripts mantidos (setup, monitoramento, backup, manage_services, deploy).
 
 O módulo Web é apresentado como módulo complementar validado por build e não representa o escopo principal individual.
 
 ## Backend / API
 
-- npm ci OK.
-- npm run build OK.
-- npm test OK, com 6 suites e 23 testes.
-- docker compose config OK.
-- docker compose up --build -d OK.
-- API healthy.
-- DB healthy.
-- Swagger em /api/docs OK.
+- `npm run build` OK.
+- `npm test -- --runInBand` OK, com 6 suites e 23 testes.
+- `docker compose config` OK.
+- `docker compose up --build -d` permanece como fluxo documentado de demonstração.
+- API healthy, DB healthy e Swagger em `/api/docs` quando os containers estão em execução.
 
 ### Observações da API
 
@@ -35,8 +34,8 @@ O módulo Web é apresentado como módulo complementar validado por build e não
 
 ## Mobile
 
-- build OK.
-- 15 testes OK.
+- `gradlew.bat :app:testDebugUnitTest` OK.
+- `gradlew.bat :app:assembleDebug` OK.
 - API REST/Retrofit OK.
 - JSON/Gson OK.
 - SQLite/Room OK.
@@ -56,16 +55,22 @@ O módulo Web é apresentado como módulo complementar validado por build e não
 ## Web
 
 - módulo complementar.
-- npm install OK.
-- npm run build OK.
-- lint com pendência de Prettier/CRLF legado.
+- dependências locais presentes.
+- `npm run build` OK fora do sandbox; no sandbox houve bloqueio de acesso do Vite/esbuild a diretórios do usuário.
+- `npm run lint` OK, com 8 warnings de Fast Refresh e 0 erros.
 - rotas, services e integração com API mantidos.
 - src/environments e src/assets/images/login removidos por estarem vazios.
+
+### Observações de validação
+
+- O build web emitiu aviso de chunk JavaScript acima de 500 kB; é melhoria futura, não erro de entrega.
+- Os comandos Gradle falharam inicialmente no sandbox por bloqueio de rede ao baixar a distribuição (`Permission denied: getsockopt`) e passaram quando reexecutados fora do sandbox.
+- O `docker compose config` validou serviços `api` e `db`, rede interna, volume persistente `pg_data`, healthchecks e variáveis de ambiente.
 
 ## Segurança e entrega
 
 - .env não foi enviado.
-- node_modules, dist e build não foram enviados.
+- node_modules, dist e build não estão versionados para envio.
 - backups e artefatos gerados não foram enviados.
 - o npm audit da API apontou vulnerabilidades, mas npm audit fix não foi executado para evitar quebra de dependências antes da entrega.
 

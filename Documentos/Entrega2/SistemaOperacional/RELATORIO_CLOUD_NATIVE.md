@@ -29,6 +29,12 @@ O docker-compose.yml utiliza a imagem oficial do PostgreSQL para execução loca
 
 Mesmo quando o ambiente usa imagem pronta do PostgreSQL no compose, o arquivo é mantido como evidência do requisito acadêmico.
 
+### Validação em 10/05/2026
+
+- `docker compose config` executado com sucesso.
+- A configuração resolvida contém `api` e `db`, rede `maya-network`, volume `pg_data`, bind mounts para `uploads` e `logs`, healthcheck da API em `/api/docs` e healthcheck do PostgreSQL via `pg_isready`.
+- O Docker emitiu aviso de acesso ao arquivo local `C:\Users\nelso\.docker\config.json` no sandbox, sem impedir a validação do Compose.
+
 ## 3. Docker Compose
 
 O docker-compose.yml organiza:
@@ -102,7 +108,23 @@ Scripts mantidos:
 - manage_services.sh: inicia, para, consulta status e reinicia serviços.
 - deploy.sh: automatiza o fluxo de deploy com Docker.
 
-## 7. Recursos de Shell documentados
+## 7. Matriz de aderência ao PDF
+
+| Exigência da Entrega 2 | Arquivo / evidência | Aderência |
+| --- | --- | --- |
+| Containerizar a API REST | `src/Entrega 2/backend/Dockerfile` | Atendido |
+| Preparar banco em container | `src/Entrega 2/backend/Dockerfile.db` e serviço `db` no Compose | Atendido |
+| Orquestrar API + BD | `src/Entrega 2/backend/docker-compose.yml` | Atendido |
+| Volume persistente | volume nomeado `pg_data` | Atendido |
+| Variáveis de ambiente | `.env.example`, `.env` local e bloco `environment` do Compose | Atendido |
+| Script de deploy automatizado | `scripts/deploy.sh` | Atendido |
+| Setup de ambiente | `scripts/setup_env.sh` | Atendido |
+| Monitoramento de CPU/memória/disco/logs | `scripts/monitor_system.sh` | Atendido |
+| Backup de banco | `scripts/backup_db.sh` | Atendido |
+| Gerenciamento de processos | `scripts/manage_services.sh` | Atendido |
+| Demonstração de pipes/redirecionamento/env/cron/permissões | scripts e exemplos de cron no README do backend | Atendido |
+
+## 8. Recursos de Shell documentados
 
 A documentação da solução contempla:
 
@@ -114,7 +136,7 @@ A documentação da solução contempla:
 
 Esses recursos demonstram uso prático de Linux e automação de tarefas.
 
-## 8. Estratégia de persistência
+## 9. Estratégia de persistência
 
 ### Ambiente tradicional
 
@@ -129,7 +151,7 @@ Esses recursos demonstram uso prático de Linux e automação de tarefas.
 - ambiente previsível para demonstração;
 - menor risco de incompatibilidade entre versões.
 
-## 9. Vantagens da containerização
+## 10. Vantagens da containerização
 
 - instalação mais controlada;
 - facilidade para replicar o ambiente;
@@ -138,7 +160,7 @@ Esses recursos demonstram uso prático de Linux e automação de tarefas.
 - maior previsibilidade na demonstração;
 - menor acoplamento ao sistema operacional local.
 
-## 10. Como os scripts ajudam o ciclo de desenvolvimento
+## 11. Como os scripts ajudam o ciclo de desenvolvimento
 
 Os scripts reduzem tarefas manuais e ajudam em:
 
@@ -150,6 +172,6 @@ Os scripts reduzem tarefas manuais e ajudam em:
 
 Isso melhora a manutenção do projeto e a reprodutibilidade da entrega.
 
-## 11. Conclusão
+## 12. Conclusão
 
 A solução backend foi estruturada para funcionar em ambiente local containerizado, com API, banco, persistência, automação e documentação compatíveis com a Entrega 2.

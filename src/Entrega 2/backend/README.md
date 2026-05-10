@@ -27,6 +27,14 @@ npm run build
 npm test -- --runInBand
 ```
 
+Validação realizada em 10/05/2026:
+
+- `npm run build`: OK.
+- `npm test -- --runInBand`: OK, 6 suites e 23 testes.
+- `docker compose config`: OK, com API, PostgreSQL, volume `pg_data`, bind mounts de `uploads`/`logs`, healthchecks e variáveis de ambiente resolvidas via `.env`.
+
+Observação de ambiente: o Docker mostrou aviso de acesso ao arquivo local `C:\Users\nelso\.docker\config.json` dentro do sandbox, mas isso não impediu a validação da configuração do Compose.
+
 ## Módulos Principais
 
 - `auth`: login, refresh, logout, recuperação de senha, criação de staff e aceite LGPD.
@@ -178,6 +186,18 @@ docker compose logs -f api
 # rollback
 ./scripts/deploy.sh --rollback
 ```
+
+### Aderência Cloud Native da Entrega 2
+
+| Requisito do PDF | Artefato no projeto | Situação |
+| --- | --- | --- |
+| Dockerfile da API REST | `Dockerfile` com build/runtime Node 20 Alpine | Atendido |
+| Dockerfile do banco | `Dockerfile.db` baseado em PostgreSQL 16 Alpine | Atendido como artefato acadêmico |
+| Orquestração API + BD | `docker-compose.yml` com serviços `api` e `db` | Atendido |
+| Volume persistente | volume `pg_data` para PostgreSQL | Atendido |
+| Variáveis de ambiente | `.env.example`, `.env` local e parâmetros no Compose | Atendido |
+| Script de deploy | `scripts/deploy.sh` com build, backup, migrações, healthcheck e rollback | Atendido |
+| Scripts Linux obrigatórios | `setup_env.sh`, `monitor_system.sh`, `backup_db.sh`, `manage_services.sh` | Atendido |
 
 - Agendamento via cron (exemplo):
 

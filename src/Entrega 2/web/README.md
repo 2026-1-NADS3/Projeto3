@@ -171,8 +171,10 @@ npm run build
 npm run lint
 ```
 
-Validações esperadas:
+Validação realizada em 10/05/2026:
 
-- build de produção pelo Vite.
-- lint com ESLint/Prettier.
-- integração com os contratos REST do backend.
+- `npm run build`: OK fora do sandbox; dentro do sandbox o Vite/esbuild recebeu `Access is denied` ao resolver diretórios do usuário.
+- `npm run lint`: OK, sem erros e com 8 warnings de Fast Refresh (`react-refresh/only-export-components`).
+- Integração com os contratos REST do backend conferida nos services.
+
+Observação: o build gerou apenas aviso de bundle acima de 500 kB. Isso não bloqueia a Entrega 2, mas pode ser melhorado depois com code splitting ou `manualChunks`.

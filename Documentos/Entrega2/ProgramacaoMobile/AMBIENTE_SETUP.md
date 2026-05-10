@@ -94,7 +94,8 @@ No Windows, usar o wrapper do Gradle com o terminal do projeto mobile:
 
 ### Observações do web
 
-- O lint apresenta pendência de Prettier e CRLF legado, sem impacto na validação do build.
+- O lint atual passa com 0 erros e 8 warnings de Fast Refresh (`react-refresh/only-export-components`), sem impacto na validação da entrega.
+- O build web passou fora do sandbox. Dentro do sandbox do Codex, o Vite/esbuild pode falhar por bloqueio de acesso a diretórios do usuário.
 - O módulo web integra com o backend e não deve ser tratado como projeto isolado.
 
 ## Observações de ambiente
@@ -106,7 +107,7 @@ No Windows, usar o wrapper do Gradle com o terminal do projeto mobile:
 
 ## Resumo do fluxo de validação
 
-1. Backend: npm ci, build, testes e Docker.
+1. Backend: build, testes e Docker Compose.
 2. Mobile: build e testes via Gradle wrapper.
-3. Web: install, build e lint quando necessário.
+3. Web: build e lint.
 4. Demonstração final: verificar containers saudáveis e navegação entre os módulos.

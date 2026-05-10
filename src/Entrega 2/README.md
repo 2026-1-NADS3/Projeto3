@@ -35,15 +35,13 @@ O conjunto está preparado para demonstração acadêmica em ambiente local cont
 
 O backend centraliza os dados clínicos e expõe os contratos consumidos pelo mobile e pelo web.
 
-Status validado:
+Status validado em 10/05/2026:
 
-- npm ci OK.
 - npm run build OK.
 - npm test OK, com 6 suites e 23 testes.
 - docker compose config OK.
-- docker compose up --build -d OK.
-- API healthy.
-- DB healthy.
+- docker compose up --build -d é o fluxo de demonstração documentado.
+- API healthy e DB healthy quando os containers estiverem em execução.
 - Swagger em /api/docs OK.
 
 Artefatos mantidos:
@@ -67,7 +65,7 @@ Como rodar o backend:
 O aplicativo Android foi validado com:
 
 - build OK.
-- 15 testes OK.
+- testes unitários OK via Gradle.
 - API REST/Retrofit OK.
 - JSON/Gson OK.
 - SQLite/Room OK.
@@ -93,13 +91,15 @@ Como rodar o mobile:
 
 O web atua como módulo complementar para o profissional e o admin.
 
-Status validado:
+Status validado em 10/05/2026:
 
 - npm install OK.
 - npm run build OK.
-- npm run lint OK.
+- npm run lint OK, com 8 warnings de Fast Refresh do React, sem erros.
 - rotas, services e integração com a API mantidos.
 - web implementado em React + Vite + TanStack Router.
+
+Observação: no sandbox do Codex, o build web falhou por bloqueio de acesso do Vite/esbuild a diretórios do usuário. Reexecutado fora do sandbox, o build passou; permaneceu apenas o aviso de chunk JavaScript acima de 500 kB.
 
 Cobertura funcional do web:
 
