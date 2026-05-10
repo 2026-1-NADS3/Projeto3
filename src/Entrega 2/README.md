@@ -131,15 +131,6 @@ npm run dev                 # http://localhost:5173
 
 ---
 
-## ⚠️ Observações Importantes
-
-- O arquivo `.env` **não deve** ser versionado — use `.env.example` como base.
-- Não versionar `node_modules`, `dist`, `build`, `logs` ou backups gerados.
-- O `google-services.json` é configuração cliente do Firebase — **não** contém chaves privadas de servidor.
-- O `npm audit` da API apontou vulnerabilidades; `npm audit fix` foi omitido intencionalmente para não quebrar dependências antes da entrega.
-
----
-
 <div align="center">
 
 **Equipe TechCare** · FECAP — Centro Universitário · ADS 2026
