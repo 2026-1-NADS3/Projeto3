@@ -1,79 +1,112 @@
-# Sistema Mobile – Clínica Maya Yoshiko Yamamoto (Fisioterapia RPG)
+<div align="center">
 
-Este repositório contém o aplicativo Android desenvolvido para a **Clínica Maya Yoshiko Yamamoto**, como parte do Projeto Interdisciplinar do 3º Semestre de Análise e Desenvolvimento de Sistemas (2026).
+![Android](https://img.shields.io/badge/Android-34A853?style=for-the-badge&logo=android&logoColor=white)
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 
-O sistema permite que pacientes visualizem seus planos de exercícios prescritos, realizem o registro de execução (check-in) com acompanhamento de nível de dor, e visualizem seu histórico de evolução.
+<br/>
 
-## 🚀 Tecnologias Utilizadas
+# 📱 Maya RPG Mobile
+### Aplicativo Android do Paciente
 
-- **Linguagem**: Java (Android SDK)
-- **Interface**: Layouts baseados 100% em `ConstraintLayout`.
-- **Rede**: Retrofit 2 para consumo de API REST (JSON).
-- **Persistência Local**: Room Persistence Library (SQLite) para cache offline.
-- **Background**: WorkManager para sincronização de dados em segundo plano.
-- **Notificações**: Firebase Cloud Messaging (FCM) e WorkManager (Lembretes Locais).
-- **Gráficos**: MPAndroidChart para visualização de evolução da dor.
+*Clínica Maya Yoshiko Yamamoto — PI 3ADS FECAP 2026*
+
+</div>
+
+---
+
+## 📖 Sobre
+
+Aplicativo Android desenvolvido para a **Clínica Maya Yoshiko Yamamoto** como parte do Projeto Interdisciplinar do 3º Semestre de ADS (FECAP, 2026).
+
+Permite que pacientes **visualizem seus planos de exercícios**, **registrem execuções (check-in)** com nível de dor, e **acompanhem sua evolução** ao longo do tratamento.
+
+---
+
+## 🛠️ Stack de Tecnologias
+
+| Categoria | Tecnologia | Função |
+|-----------|-----------|--------|
+| ![Java](https://img.shields.io/badge/Java-ED8B00?style=flat&logo=openjdk&logoColor=white) | Java (Android SDK) | Linguagem principal |
+| ![Retrofit](https://img.shields.io/badge/Retrofit-48B983?style=flat&logoColor=white) | Retrofit 2 | Consumo da API REST / JSON |
+| ![SQLite](https://img.shields.io/badge/Room%20%2F%20SQLite-003B57?style=flat&logo=sqlite&logoColor=white) | Room + SQLite | Persistência local e cache offline |
+| ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat&logo=firebase&logoColor=black) | Firebase Cloud Messaging | Push notifications |
+| ⚙️ | WorkManager | Sincronização em segundo plano e lembretes |
+| 📊 | MPAndroidChart | Gráficos de evolução da dor |
+| 🧩 | ConstraintLayout | Todos os layouts de interface |
+
+---
 
 ## 📂 Estrutura do Projeto
 
-O projeto segue uma organização modular por pacotes dentro de `app/src/main/java/com/maya/rpg/`:
-
-```text
-├── api/            # Configurações do Retrofit, Interface da API e Gestão de Tokens (JWT).
-├── db/             # Camada de persistência local (Room): Database, DAOs e Entidades.
-├── fcm/            # Serviços e configurações do Firebase Cloud Messaging.
-├── model/          # Modelos de dados (POJOs) para requisições e respostas da API.
-├── ui/             # Camada de Interface do Usuário organizada por funcionalidades:
-│   ├── auth/       # Login e recuperação de senha.
-│   ├── home/       # Dashboard principal do paciente.
-│   ├── exercises/  # Listagem e execução (check-in) de exercícios.
-│   ├── evolution/  # Visualização de gráficos e histórico de progresso.
-│   └── splash/     # Tela de abertura e carregamento inicial.
-├── worker/         # Workers do WorkManager para sincronização offline em segundo plano.
-├── notifications/  # Helpers para criação e exibição de notificações locais.
-└── MayaApplication.java # Inicialização global do App e configurações de contexto.
-
-Recursos em `app/src/main/res/`:
-├── layout/         # Arquivos XML de definição de interface (ConstraintLayout).
-├── drawable/       # Ícones, backgrounds e recursos visuais customizados.
-├── values/         # Definições de cores (palette), strings e estilos (themes).
-└── menu/           # Definições de menus da barra superior e navegação.
 ```
+app/src/main/java/com/maya/rpg/
+│
+├── 📁 api/             # Retrofit, interface da API e gestão de tokens JWT
+├── 📁 db/              # Room: Database, DAOs e Entidades
+├── 📁 fcm/             # Firebase Cloud Messaging
+├── 📁 model/           # POJOs para requisições e respostas da API
+│
+├── 📁 ui/
+│   ├── 📁 auth/        # Login e recuperação de senha
+│   ├── 📁 home/        # Dashboard principal do paciente
+│   ├── 📁 exercises/   # Listagem e check-in de exercícios
+│   ├── 📁 evolution/   # Gráficos e histórico de progresso
+│   └── 📁 splash/      # Tela de abertura
+│
+├── 📁 worker/          # WorkManager — sincronização offline
+├── 📁 notifications/   # Helpers para notificações locais
+└── MayaApplication.java
 
-
-## ✅ Status da Entrega 2
-
-- [x] **Consumo de API**: Integração completa com o backend NestJS.
-- [x] **Autenticação**: Login via Email/CPF com persistência de Token JWT.
-- [x] **Persistência Offline**: Cache de exercícios e sessões via SQLite.
-- [x] **Check-in por Exercício**: Registro de execução com `exerciseId`, escala de dor (0-10) e notas.
-- [x] **Evolução do Paciente**: Gráficos dinâmicos de progresso semanal.
-- [x] **Notificações**: Lembretes diários e suporte a Push Notifications.
-- [x] **Infraestrutura**: Configuração de Base URL flexível para testes.
+app/src/main/res/
+├── 📁 layout/          # XMLs de interface (ConstraintLayout)
+├── 📁 drawable/        # Ícones, backgrounds e recursos visuais
+├── 📁 values/          # Cores, strings e temas
+└── 📁 menu/            # Menus de navegação
+```
 
 ---
 
-## Validação Realizada
+## ✅ Requisitos Implementados — Entrega 2
 
-Validação realizada em 10/05/2026:
-
-```bash
-gradlew.bat :app:testDebugUnitTest
-gradlew.bat :app:assembleDebug
-```
-
-Resultado: ambos os comandos finalizaram com código 0. No sandbox do Codex, o Gradle não conseguiu baixar a distribuição por bloqueio de rede (`Permission denied: getsockopt`); reexecutado fora do sandbox, testes unitários e build debug passaram.
-
-Essas validações sustentam a aderência aos requisitos da Entrega 2: API REST com JSON, persistência local com SQLite/Room, check-in por exercício, dor de 0 a 10, histórico/evolução, notificações, múltiplas Activities, Intents, Fragment real e layouts em ConstraintLayout.
+| Requisito | Status |
+|-----------|:------:|
+| Consumo de API REST via Retrofit + JSON/Gson | ✅ |
+| Autenticação JWT (login por e-mail ou CPF) | ✅ |
+| Persistência offline com Room (SQLite) | ✅ |
+| Check-in por exercício com `exerciseId` | ✅ |
+| Nível de dor 0–10 via Slider | ✅ |
+| Campo de observações no check-in | ✅ |
+| Sincronização automática ao reconectar (WorkManager) | ✅ |
+| Histórico e evolução do paciente | ✅ |
+| Gráfico de progresso (MPAndroidChart) | ✅ |
+| Push notifications (FCM) | ✅ |
+| Lembretes locais (WorkManager) | ✅ |
+| Aceite de LGPD integrado ao fluxo de autenticação | ✅ |
+| Fragment real em `ExercisePlanActivity` | ✅ |
+| Múltiplas Activities com Intents | ✅ |
+| Layouts 100% em ConstraintLayout | ✅ |
+| TextView, ImageView e Button | ✅ |
 
 ---
 
-## 🛠️ Instruções de Configuração e Uso
+## ⚙️ Configuração
 
-### 1. Preparação do Ambiente
-O app está apontado para a API hospedada por `BuildConfig.API_BASE_URL`:
+### Pré-requisitos
 
-```kotlin
+- Java instalado e configurado
+- Android Studio com SDK configurado
+- `google-services.json` presente em `app/`
+- Backend rodando localmente ou em produção
+
+> ℹ️ O `google-services.json` é o arquivo de configuração **cliente** do Firebase/FCM. Não contém chaves privadas de servidor.
+
+### URL da API
+
+Configurada em `app/build.gradle.kts`:
+
+```groovy
 buildConfigField(
     "String",
     "API_BASE_URL",
@@ -81,48 +114,91 @@ buildConfigField(
 )
 ```
 
-Para testar localmente, altere `API_BASE_URL` em `app/build.gradle.kts` para `http://10.0.2.2:3000/api/` no emulador Android ou para o IP da sua máquina em dispositivo físico.
+Para testes locais, substitua pela URL adequada:
 
-### 2. Fluxo de Uso
-1. **Login**: Utilize o e-mail cadastrado. No primeiro acesso, sua senha será o seu **CPF** (apenas números).
-2. **Plano de Exercícios**: Na Home, clique em "Meus Exercícios". Caso esteja sem internet, o app carregará a última versão salva.
-3. **Realizar Check-in**:
-   - Escolha o exercício realizado no seletor da tela.
-   - Arraste a barra para indicar seu **Nível de Dor** (0 a 10).
-   - Adicione uma observação (opcional) e clique em **Registrar Treino**.
-   - Se estiver offline, o app salvará localmente e sincronizará automaticamente quando a internet voltar.
-4. **Histórico**: Acesse "Minha Evolução" para ver o gráfico de dor e a lista de sessões concluídas.
+| Ambiente | URL |
+|----------|-----|
+| Emulador Android | `http://10.0.2.2:3000/api/` |
+| Dispositivo físico | `http://<IP_DA_MAQUINA>:3000/api/` |
 
-### 3. Contrato de Check-in
+### Build e testes
 
-O app envia para `POST /api/check-ins` e `POST /api/check-ins/sync`:
+```bash
+gradlew.bat :app:assembleDebug
+gradlew.bat :app:testDebugUnitTest
+```
+
+Ambos os comandos finalizaram com código 0. Validado em **10/05/2026**.
+
+> ⚠️ No sandbox do Codex, o Gradle falhou ao baixar a distribuição por bloqueio de rede (`Permission denied: getsockopt`). Reexecutado fora do sandbox, testes e build passaram normalmente.
+
+---
+
+## 📱 Fluxo de Uso
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                      FLUXO DO PACIENTE                      │
+│                                                             │
+│  [Login]──▶[Aceite LGPD]──▶[Home / Dashboard]              │
+│                                   │                         │
+│              ┌────────────────────┼──────────────────┐      │
+│              ▼                    ▼                  ▼      │
+│       [Meus Exercícios]    [Realizar Check-in]  [Evolução]  │
+│        (lista + mídia)     (exercício + dor     (gráfico +  │
+│                             0–10 + notas)       histórico)  │
+│                                   │                         │
+│                    ┌──────────────┴──────────────┐          │
+│                    │         Sem internet?        │          │
+│                    ▼                             ▼          │
+│             [Salva no Room]          [Sync automático       │
+│                                       ao reconectar]        │
+└─────────────────────────────────────────────────────────────┘
+```
+
+1. **Login** — informe o e-mail cadastrado. No primeiro acesso, a senha é o CPF (apenas números).
+2. **Aceite LGPD** — exibido no primeiro acesso; obrigatório para prosseguir.
+3. **Plano de exercícios** — toque em "Meus Exercícios" na Home. Sem internet, carrega o último cache salvo.
+4. **Check-in:**
+   - Selecione o exercício realizado.
+   - Ajuste o slider para o **nível de dor** (0–10).
+   - Adicione uma observação (opcional) e toque em **Registrar Treino**.
+   - Offline: salva localmente e sincroniza ao reconectar.
+5. **Histórico** — toque em "Minha Evolução" para ver o gráfico de dor e as sessões concluídas.
+
+---
+
+## 🔗 Contrato de Check-in
+
+Enviado para `POST /api/check-ins` (online) ou `POST /api/check-ins/sync` (sincronização em lote):
 
 ```json
 {
   "prescriptionId": "uuid-da-prescricao",
-  "exerciseId": "uuid-do-exercicio",
-  "painLevel": 4,
-  "notes": "Executei sem dor aguda",
-  "executedAt": "2026-05-02T12:00:00.000Z"
+  "exerciseId":     "uuid-do-exercicio",
+  "painLevel":      4,
+  "notes":          "Executei sem dor aguda",
+  "executedAt":     "2026-05-02T12:00:00.000Z"
 }
 ```
 
-O Room guarda a sessão localmente em `exercise_sessions` e sincroniza quando houver internet.
-
-### 4. Build
-
-```bash
-./gradlew :app:assembleDebug
-```
+A sessão é armazenada localmente na tabela `exercise_sessions` (Room/SQLite) e sincronizada com o backend quando há conexão disponível.
 
 ---
 
-## 📄 Documentação Adicional
-- [Requisitos implementados](../../../Documentos/Entrega2/ProgramacaoMobile/REQUISITOS_IMPLEMENTADOS.md)
-- [Roteiro de demonstração](../../../Documentos/Entrega2/ProgramacaoMobile/ROTEIRO_DEMONSTRACAO.md)
-- [Setup de ambiente](../../../Documentos/Entrega2/ProgramacaoMobile/AMBIENTE_SETUP.md)
-- [Validação final](../../../Documentos/Entrega2/ProgramacaoMobile/VALIDACAO_FINAL.md)
+## 📚 Documentação Adicional
+
+| Documento | Link |
+|-----------|------|
+| 📋 Requisitos Implementados | [REQUISITOS_IMPLEMENTADOS.md](../../Documentos/Entrega2/ProgramacaoMobile/REQUISITOS_IMPLEMENTADOS.md) |
+| 🎬 Roteiro de Demonstração | [ROTEIRO_DEMONSTRACAO.md](../../Documentos/Entrega2/ProgramacaoMobile/ROTEIRO_DEMONSTRACAO.md) |
+| ⚙️ Setup de Ambiente | [AMBIENTE_SETUP.md](../../Documentos/Entrega2/ProgramacaoMobile/AMBIENTE_SETUP.md) |
+| 🔍 Validação Final | [VALIDACAO_FINAL.md](../../Documentos/Entrega2/ProgramacaoMobile/VALIDACAO_FINAL.md) |
 
 ---
-**Equipe**: Maya RPG Dev Team  
-**Instituição**: Centro Universitário (ADS 2026)
+
+<div align="center">
+
+**Equipe TechCare** · FECAP — Centro Universitário · ADS 2026
+
+</div>
