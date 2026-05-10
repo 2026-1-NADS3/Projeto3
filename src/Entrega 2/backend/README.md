@@ -1,212 +1,275 @@
-# Maya RPG API
+<div align="center">
 
-Backend REST da solução Clínica Maya RPG para integrar o painel web profissional/admin, o aplicativo mobile do paciente e o banco de dados.
+![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
 
-## Stack
+<br/>
 
-- NestJS + TypeScript
-- TypeORM + PostgreSQL
-- JWT, refresh token e hash de senhas com bcrypt
-- Guards globais de autenticação, perfis e rate limit
-- Swagger em `/api/docs`
+# 🔧 Maya RPG API
+### Backend REST da Clínica Maya
 
-> Observação: a API mantida é a implementação NestJS em `src/*.ts`. O esqueleto Spring Boot/Maven legado foi removido para evitar duplicidade de stack e arquivos gerados versionados.
+*Clínica Maya Yoshiko Yamamoto — PI 3ADS FECAP 2026*
 
-## Setup
+</div>
+
+---
+
+## 📖 Sobre
+
+Backend REST que integra o **painel web** (profissional/admin), o **aplicativo mobile** (paciente) e o **banco de dados** da Clínica Maya. Centraliza autenticação, dados clínicos, prescrições, check-ins e infraestrutura containerizada.
+
+> A implementação mantida é a API NestJS em `src/*.ts`. O esqueleto Spring Boot/Maven foi removido para eliminar duplicidade de stack.
+
+---
+
+## 🛠️ Stack de Tecnologias
+
+| Categoria | Tecnologia | Função |
+|-----------|-----------|--------|
+| ![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=flat&logo=nestjs&logoColor=white) | NestJS + TypeScript | Framework e linguagem principal |
+| ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat&logo=postgresql&logoColor=white) | TypeORM + PostgreSQL | ORM e banco de dados |
+| ![JWT](https://img.shields.io/badge/JWT-000000?style=flat&logo=jsonwebtokens&logoColor=white) | JWT + bcrypt | Autenticação e hash de senhas |
+| ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white) | Docker + Compose | Containerização e orquestração |
+| 📖 | Swagger (`/api/docs`) | Documentação automática da API |
+| 🛡️ | Guards + Rate Limiting | Segurança e controle de acesso |
+
+---
+
+## 🚀 Setup Local
 
 ```bash
 npm install
-cp .env.example .env
+cp .env.example .env    # preencher as variáveis necessárias
 npm run start:dev
 ```
 
-Validação local:
+### Validação
 
 ```bash
 npm run build
 npm test -- --runInBand
 ```
 
-Validação realizada em 10/05/2026:
+> Validação realizada em **10/05/2026**:
+> - `npm run build` → ✅ OK
+> - `npm test -- --runInBand` → ✅ 6 suites · 23 testes
+> - `docker compose config` → ✅ OK (serviços `api` e `db`, volume `pg_data`, healthchecks e variáveis resolvidas)
 
-- `npm run build`: OK.
-- `npm test -- --runInBand`: OK, 6 suites e 23 testes.
-- `docker compose config`: OK, com API, PostgreSQL, volume `pg_data`, bind mounts de `uploads`/`logs`, healthchecks e variáveis de ambiente resolvidas via `.env`.
+---
 
-Observação de ambiente: o Docker mostrou aviso de acesso ao arquivo local `C:\Users\nelso\.docker\config.json` dentro do sandbox, mas isso não impediu a validação da configuração do Compose.
+## 🧩 Módulos da API
 
-## Módulos Principais
+| Módulo | Responsabilidade |
+|--------|-----------------|
+| `auth` | Login, refresh, logout, recuperação de senha, criação de staff e aceite LGPD |
+| `patients` | CRUD de pacientes, vínculo com usuário e status ativo/inativo/pendente |
+| `exercises` | Banco de exercícios com tags, mídia, vídeo e instruções |
+| `prescriptions` | Planos prescritos por paciente (bloqueados se LGPD pendente) |
+| `check-ins` | Registro e sincronização de execuções pelo app mobile |
+| `exercise-executions` | Alias REST para o web consultar histórico de check-ins por paciente |
+| `medical-records` | Prontuário eletrônico e histórico clínico |
+| `users` | Gestão admin de usuários profissionais/admins |
+| `upload` | Upload único e múltiplo de mídias |
+| `dashboard` | Indicadores simples e evolução de dor |
+| `me/lgpd` | Exportação e anonimização de dados do usuário autenticado |
 
-- `auth`: login, refresh, logout, recuperação de senha, criação de staff e aceite LGPD.
-- `patients`: CRUD de pacientes, vínculo com usuário paciente e status ativo/inativo/pendente.
-- `exercises`: banco de exercícios com tags, mídia, vídeo e instruções.
-- `prescriptions`: planos prescritos por paciente, com bloqueio se LGPD estiver pendente.
-- `check-ins`: registro e sincronização de execuções pelo paciente.
-- `exercise-executions`: alias REST para o web consultar histórico de check-ins por paciente.
-- `medical-records`: prontuário eletrônico e histórico clínico.
-- `users`: gestão admin de usuários profissionais/admins.
-- `upload`: upload único e múltiplo de mídias.
-- `dashboard`: indicadores simples e evolução de dor.
-- `me/lgpd`: exportação e anonimização de dados do usuário autenticado.
+---
 
-## Contratos Usados Pelo Web E Mobile
+## 🔗 Contratos REST
 
 ### Autenticação
 
-- `POST /api/auth/login`
-- `POST /api/auth/refresh`
-- `POST /api/auth/logout`
-- `POST /api/auth/recover-password`
-- `POST /api/auth/reset-password`
-- `GET /api/auth/me`
-- `GET /api/auth/lgpd-policy`
-- `POST /api/auth/accept-lgpd`
-- `PATCH /api/auth/fcm-token`
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| `POST` | `/api/auth/login` | Login com e-mail e senha |
+| `POST` | `/api/auth/refresh` | Renova o access token |
+| `POST` | `/api/auth/logout` | Encerra a sessão |
+| `POST` | `/api/auth/recover-password` | Solicita recuperação de senha |
+| `POST` | `/api/auth/reset-password` | Redefine a senha |
+| `GET` | `/api/auth/me` | Dados do usuário autenticado |
+| `GET` | `/api/auth/lgpd-policy` | Texto da política LGPD |
+| `POST` | `/api/auth/accept-lgpd` | Registra aceite — sincroniza `Patient.lgpdConsentAt` |
+| `PATCH` | `/api/auth/fcm-token` | Atualiza token FCM do dispositivo |
 
-O aceite em `/auth/accept-lgpd` atualiza o usuário autenticado e, quando existir vínculo, sincroniza `Patient.lgpdConsentAt`.
+### Pacientes, Prontuários e Prescrições
 
-### Pacientes, Prontuários E Prescrições
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| `GET` | `/api/patients` | Lista pacientes (`page`, `pageSize`, `search`, `status`) |
+| `POST` | `/api/patients` | Cria paciente |
+| `PATCH` | `/api/patients/:id` | Atualiza paciente |
+| `GET` | `/api/medical-records/patient/:patientId` | Histórico clínico |
+| `POST` | `/api/medical-records` | Cria entrada no prontuário |
+| `GET` | `/api/prescriptions/my` | Prescrições do paciente autenticado |
+| `GET` | `/api/prescriptions/patient/:patientId` | Prescrições por paciente (staff) |
+| `POST` | `/api/prescriptions` | Cria prescrição (requer LGPD aceita) |
+| `PATCH` | `/api/prescriptions/:id/deactivate` | Desativa uma prescrição |
 
-- `GET /api/patients?page=&pageSize=&search=&status=`
-- `POST /api/patients`
-- `PATCH /api/patients/:id`
-- `GET /api/medical-records/patient/:patientId`
-- `POST /api/medical-records`
-- `GET /api/prescriptions/my`
-- `GET /api/prescriptions/patient/:patientId`
-- `POST /api/prescriptions`
-- `PATCH /api/prescriptions/:id/deactivate`
+### Exercícios, Check-ins e Execuções
 
-Prescrições só podem ser criadas para pacientes com LGPD aceita.
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| `GET` | `/api/exercises` | Lista exercícios |
+| `GET` | `/api/exercises/:id` | Detalhe de um exercício |
+| `POST` | `/api/check-ins` | Registra check-in (online) |
+| `POST` | `/api/check-ins/sync` | Sincroniza check-ins offline (em lote) |
+| `GET` | `/api/check-ins/my-history` | Histórico de check-ins do paciente |
+| `GET` | `/api/exercise-executions/patient/:patientId` | Histórico por paciente (`page`, `pageSize`) |
 
-### Exercícios E Execuções
+**Payload esperado pelo mobile:**
 
-- `GET /api/exercises`
-- `GET /api/exercises/:id`
-- `POST /api/check-ins`
-- `POST /api/check-ins/sync`
-- `GET /api/check-ins/my-history`
-- `GET /api/exercise-executions/patient/:patientId?page=&pageSize=`
+```json
+{
+  "prescriptionId": "uuid-da-prescricao",
+  "exerciseId":     "uuid-do-exercicio",
+  "painLevel":      4,
+  "executedAt":     "2026-05-02T12:00:00.000Z",
+  "notes":          "Executei sem dor aguda",
+  "isCompleted":    true
+}
+```
 
-O app mobile deve enviar `prescriptionId`, `exerciseId`, `painLevel` de 0 a 10, `executedAt`, `notes` opcional e `isCompleted` opcional. A API valida se o exercício pertence à prescrição do paciente.
+> A API valida se o exercício pertence à prescrição ativa do paciente.
 
-### Usuários E Uploads
+### Usuários e Uploads
 
-- `GET /api/users?page=&pageSize=&role=&isActive=` somente `ADMIN`
-- `PATCH /api/users/:id/status` somente `ADMIN`
-- `POST /api/upload`
-- `POST /api/upload/multiple`
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| `GET` | `/api/users` | Lista usuários — somente `ADMIN` |
+| `PATCH` | `/api/users/:id/status` | Ativa/inativa usuário — somente `ADMIN` |
+| `POST` | `/api/upload` | Upload único de mídia |
+| `POST` | `/api/upload/multiple` | Upload múltiplo — retorna `{ urls: string[] }` |
 
-Uploads aceitam imagens e vídeos comuns. O endpoint múltiplo retorna `{ urls: string[] }` para compatibilidade com o web.
+---
 
-## Dados Demo
+## 🌱 Dados Demo
 
-Para criar dados reais de apresentação em ambiente de desenvolvimento:
+Para popular o banco com dados de demonstração em desenvolvimento:
 
 ```bash
 SEED_DEMO_DATA=true npm run start:dev
 ```
 
-Isso cria admin/profissional, pacientes, exercícios, prescrição, prontuário e check-ins demo quando ainda não existirem.
+Cria admin, profissional, pacientes, exercícios, prescrição, prontuário e check-ins de exemplo (apenas se ainda não existirem).
 
-Antes de deploy em produção, aplique:
+---
+
+## 🐳 Docker e Infraestrutura
+
+### Subir o ambiente containerizado
 
 ```bash
-psql "$DATABASE_URL" -f scripts/migrations/2026-05-02_add_exercise_id_to_check_ins.sql
+cp .env.example .env
+docker compose build
+docker compose up --build -d
+docker compose ps               # verificar status dos containers
+docker compose logs -f api      # acompanhar logs da API
 ```
 
-O roteiro completo da demonstração está em `../../../Documentos/Entrega2/ProgramacaoMobile/ROTEIRO_DEMONSTRACAO.md`.
+### Arquitetura dos containers
 
-O checklist de aderência ao PDF do Projeto Interdisciplinar está em `../../../Documentos/Entrega2/ProgramacaoMobile/REQUISITOS_IMPLEMENTADOS.md`.
+```
+┌─────────────────────────────────────────┐
+│            docker-compose.yml           │
+│                                         │
+│  ┌──────────────┐    ┌───────────────┐  │
+│  │   container  │    │   container   │  │
+│  │     api      │───▶│      db       │  │
+│  │  (NestJS)    │    │ (PostgreSQL)  │  │
+│  │  porta 3000  │    │   porta 5432  │  │
+│  └──────────────┘    └───────┬───────┘  │
+│                              │          │
+│                       ┌──────▼──────┐   │
+│                       │  volume     │   │
+│                       │  pg_data    │   │
+│                       └─────────────┘   │
+└─────────────────────────────────────────┘
+```
 
-## Segurança E LGPD
-
-- Todas as rotas exigem JWT por padrão, exceto as marcadas como públicas.
-- Senhas são armazenadas com hash.
-- Dados sensíveis são filtrados em logs de exceção.
-- O catálogo de exercícios requer usuário autenticado.
-- `synchronize` do TypeORM fica ativo apenas fora de produção.
-- `.env` é ignorado pelo Git; não versionar credenciais reais.
-
-## Commits Sugeridos
-
-- `test: fix dashboard service specs`
-- `feat: add admin users management endpoints`
-- `feat: expose exercise execution history endpoints`
-- `fix: enforce lgpd consent rules in api`
-- `feat: support multiple media uploads`
-- `chore: harden api config and route access`
-- `docs: document maya rpg api contracts`
-
-## Infra / Scripts
-
-Esta seção descreve os principais scripts em `scripts/` e exemplos de uso.
-
-- Tornar scripts executáveis:
+### Scripts de automação
 
 ```bash
 chmod +x scripts/*.sh
 ```
 
-- Subir infraestrutura com Docker Compose:
+| Script | Função |
+|--------|--------|
+| `setup_env.sh` | Prepara o ambiente de desenvolvimento |
+| `monitor_system.sh` | Monitora CPU, memória, disco e logs |
+| `backup_db.sh` | Gera backup do banco (saída em `backups/`) |
+| `manage_services.sh` | Inicia, para, consulta status e reinicia serviços |
+| `deploy.sh` | Deploy automatizado com build, backup, migrações, healthcheck e rollback |
 
-```bash
-cp .env.example .env    # editar .env com valores reais (não comitar)
-docker compose build
-docker compose up --build -d
-docker compose ps
-docker compose logs -f api
-```
-
-- Backup do banco (gera arquivo em `backups/`):
-
-```bash
-./scripts/backup_db.sh
-```
-
-- Monitor do sistema (exemplo: coleta a cada 5s por 30s):
-
-```bash
-./scripts/monitor_system.sh 5 30
-```
-
-- Gerenciamento de serviços (menu interativo ou comandos diretos):
+**Exemplos de uso:**
 
 ```bash
 ./scripts/manage_services.sh up
-./scripts/manage_services.sh down
 ./scripts/manage_services.sh status
-./scripts/manage_services.sh logs
-```
-
-- Deploy automatizado:
-
-```bash
+./scripts/backup_db.sh
+./scripts/monitor_system.sh 5 30    # coleta a cada 5s por 30s
 ./scripts/deploy.sh
-# rollback
 ./scripts/deploy.sh --rollback
 ```
 
-### Aderência Cloud Native da Entrega 2
-
-| Requisito do PDF | Artefato no projeto | Situação |
-| --- | --- | --- |
-| Dockerfile da API REST | `Dockerfile` com build/runtime Node 20 Alpine | Atendido |
-| Dockerfile do banco | `Dockerfile.db` baseado em PostgreSQL 16 Alpine | Atendido como artefato acadêmico |
-| Orquestração API + BD | `docker-compose.yml` com serviços `api` e `db` | Atendido |
-| Volume persistente | volume `pg_data` para PostgreSQL | Atendido |
-| Variáveis de ambiente | `.env.example`, `.env` local e parâmetros no Compose | Atendido |
-| Script de deploy | `scripts/deploy.sh` com build, backup, migrações, healthcheck e rollback | Atendido |
-| Scripts Linux obrigatórios | `setup_env.sh`, `monitor_system.sh`, `backup_db.sh`, `manage_services.sh` | Atendido |
-
-- Agendamento via cron (exemplo):
+**Agendamento com cron:**
 
 ```cron
-# Monitor a cada 5 minutos (append logs)
-*/5 * * * * /path/to/workspace/maya-rpg-api/scripts/monitor_system.sh 5 30 >> /var/log/maya-rpg/monitor.log 2>&1
+# Monitoramento a cada 5 minutos
+*/5 * * * * /caminho/para/maya-rpg-api/scripts/monitor_system.sh 5 30 >> /var/log/maya-rpg/monitor.log 2>&1
 
-# Backup diario as 02:00
-0 2 * * * cd /path/to/workspace/maya-rpg-api && ./scripts/backup_db.sh >> /var/log/maya-rpg/backup.log 2>&1
+# Backup diário às 02:00
+0 2 * * * cd /caminho/para/maya-rpg-api && ./scripts/backup_db.sh >> /var/log/maya-rpg/backup.log 2>&1
 ```
 
-Lembre-se de ajustar caminhos, permissões e configurar o arquivo `.env` com variáveis sensíveis como `JWT_SECRET`, `DB_PASSWORD`, `DB_USER`, `DB_NAME` antes de subir os serviços.
+### Migração necessária antes do deploy em produção
+
+```bash
+psql "$DATABASE_URL" -f scripts/migrations/2026-05-02_add_exercise_id_to_check_ins.sql
+```
+
+---
+
+## ☁️ Aderência Cloud Native — Entrega 2
+
+| Requisito | Artefato | Status |
+|-----------|----------|:------:|
+| Dockerfile da API | `Dockerfile` (Node 20 Alpine — build + runtime) | ✅ |
+| Dockerfile do banco | `Dockerfile.db` (PostgreSQL 16 Alpine) | ✅ |
+| Orquestração API + BD | `docker-compose.yml` com serviços `api` e `db` | ✅ |
+| Volume persistente | Volume nomeado `pg_data` | ✅ |
+| Variáveis de ambiente | `.env.example`, `.env` e bloco `environment` no Compose | ✅ |
+| Script de deploy | `scripts/deploy.sh` | ✅ |
+| Scripts Linux obrigatórios | `setup_env.sh`, `monitor_system.sh`, `backup_db.sh`, `manage_services.sh` | ✅ |
+
+---
+
+## 🔒 Segurança e LGPD
+
+- Todas as rotas exigem JWT por padrão; exceções são marcadas explicitamente como públicas.
+- Senhas armazenadas com hash (bcrypt).
+- Dados sensíveis são filtrados nos logs de exceção.
+- O catálogo de exercícios requer usuário autenticado.
+- `synchronize` do TypeORM ativo **apenas fora de produção**.
+- `.env` ignorado pelo Git — nunca versionar credenciais reais.
+- Prescrições só podem ser criadas para pacientes com LGPD aceita.
+
+---
+
+## 📚 Documentação Adicional
+
+| Documento | Link |
+|-----------|------|
+| 🎬 Roteiro de Demonstração | [ROTEIRO_DEMONSTRACAO.md](../../Documentos/Entrega2/ProgramacaoMobile/ROTEIRO_DEMONSTRACAO.md) |
+| 📋 Requisitos Implementados | [REQUISITOS_IMPLEMENTADOS.md](../../Documentos/Entrega2/ProgramacaoMobile/REQUISITOS_IMPLEMENTADOS.md) |
+| ☁️ Relatório Cloud Native | [RELATORIO_CLOUD_NATIVE.md](../../Documentos/Entrega2/SistemaOperacional/RELATORIO_CLOUD_NATIVE.md) |
+
+---
+
+<div align="center">
+
+**Equipe TechCare** · FECAP — Centro Universitário · ADS 2026
+
+</div>
