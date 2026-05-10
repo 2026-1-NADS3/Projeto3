@@ -1,144 +1,147 @@
-# PIFisioterapiaMayaRPG - Entrega 2
+<div align="center">
 
-## Escopo individual desta entrega
+<img src="https://img.shields.io/badge/FECAP-ADS%203º%20Semestre-0057A8?style=for-the-badge&logoColor=white" />
+<img src="https://img.shields.io/badge/Projeto%20Interdisciplinar-Entrega%202-00B37E?style=for-the-badge&logoColor=white" />
+<img src="https://img.shields.io/badge/Status-Validado%20✓-22c55e?style=for-the-badge&logoColor=white" />
 
-Esta entrega está organizada dentro do projeto integrado Clínica Maya. Neste semestre, minha responsabilidade direta foi a implementação e validação dos blocos de Programação Mobile e Cloud Native/Infraestrutura com Linux. Os módulos Web, UX, Testes/Qualidade e demais artefatos aparecem como contexto do projeto interdisciplinar e apoio à demonstração, mas não representam o escopo principal da minha entrega individual.
+<br/><br/>
 
-## Visão geral
+# 🏥 Clínica Maya Yoshiko Yamamoto
+### Sistema Integrado de Fisioterapia RPG
 
-Este repositório reúne a solução integrada da Clínica Maya para a Entrega 2 do PI 3ADS 2026.
+*Projeto Interdisciplinar — 3º Semestre de Análise e Desenvolvimento de Sistemas*  
+*FECAP · 2026 · Equipe TechCare*
 
-O projeto é composto por:
+</div>
 
-- backend: [maya-rpg-api](backend)
-- mobile: [MayaRPG-mobile](mobile)
-- web: [maya-rpg-web](web), módulo complementar
+---
 
-A solução cobre o fluxo principal da clínica:
+## 📋 Sobre o Projeto
 
-1. O profissional cadastra paciente, avaliação e prontuário.
-2. O profissional prescreve exercícios com mídia, frequência e orientações.
-3. O paciente acessa o plano no aplicativo mobile.
-4. O paciente registra execução, dor de 0 a 10 e observações.
-5. O profissional acompanha a evolução e ajusta a conduta.
+O **Maya RPG** é uma solução digital completa para clínicas de Reeducação Postural Global (RPG). O sistema conecta profissionais de saúde e pacientes em um fluxo clínico integrado, do cadastro à evolução terapêutica.
 
-O conjunto está preparado para demonstração acadêmica em ambiente local containerizado.
+### Fluxo principal
 
-## Estrutura do repositório
+```
+┌──────────────┬──────────────┬──────────────┬───────────────────┐
+│  1. Cadastro │ 2. Prescrição│  3. Execução │   4. Evolução     │
+├──────────────┼──────────────┼──────────────┼───────────────────┤
+│ Profissional │ Profissional │   Paciente   │  Profissional     │
+│  cadastra    │  prescreve   │  realiza os  │  acompanha pelo   │
+│  paciente e  │  exercícios  │  exercícios  │  painel web e     │
+│  prontuário  │  com mídia   │  e registra  │  ajusta conduta   │
+│              │  e instruções│  dor (0–10)  │                   │
+└──────────────┴──────────────┴──────────────┴───────────────────┘
+```
 
-- backend: API NestJS com autenticação, prescrições, check-ins, prontuário, upload e Swagger.
-- mobile: aplicativo Android do paciente com consumo de API REST, Room, sincronização, notificações e evolução.
-- web: módulo complementar para profissional e admin com pacientes, exercícios, prescrições, prontuário e dashboard.
-- documentação: relatórios e evidências em `../../Documentos/Entrega2`.
+---
 
-## Backend
+## 🗂️ Estrutura do Repositório
 
-O backend centraliza os dados clínicos e expõe os contratos consumidos pelo mobile e pelo web.
+```
+PIFisioterapiaMayaRPG/
+│
+├── 📁 backend/              # API REST — NestJS + PostgreSQL
+├── 📁 mobile/               # App Android do paciente
+├── 📁 web/                  # Painel web do profissional/admin
+│
+└── 📁 Documentos/
+    └── Entrega2/
+        ├── ProgramacaoMobile/
+        │   ├── REQUISITOS_IMPLEMENTADOS.md
+        │   ├── ROTEIRO_DEMONSTRACAO.md
+        │   ├── AMBIENTE_SETUP.md
+        │   └── VALIDACAO_FINAL.md
+        └── SistemaOperacional/
+            └── RELATORIO_CLOUD_NATIVE.md
+```
 
-Status validado em 10/05/2026:
+---
 
-- npm run build OK.
-- npm test OK, com 6 suites e 23 testes.
-- docker compose config OK.
-- docker compose up --build -d é o fluxo de demonstração documentado.
-- API healthy e DB healthy quando os containers estiverem em execução.
-- Swagger em /api/docs OK.
+## 🧩 Módulos
 
-Artefatos mantidos:
+| Módulo | Tecnologias | Descrição | README |
+|:------:|:-----------:|-----------|:------:|
+| 🔧 **Backend** | ![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=flat&logo=nestjs&logoColor=white) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat&logo=postgresql&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white) | API REST, autenticação, banco de dados e infraestrutura | [📄 Ver](backend/README.md) |
+| 📱 **Mobile** | ![Android](https://img.shields.io/badge/Android-34A853?style=flat&logo=android&logoColor=white) ![Java](https://img.shields.io/badge/Java-ED8B00?style=flat&logo=openjdk&logoColor=white) ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat&logo=firebase&logoColor=black) | App do paciente — plano, check-in e evolução | [📄 Ver](mobile/README.md) |
+| 🌐 **Web** | ![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white) | Painel do profissional e admin | [📄 Ver](web/README.md) |
 
-- Dockerfile.
-- Dockerfile.db.
-- docker-compose.yml.
-- scripts/.
-- load-test.js.
-- .env.example.
+---
 
-Como rodar o backend:
+## ✅ Status de Validação
 
-1. Criar o arquivo .env a partir de .env.example.
-2. Instalar dependências com npm ci.
-3. Subir a API em modo local ou via Docker.
-4. Acessar a documentação em /api/docs.
+> Validação realizada em **10/05/2026**
 
-## Mobile
+| Módulo | Comando | Resultado |
+|--------|---------|:---------:|
+| Backend — build | `npm run build` | ✅ OK |
+| Backend — testes | `npm test -- --runInBand` | ✅ 6 suites · 23 testes |
+| Backend — Docker | `docker compose config` | ✅ OK |
+| Mobile — testes | `gradlew.bat :app:testDebugUnitTest` | ✅ OK |
+| Mobile — build | `gradlew.bat :app:assembleDebug` | ✅ OK |
+| Web — build | `npm run build` | ✅ OK |
+| Web — lint | `npm run lint` | ✅ 0 erros · 8 avisos |
 
-O aplicativo Android foi validado com:
+> **⚠️ Nota sobre sandbox:** Os comandos Gradle e o build web falharam dentro do sandbox do Codex por restrições de rede e acesso a diretórios do usuário. Ambos passaram normalmente fora do sandbox.
 
-- build OK.
-- testes unitários OK via Gradle.
-- API REST/Retrofit OK.
-- JSON/Gson OK.
-- SQLite/Room OK.
-- autenticação JWT OK.
-- FCM/ReminderWorker OK.
-- check-in OK.
-- dor de 0 a 10 via Slider OK.
-- histórico/evolução OK.
-- gráfico/indicador OK.
-- Fragment real em ExercisePlanActivity OK.
-- ConstraintLayout OK.
+---
 
-O arquivo google-services.json é o arquivo de configuração cliente do Firebase/FCM necessário para notificações no Android. Não representa chave privada de servidor.
+## 🚀 Início Rápido
 
-Como rodar o mobile:
+### 🔧 Backend
 
-1. Abrir o projeto no Android Studio.
-2. Garantir que o arquivo google-services.json esteja presente.
-3. Executar o build e os testes do Gradle.
-4. Configurar a API base de acordo com o ambiente local ou containerizado.
+```bash
+cd backend
+cp .env.example .env        # preencher as variáveis necessárias
+npm ci
+docker compose up --build -d
+docker compose ps           # confirmar que api e db estão healthy
+```
 
-## Web
+📖 Swagger disponível em `http://localhost:3000/api/docs`
 
-O web atua como módulo complementar para o profissional e o admin.
+### 📱 Mobile
 
-Status validado em 10/05/2026:
+```bash
+# 1. Abrir a pasta mobile/ no Android Studio
+# 2. Confirmar que google-services.json está em mobile/app/
+cd mobile
+gradlew.bat :app:assembleDebug
+```
 
-- npm install OK.
-- npm run build OK.
-- npm run lint OK, com 8 warnings de Fast Refresh do React, sem erros.
-- rotas, services e integração com a API mantidos.
-- web implementado em React + Vite + TanStack Router.
+### 🌐 Web
 
-Observação: no sandbox do Codex, o build web falhou por bloqueio de acesso do Vite/esbuild a diretórios do usuário. Reexecutado fora do sandbox, o build passou; permaneceu apenas o aviso de chunk JavaScript acima de 500 kB.
+```bash
+cd web
+npm install
+npm run dev                 # http://localhost:5173
+```
 
-Cobertura funcional do web:
+---
 
-- gestão de pacientes.
-- prontuário eletrônico.
-- banco de exercícios.
-- prescrições.
-- painel com indicadores.
-- permissões por perfil.
+## 📚 Documentação Complementar
 
-Como rodar o web:
+| Documento | Descrição |
+|-----------|-----------|
+| [📋 Requisitos Implementados](Documentos/Entrega2/ProgramacaoMobile/REQUISITOS_IMPLEMENTADOS.md) | Checklist completo de aderência ao PDF do PI |
+| [🎬 Roteiro de Demonstração](Documentos/Entrega2/ProgramacaoMobile/ROTEIRO_DEMONSTRACAO.md) | Passo a passo para a apresentação acadêmica |
+| [⚙️ Setup de Ambiente](Documentos/Entrega2/ProgramacaoMobile/AMBIENTE_SETUP.md) | Pré-requisitos e comandos de configuração |
+| [🔍 Validação Final](Documentos/Entrega2/ProgramacaoMobile/VALIDACAO_FINAL.md) | Evidências de validação técnica |
+| [☁️ Relatório Cloud Native](Documentos/Entrega2/SistemaOperacional/RELATORIO_CLOUD_NATIVE.md) | Docker, scripts Linux e infraestrutura |
 
-1. Instalar dependências com npm install.
-2. Executar npm run build.
-3. Executar npm run lint para validar a padronização.
+---
 
-## Documentação
+## ⚠️ Observações Importantes
 
-- [Requisitos implementados](../../Documentos/Entrega2/ProgramacaoMobile/REQUISITOS_IMPLEMENTADOS.md)
-- [Roteiro de demonstração](../../Documentos/Entrega2/ProgramacaoMobile/ROTEIRO_DEMONSTRACAO.md)
-- [Setup de ambiente](../../Documentos/Entrega2/ProgramacaoMobile/AMBIENTE_SETUP.md)
-- [Validação final](../../Documentos/Entrega2/ProgramacaoMobile/VALIDACAO_FINAL.md)
-- [Relatório Cloud Native](../../Documentos/Entrega2/SistemaOperacional/RELATORIO_CLOUD_NATIVE.md)
-- [Relatório de UX - Entrega 2](<../../Documentos/Entrega2/UserExperienceDigital/Relátorio da Segunda Entrega UX.pdf>)
-- [Relatório de Qualidade e Testes](<../../Documentos/Entrega2/TesteQualidadeSoftware/Qualidade e Testes de Software (DevOps) - Grupo TechCare .pdf>)
-- [Banner](../../Documentos/Banner/Banner_FECAP_ADS3_TECHCARE.pptx.pdf)
+- O arquivo `.env` **não deve** ser versionado — use `.env.example` como base.
+- Não versionar `node_modules`, `dist`, `build`, `logs` ou backups gerados.
+- O `google-services.json` é configuração cliente do Firebase — **não** contém chaves privadas de servidor.
+- O `npm audit` da API apontou vulnerabilidades; `npm audit fix` foi omitido intencionalmente para não quebrar dependências antes da entrega.
 
-O documento de extensão com empresa pertence à entrega de outro integrante e não é mantido neste escopo individual.
+---
 
-## Observações importantes
+<div align="center">
 
-- O arquivo .env não deve ser enviado para o Git; use sempre .env.example como base.
-- Não copiar node_modules, dist, build, logs, backups ou artefatos gerados.
-- O objetivo é manter um pacote limpo, enxuto e revisável.
-- A entrega final deve ser apresentada como pronta para demonstração acadêmica em ambiente local containerizado.
+**Equipe TechCare** · FECAP — Centro Universitário · ADS 2026
 
-## Resumo da entrega
-
-- Mobile validado com build e testes.
-- API validada com build, testes, Docker e Swagger.
-- Web validado com build, mantendo-se como módulo complementar.
-- Documentação final organizada para apoiar a demonstração e a avaliação acadêmica.
+</div>
