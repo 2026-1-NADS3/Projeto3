@@ -87,6 +87,13 @@ const entities = [
           configService.get<string>('DB_SSL') === 'true' ||
           nodeEnv === 'production';
 
+        let sslConfig: boolean | { ca: string; rejectUnauthorized: boolean } =
+          false;
+        if (sslEnabled) {
+          const ca = configService.get<string>('DB_SSL_CA');
+          sslConfig = ca ? { ca, rejectUnauthorized: true } : true;
+        }
+
         if (!host) {
           logger.warn(
             'DB_HOST não definido. Usando localhost para desenvolvimento.',
@@ -104,7 +111,7 @@ const entities = [
           database: configService.get<string>('DB_NAME'),
           entities,
           synchronize: nodeEnv !== 'production',
-          ssl: sslEnabled ? { rejectUnauthorized: false } : false,
+          ssl: sslConfig,
         };
       },
     }),

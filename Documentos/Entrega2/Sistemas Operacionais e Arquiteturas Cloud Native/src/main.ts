@@ -48,23 +48,29 @@ async function bootstrap() {
   // Servir arquivos estáticos da pasta uploads na rota /uploads
   expressApp.use('/uploads', express.static(join(process.cwd(), 'uploads')));
 
-  // CORS — lê CORS_ORIGINS do .env (separado por vírgula). "*" libera tudo.
+  // CORS — lê CORS_ORIGINS do .env (separado por vírgula).
   const corsOriginsEnv = configService.get<string>('CORS_ORIGINS');
-  const defaultOrigins = [
-    'https://maya-rpg-web.vercel.app',
-    'http://localhost:4200',
-    'http://localhost:3000',
-  ];
-  const parsedOrigins = corsOriginsEnv
-    ? corsOriginsEnv
-        .split(',')
-        .map((o) => o.trim())
-        .filter(Boolean)
-    : defaultOrigins;
-  const allowAll = parsedOrigins.includes('*');
+  const nodeEnv = configService.get<string>('NODE_ENV') || 'development';
+  let parsedOrigins: string[] = [];
+
+  if (corsOriginsEnv && corsOriginsEnv.trim() !== '') {
+    parsedOrigins = corsOriginsEnv
+      .split(',')
+      .map((o) => o.trim())
+      .filter((o) => o && o !== '*'); // Ignora wildcard
+  }
+
+  if (parsedOrigins.length === 0) {
+    if (nodeEnv === 'production') {
+      console.error('CRITICAL: Origin CORS não configurada em produção!');
+      throw new Error('CORS_ORIGINS é obrigatório em produção.');
+    } else {
+      parsedOrigins = ['http://localhost:4200', 'http://localhost:3000'];
+    }
+  }
 
   app.enableCors({
-    origin: allowAll ? true : parsedOrigins,
+    origin: parsedOrigins,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     credentials: true,
     allowedHeaders: [
@@ -109,4 +115,4 @@ async function bootstrap() {
     `📚 Documentação da API disponível em http://localhost:${port}/api/docs`,
   );
 }
-bootstrap();
+void bootstrap();

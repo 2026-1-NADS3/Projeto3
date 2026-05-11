@@ -73,8 +73,8 @@ export class PatientsController {
 
   @Post()
   @Roles(UserRole.PROFESSIONAL, UserRole.ADMIN)
-  async create(@Body() dto: CreatePatientDto, @Req() req: any) {
-    const patient = await this.patientsService.create(dto, req.user.id);
+  async create(@Body() dto: CreatePatientDto) {
+    const patient = await this.patientsService.create(dto);
     return new PatientResponseDto(patient);
   }
 

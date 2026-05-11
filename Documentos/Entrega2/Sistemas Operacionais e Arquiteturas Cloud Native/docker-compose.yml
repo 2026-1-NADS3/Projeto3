@@ -1,6 +1,9 @@
 services:
   db:
-    image: postgres:16-alpine
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    image: maya-rpg-db:latest
     container_name: maya-rpg-db
     restart: always
     environment:

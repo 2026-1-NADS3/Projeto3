@@ -17,7 +17,6 @@ export class AuditInterceptor implements NestInterceptor {
     const request = ctx.getRequest();
     const response = ctx.getResponse();
 
-    const { method, originalUrl, params, ip, user } = request;
     const startTime = Date.now();
 
     return next.handle().pipe(
@@ -51,7 +50,7 @@ export class AuditInterceptor implements NestInterceptor {
 
     const statusCode = error ? error.status || 500 : response.statusCode;
 
-    this.auditService.createLog({
+    void this.auditService.createLog({
       userId: user?.id,
       userEmail: user?.email,
       action,

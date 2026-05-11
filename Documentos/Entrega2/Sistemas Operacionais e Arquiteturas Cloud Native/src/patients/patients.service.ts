@@ -121,10 +121,7 @@ export class PatientsService {
     return patient;
   }
 
-  async create(
-    dto: CreatePatientDto,
-    professionalId: string,
-  ): Promise<Patient> {
+  async create(dto: CreatePatientDto): Promise<Patient> {
     const normalizedEmail = dto.email.trim().toLowerCase();
     let user = await this.findUserByEmailInsensitive(normalizedEmail);
     const cleanCpf = dto.cpf.replace(/\D/g, '');

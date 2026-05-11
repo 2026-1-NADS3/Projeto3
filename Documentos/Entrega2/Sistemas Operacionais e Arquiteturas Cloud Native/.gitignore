@@ -52,6 +52,7 @@ lerna-debug.log*
 # Database & Uploads
 *.sqlite
 *.sqlite-journal
+/backups/
 /uploads/
 
 # Runtime data

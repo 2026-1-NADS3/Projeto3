@@ -14,6 +14,8 @@ import { createHash } from 'crypto';
 import * as fs from 'fs';
 import * as path from 'path';
 import { In } from 'typeorm';
+// Optional dependency does not ship local TypeScript declarations in this project.
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const archiver = require('archiver');
 
 @Injectable()
@@ -111,7 +113,7 @@ export class LgpdService {
             if (fname) mediaFiles.add(fname);
           }
         }
-      } catch (e) {
+      } catch {
         // ignore if exercises isn't JSON
       }
     }
@@ -146,7 +148,7 @@ export class LgpdService {
     await archive.finalize();
 
     // Audit log
-    this.auditService.createLog({
+    await this.auditService.createLog({
       userId,
       action: 'LGPD_EXPORT_CREATED',
       method: 'GET',
@@ -163,7 +165,7 @@ export class LgpdService {
     try {
       const parsed = new URL(url);
       return parsed.pathname.split('/').pop() || null;
-    } catch (e) {
+    } catch {
       // If not a full URL, try to take last segment
       const seg = url.split('/').pop();
       return seg || null;

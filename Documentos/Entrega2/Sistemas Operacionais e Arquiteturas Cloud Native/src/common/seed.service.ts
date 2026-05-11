@@ -53,7 +53,8 @@ export class SeedService implements OnApplicationBootstrap {
 
     const adminEmail = process.env.SEED_ADMIN_EMAIL?.trim().toLowerCase();
     const adminPassword = process.env.SEED_ADMIN_PASSWORD;
-    const adminName = process.env.SEED_ADMIN_NAME?.trim() || 'Administrador Maya';
+    const adminName =
+      process.env.SEED_ADMIN_NAME?.trim() || 'Administrador Maya';
 
     if (!adminEmail || !adminPassword) {
       this.logger.warn(
