@@ -4,43 +4,45 @@
 
 A solução foi validada para demonstração acadêmica em ambiente local containerizado.
 
-Validação técnica atualizada em 10/05/2026.
+Validação técnica atualizada em 11/05/2026. Evidências em `imagens-maya/`.
 
 ## Escopo validado diretamente
 
-- Mobile: build debug OK, testes unitários OK, dor 0–10, Fragment real, ConstraintLayout, Room, Retrofit, SyncWorker, FCM/ReminderWorker.
-- Cloud/API containerizada: build OK, 23 testes OK, Docker Compose config OK, healthchecks documentados para API e DB, scripts mantidos (setup, monitoramento, backup, manage_services, deploy).
+- **Mobile:** build debug OK, testes unitários OK, dor 0–10, Fragment real, ConstraintLayout, Room, Retrofit, SyncWorker. FCM e ReminderWorker integrados no código (status Parcial — sem print de notificação real no dispositivo).
+- **Cloud/API containerizada:** build OK, 23 testes OK (`imagens-maya/cloud-native/04-npm-test-23-passing.png`), `docker compose config` OK, healthchecks documentados para API e DB, scripts mantidos (setup, monitoramento, backup, manage_services, deploy) — todos com prints de execução real.
+- **Teste de carga (k6):** executado com p95 = 2.42 ms, 0.00% falha, 5451/5451 checks (`imagens-maya/cloud-native/25-k6-load-test.png`).
 
 O módulo Web é apresentado como módulo complementar validado por build e não representa o escopo principal individual.
 
 ## Backend / API
 
-- `npm run build` OK.
-- `npm test -- --runInBand` OK, com 6 suites e 23 testes.
-- `docker compose config` OK.
-- `docker compose up --build -d` permanece como fluxo documentado de demonstração.
-- API healthy, DB healthy e Swagger em `/api/docs` quando os containers estão em execução.
+- `npm run lint` OK (`imagens-maya/cloud-native/02-npm-lint.png`).
+- `npm run build` OK (`imagens-maya/cloud-native/03-npm-build.png`).
+- `npm test -- --runInBand` OK, com 6 suítes e 23 testes PASS em 3.028s (`imagens-maya/cloud-native/04-npm-test-23-passing.png`).
+- `docker compose config` OK (`imagens-maya/cloud-native/05-` e `06-docker-compose-config-*.png`).
+- `docker compose build` OK (`imagens-maya/cloud-native/08-docker-compose-build.png`).
+- `docker compose up --build -d` com containers `Healthy` (`imagens-maya/cloud-native/09-docker-compose-up-healthy.png`).
+- API healthy, DB healthy, Swagger em `/api/docs` (`imagens-maya/cloud-native/10-`, `11-`, `12-`, `13-swagger.png`).
 
 ### Observações da API
 
 - Dockerfile mantido.
 - Dockerfile.db mantido.
 - docker-compose.yml mantido.
-- scripts/ mantido.
-- load-test.js mantido.
-- k6-load-test.js removido.
+- scripts/ mantido (5 scripts com prints de execução real).
+- load-test.js mantido e executado com resultado real registrado.
 - .env está no .gitignore.
 - .env.example mantido.
 
 ## Mobile
 
-- `gradlew.bat :app:testDebugUnitTest` OK.
-- `gradlew.bat :app:assembleDebug` OK.
+- `gradlew.bat :app:testDebugUnitTest` OK (validado fora do sandbox em 10/05/2026).
+- `gradlew.bat :app:assembleDebug` OK (validado fora do sandbox em 10/05/2026).
 - API REST/Retrofit OK.
 - JSON/Gson OK.
 - SQLite/Room OK.
 - autenticação JWT OK.
-- FCM/ReminderWorker OK.
+- FCM/ReminderWorker integrados no código — status Parcial até que print de notificação real seja anexado.
 - check-in OK.
 - dor 0–10 via Slider OK.
 - histórico/evolução OK.
@@ -50,7 +52,20 @@ O módulo Web é apresentado como módulo complementar validado por build e não
 
 ### Observação do mobile
 
-- O arquivo google-services.json é o arquivo de configuração cliente do Firebase/FCM necessário para notificações no Android. Não representa chave privada de servidor.
+- O arquivo `google-services.json` é o arquivo de configuração cliente do Firebase/FCM necessário para notificações no Android. Não representa chave privada de servidor.
+- Prints do mobile estão pendentes em `imagens-maya/mobile/` — lista completa em `Sistemas Operacionais e Arquiteturas Cloud Native/docs/03-testes-e-evidencias.md`, Seção 9.2.
+
+## Cloud Native
+
+- Dockerfile (multi-stage, Node 20-alpine, usuário não-root, curl para healthcheck): OK.
+- Dockerfile.db (postgres:16-alpine): OK.
+- docker-compose.yml (API + DB + rede `maya-network` + volume `pg_data` + bind mounts uploads/logs + healthchecks): OK.
+- Variáveis de ambiente (`.env.example` completo, `.env` real evidenciado em `imagens-maya/cloud-native/01-env-configurado.png`): OK.
+- Scripts (`setup_env.sh`, `monitor_system.sh`, `backup_db.sh`, `manage_services.sh`, `deploy.sh`): OK.
+  - `setup_env.sh` é script de **verificação automatizada** de dependências (não de instalação). Decisão documentada em `RELATORIO_CLOUD_NATIVE.md` Seção 6.1.
+- Backup do banco executado com sucesso: arquivo `backup_20260511_125410.sql` em `backups/` (`imagens-maya/cloud-native/16-` e `17-`).
+- Monitoramento executado: log em `logs/monitor/metrics_20260511_125456.log` (`imagens-maya/cloud-native/18-monitor-system-sh.png`).
+- Deploy automatizado executado de ponta a ponta: 5 prints sequenciais (`imagens-maya/cloud-native/20-` a `24-`).
 
 ## Web
 
@@ -59,13 +74,25 @@ O módulo Web é apresentado como módulo complementar validado por build e não
 - `npm run build` OK fora do sandbox; no sandbox houve bloqueio de acesso do Vite/esbuild a diretórios do usuário.
 - `npm run lint` OK, com 8 warnings de Fast Refresh e 0 erros.
 - rotas, services e integração com API mantidos.
-- src/environments e src/assets/images/login removidos por estarem vazios.
 
 ### Observações de validação
 
 - O build web emitiu aviso de chunk JavaScript acima de 500 kB; é melhoria futura, não erro de entrega.
 - Os comandos Gradle falharam inicialmente no sandbox por bloqueio de rede ao baixar a distribuição (`Permission denied: getsockopt`) e passaram quando reexecutados fora do sandbox.
 - O `docker compose config` validou serviços `api` e `db`, rede interna, volume persistente `pg_data`, healthchecks e variáveis de ambiente.
+
+## Teste de carga (k6) — resultado real
+
+Execução em 11/05/2026 (`imagens-maya/cloud-native/25-k6-load-test.png`):
+
+| Métrica | Valor | Threshold | Resultado |
+|---|---|---|---|
+| `http_req_duration` p(95) | 2.42 ms | < 500 ms | ✅ |
+| `http_req_failed` | 0.00% | < 1% | ✅ |
+| Checks succeeded | 5451 / 5451 | — | ✅ |
+| Iterations | 1817 (15.07/s) | — | — |
+| VUs máx | 20 | — | — |
+| Duração | 2m30s | — | — |
 
 ## Segurança e entrega
 
@@ -74,6 +101,12 @@ O módulo Web é apresentado como módulo complementar validado por build e não
 - backups e artefatos gerados não foram enviados.
 - o npm audit da API apontou vulnerabilidades, mas npm audit fix não foi executado para evitar quebra de dependências antes da entrega.
 
+## Pendências de evidências
+
+- Prints do app mobile em `imagens-maya/mobile/` (8 prints sugeridos).
+- Prints de requisições via Postman em `imagens-maya/postman-api/` (5 prints sugeridos).
+- Print do `npm run test:e2e` (opcional — testes unitários já cobertos).
+
 ## Conclusão
 
-O projeto está pronto para demonstração acadêmica da Entrega 2 em ambiente local containerizado.
+O projeto está pronto para demonstração acadêmica da Entrega 2 em ambiente local containerizado. A parte Cloud Native tem 25 prints anexados cobrindo todos os requisitos. As pendências são exclusivamente de prints adicionais do mobile e de requisições, listadas em `Sistemas Operacionais e Arquiteturas Cloud Native/docs/03-testes-e-evidencias.md`.

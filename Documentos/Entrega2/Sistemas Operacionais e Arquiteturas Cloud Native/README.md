@@ -1,21 +1,42 @@
-# Maya RPG API
+# Maya RPG API — Cloud Native (Entrega 2)
 
-Este repositório contém o backend REST da Clínica Maya RPG.
+Backend REST da Clínica Maya RPG containerizado. Esta pasta agrupa os artefatos da disciplina **Sistemas Operacionais e Arquiteturas Cloud Native** da Entrega 2 do PI 3ADS — FECAP 2026.
 
-A documentação principal foi organizada em `docs/`:
+## Documentação
 
-- [Visão geral e contratos da API](docs/README.md)
-- [Quick start com Docker Compose](docs/docker-quickstart.md)
-- [Relatório Cloud Native](docs/RELATORIO_CLOUD_NATIVE.md)
-- [Checklist de implementação](docs/checklist-implementacao.md)
-- [Guia de testes e prints da entrega](docs/guia-testes-entrega.md)
-- [Roteiro da demo final](docs/final-demo-roteiro.md)
+- [docs/01-entrega-2-mobile-e-cloud.md](docs/01-entrega-2-mobile-e-cloud.md) — visão geral da Entrega 2 (Mobile + Cloud Native)
+- [docs/02-cloud-native-e-automacao.md](docs/02-cloud-native-e-automacao.md) — Docker, Compose, volumes, scripts Bash
+- [docs/03-testes-e-evidencias.md](docs/03-testes-e-evidencias.md) — testes, k6 e prints
+- [RELATORIO_CLOUD_NATIVE.md](RELATORIO_CLOUD_NATIVE.md) — relatório técnico individual
 
-Execução rápida:
+## Execução rápida
 
 ```bash
 cp .env.example .env
 docker compose up --build -d
+docker compose ps
+```
+
+Windows PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+docker compose up --build -d
+docker compose ps
 ```
 
 Swagger: `http://localhost:3000/api/docs`
+
+## Scripts
+
+```bash
+./scripts/setup_env.sh         # verifica dependências do ambiente
+./scripts/monitor_system.sh    # coleta métricas (CPU/mem/disco/containers)
+./scripts/backup_db.sh         # backup do PostgreSQL via pg_dump
+./scripts/manage_services.sh   # up/down/status/logs/restart/watch
+./scripts/deploy.sh            # deploy automatizado com rollback
+```
+
+## Evidências visuais
+
+25 prints validados em 11/05/2026 estão em [`imagens-maya/cloud-native/`](../../../imagens-maya/cloud-native/). Lista completa em [`imagens-maya/README.md`](../../../imagens-maya/README.md).

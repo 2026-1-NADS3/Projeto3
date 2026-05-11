@@ -81,8 +81,8 @@ app/src/main/res/
 | Sincronização automática ao reconectar (WorkManager) | ✅ |
 | Histórico e evolução do paciente | ✅ |
 | Gráfico de progresso (MPAndroidChart) | ✅ |
-| Push notifications (FCM) | ✅ |
-| Lembretes locais (WorkManager) | ✅ |
+| Push notifications (FCM) | ⚠️ Parcial — código integrado, sem print de notificação real no dispositivo |
+| Lembretes locais (WorkManager) | ⚠️ Parcial — `ReminderWorker` registrado, sem print de lembrete disparado |
 | Aceite de LGPD integrado ao fluxo de autenticação | ✅ |
 | Fragment real em `ExercisePlanActivity` | ✅ |
 | Múltiplas Activities com Intents | ✅ |
@@ -190,10 +190,27 @@ A sessão é armazenada localmente na tabela `exercise_sessions` (Room/SQLite) e
 
 | Documento | Link |
 |-----------|------|
-| 📋 Requisitos Implementados | [REQUISITOS_IMPLEMENTADOS.md](../../Documentos/Entrega2/ProgramacaoMobile/REQUISITOS_IMPLEMENTADOS.md) |
-| 🎬 Roteiro de Demonstração | [ROTEIRO_DEMONSTRACAO.md](../../Documentos/Entrega2/ProgramacaoMobile/ROTEIRO_DEMONSTRACAO.md) |
-| ⚙️ Setup de Ambiente | [AMBIENTE_SETUP.md](../../Documentos/Entrega2/ProgramacaoMobile/AMBIENTE_SETUP.md) |
-| 🔍 Validação Final | [VALIDACAO_FINAL.md](../../Documentos/Entrega2/ProgramacaoMobile/VALIDACAO_FINAL.md) |
+| 📋 Requisitos Implementados | [REQUISITOS_IMPLEMENTADOS.md](../../../Documentos/Entrega2/ProgramacaoMobile/REQUISITOS_IMPLEMENTADOS.md) |
+| 🎬 Roteiro de Demonstração | [ROTEIRO_DEMONSTRACAO.md](../../../Documentos/Entrega2/ProgramacaoMobile/ROTEIRO_DEMONSTRACAO.md) |
+| ⚙️ Setup de Ambiente | [AMBIENTE_SETUP.md](../../../Documentos/Entrega2/ProgramacaoMobile/AMBIENTE_SETUP.md) |
+| 🔍 Validação Final | [VALIDACAO_FINAL.md](../../../Documentos/Entrega2/ProgramacaoMobile/VALIDACAO_FINAL.md) |
+| ☁️ Documento principal da Entrega 2 | [01-entrega-2-mobile-e-cloud.md](../../../Documentos/Entrega2/Sistemas%20Operacionais%20e%20Arquiteturas%20Cloud%20Native/docs/01-entrega-2-mobile-e-cloud.md) |
+
+---
+
+## 📸 Evidências visuais
+
+Prints da Entrega 2 organizados em `imagens-maya/`:
+
+- `imagens-maya/cloud-native/` — **25 prints anexados** (build, lint, testes 23/23 PASS, Docker, scripts, k6 com p95=2.42ms).
+- `imagens-maya/mobile/` — **pendente**. Prints recomendados:
+  - `01-build-assembledebug.png` — terminal com BUILD SUCCESSFUL
+  - `02-tela-login.png`, `03-tela-lgpd.png`
+  - `04-tela-exercicios.png`, `05-tela-detalhe-exercicio.png`
+  - `06-tela-checkin.png` (slider de dor 0–10)
+  - `07-tela-historico.png` (gráfico de evolução)
+  - `08-notificacao-fcm.png` (push real no dispositivo)
+- `imagens-maya/postman-api/` — **pendente**. Prints recomendados de `POST /api/auth/login`, `GET /api/auth/me`, `GET /api/exercises`, `POST /api/check-ins`, `GET /api/dashboard/...`.
 
 ---
 

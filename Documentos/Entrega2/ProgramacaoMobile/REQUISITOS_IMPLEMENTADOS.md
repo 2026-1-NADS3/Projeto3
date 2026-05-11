@@ -42,7 +42,7 @@ Validação objetiva em 10/05/2026: `gradlew.bat :app:testDebugUnitTest` e `grad
 | Nível de dor 0 a 10 | Slider de dor validado no fluxo do paciente | Status validado do mobile | OK |
 | Observações | Campo de texto para observações do check-in | Fluxo de check-in e histórico | OK |
 | Histórico/evolução | Tela de evolução com registros e acompanhamento | README do mobile | OK |
-| Notificações/lembretes | FCM e ReminderWorker para avisos | Status validado do mobile | OK |
+| Notificações/lembretes | FCM e ReminderWorker integrados no código | Código mobile (módulo `fcm/` e `worker/`) | Parcial — sem print de notificação real no dispositivo até esta versão |
 | Aceite LGPD | Tela real de consentimento e integração com o backend | `mobile/app/src/main/java/com/maya/rpg/ui/auth/LgpdConsentActivity.java` e `mobile/app/src/main/res/layout/activity_lgpd_consent.xml` | OK |
 | Duas ou mais telas | Estrutura de navegação com várias telas | Status validado do mobile | OK |
 | Múltiplas Activities | Estrutura com Activities distintas | Status validado do mobile | OK |
@@ -107,10 +107,10 @@ Validação objetiva em 10/05/2026: `npm run build` OK, `npm test -- --runInBand
 
 | Requisito | Implementação | Evidência / arquivo | Status |
 |---|---|---|---|
-| Testes unitários | Base documental cobre 4 testes unitários | `../TesteQualidadeSoftware/Qualidade e Testes de Software (DevOps) - Grupo TechCare .pdf` | Documentado |
-| Testes de integração | Base documental cobre 2 testes de integração | `../TesteQualidadeSoftware/Qualidade e Testes de Software (DevOps) - Grupo TechCare .pdf` | Documentado |
-| Teste de carga | load-test.js mantido como evidência | Status validado da API | OK |
-| Teste de aceitação | Teste de aceitação documentado com roteiro manual do fluxo principal | `../TesteQualidadeSoftware/Qualidade e Testes de Software (DevOps) - Grupo TechCare .pdf` | Documentado |
+| Testes unitários | 6 suítes, 23 testes PASS na API | `../../../imagens-maya/cloud-native/04-npm-test-23-passing.png` | OK |
+| Testes de integração | Estrutura de testes e2e presente (`test/*.e2e-spec.ts`) | `../TesteQualidadeSoftware/Qualidade e Testes de Software (DevOps) - Grupo TechCare .pdf` | Documentado (print e2e pendente) |
+| Teste de carga | `k6 run test/load/load-test.js` — p95=2.42ms, 0% falha, 5451/5451 checks | `../../../imagens-maya/cloud-native/25-k6-load-test.png` | OK |
+| Teste de aceitação | `test/acceptance.e2e-spec.ts` + roteiro manual | `../TesteQualidadeSoftware/Qualidade e Testes de Software (DevOps) - Grupo TechCare .pdf` | Documentado |
 | Processo de qualidade | Documentado com ISO/IEC 25010 | `../TesteQualidadeSoftware/Qualidade e Testes de Software (DevOps) - Grupo TechCare .pdf` | Documentado |
 | Build e validação | Backend, mobile e web validados | Status geral da entrega | Validado |
 
@@ -137,4 +137,10 @@ Validação objetiva em 10/05/2026: `npm run build` OK, `npm test -- --runInBand
 
 - O requisito de integração entre mobile, web e backend está atendido por contratos REST e pelos testes validados.
 - O web permanece como módulo complementar.
-- A documentação final deve refletir apenas o que foi validado no projeto.
+- A documentação final reflete apenas o que foi validado no projeto.
+
+## Evidências visuais
+
+- `imagens-maya/cloud-native/` — 25 prints anexados (build, lint, testes 23/23 PASS, Docker, scripts, k6).
+- `imagens-maya/mobile/` — **pendente**. Prints recomendados em `../Sistemas Operacionais e Arquiteturas Cloud Native/docs/03-testes-e-evidencias.md`, Seção 9.2.
+- `imagens-maya/postman-api/` — **pendente**. Prints recomendados em `../Sistemas Operacionais e Arquiteturas Cloud Native/docs/03-testes-e-evidencias.md`, Seção 9.3.
