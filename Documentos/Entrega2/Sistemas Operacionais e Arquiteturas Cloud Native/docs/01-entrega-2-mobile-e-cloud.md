@@ -4,7 +4,7 @@
 > **Curso:** Projeto Interdisciplinar — 3º ADS — FECAP 2026
 > **Aluno (escopo individual desta entrega):** Programação Mobile + Cloud Native (backend/API containerizada)
 > **Validação técnica:** 11/05/2026 — ambiente local containerizado
-> **Evidências visuais:** [`imagens-maya/`](../../../../imagens-maya/)
+> **Evidências visuais:** [`Imagens/`](../../../../Imagens/)
 
 Este documento é o ponto de entrada da Entrega 2 para o avaliador. Apresenta de forma objetiva o que foi implementado, como executar e onde estão as evidências.
 
@@ -86,7 +86,7 @@ Validação fora do sandbox em 10/05/2026: `gradlew.bat :app:testDebugUnitTest` 
 
 | Requisito do PI (Entrega 2) | Artefato (caminho real) | Print de evidência |
 |---|---|---|
-| Dockerfile do backend | `../Dockerfile` | `imagens-maya/cloud-native/07-arquivos-docker.png`, `08-docker-compose-build.png` |
+| Dockerfile do backend | `../Dockerfile` | `Imagens/cloud-native/07-arquivos-docker.png`, `08-docker-compose-build.png` |
 | Dockerfile do banco | `../Dockerfile.db` | `06-docker-compose-config-db.png`, `08-docker-compose-build.png` |
 | Docker Compose com API + banco | `../docker-compose.yml` | `05-docker-compose-config-api.png`, `06-docker-compose-config-db.png`, `09-docker-compose-up-healthy.png`, `10-docker-compose-ps.png` |
 | Volume persistente | `pg_data` (nomeado) | `14-volume-ls-pg-isready.png` |
@@ -179,7 +179,7 @@ URL da API consumida pelo app: `https://maya-rpg-api-1t7v.onrender.com/api/` (pr
 
 ## 7. Resultado do teste de carga (k6) — real
 
-Execução em 11/05/2026. Print: `imagens-maya/cloud-native/25-k6-load-test.png`.
+Execução em 11/05/2026. Print: `Imagens/cloud-native/25-k6-load-test.png`.
 
 | Métrica | Valor | Threshold | Resultado |
 |---|---|---|---|

@@ -3,210 +3,141 @@
 ![Android](https://img.shields.io/badge/Android-34A853?style=for-the-badge&logo=android&logoColor=white)
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
-![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![SQLite](https://img.shields.io/badge/Room%2FSQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![WorkManager](https://img.shields.io/badge/WorkManager-4285F4?style=for-the-badge&logo=android&logoColor=white)
 
 <br/>
 
-# 📱 Maya RPG Mobile
-### Aplicativo Android do Paciente
+# Maya RPG Mobile
+### App Android do Paciente
 
-*Clínica Maya Yoshiko Yamamoto — PI 3ADS FECAP 2026*
+*Clínica Maya Yoshiko Yamamoto · PI 3ADS · FECAP 2026*
 
 </div>
 
 ---
 
-## 📖 Sobre
+## O que é
 
-Aplicativo Android desenvolvido para a **Clínica Maya Yoshiko Yamamoto** como parte do Projeto Interdisciplinar do 3º Semestre de ADS (FECAP, 2026).
+App Android para pacientes de RPG (Reeducação Postural Global). Conecta ao backend Maya RPG via API REST e permite:
 
-Permite que pacientes **visualizem seus planos de exercícios**, **registrem execuções (check-in)** com nível de dor, e **acompanhem sua evolução** ao longo do tratamento.
-
----
-
-## 🛠️ Stack de Tecnologias
-
-| Categoria | Tecnologia | Função |
-|-----------|-----------|--------|
-| ![Java](https://img.shields.io/badge/Java-ED8B00?style=flat&logo=openjdk&logoColor=white) | Java (Android SDK) | Linguagem principal |
-| ![Retrofit](https://img.shields.io/badge/Retrofit-48B983?style=flat&logoColor=white) | Retrofit 2 | Consumo da API REST / JSON |
-| ![SQLite](https://img.shields.io/badge/Room%20%2F%20SQLite-003B57?style=flat&logo=sqlite&logoColor=white) | Room + SQLite | Persistência local e cache offline |
-| ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat&logo=firebase&logoColor=black) | Firebase Cloud Messaging | Push notifications |
-| ⚙️ | WorkManager | Sincronização em segundo plano e lembretes |
-| 📊 | MPAndroidChart | Gráficos de evolução da dor |
-| 🧩 | ConstraintLayout | Todos os layouts de interface |
+- Visualizar o plano de exercícios prescrito pela fisioterapeuta
+- Registrar check-ins com nível de dor (0–10) e observações
+- Acompanhar a evolução com gráfico histórico
+- Funcionar offline — dados salvos no Room e sincronizados ao reconectar
 
 ---
 
-## 📂 Estrutura do Projeto
+## Estrutura do Código
 
 ```
 app/src/main/java/com/maya/rpg/
 │
-├── 📁 api/             # Retrofit, interface da API e gestão de tokens JWT
-├── 📁 db/              # Room: Database, DAOs e Entidades
-├── 📁 fcm/             # Firebase Cloud Messaging
-├── 📁 model/           # POJOs para requisições e respostas da API
+├── api/            Retrofit client, ApiService, TokenManager (JWT)
+├── db/             Room: Database, DAOs, Entidades
+├── fcm/            Firebase Cloud Messaging
+├── model/          POJOs para requests/responses da API
 │
-├── 📁 ui/
-│   ├── 📁 auth/        # Login e recuperação de senha
-│   ├── 📁 home/        # Dashboard principal do paciente
-│   ├── 📁 exercises/   # Listagem e check-in de exercícios
-│   ├── 📁 evolution/   # Gráficos e histórico de progresso
-│   └── 📁 splash/      # Tela de abertura
+├── ui/
+│   ├── auth/       Login, primeiro acesso, LGPD
+│   ├── home/       Dashboard do paciente
+│   ├── exercises/  Lista do plano + check-in
+│   ├── evolution/  Gráfico e histórico de dor
+│   └── splash/     Tela de abertura
 │
-├── 📁 worker/          # WorkManager — sincronização offline
-├── 📁 notifications/   # Helpers para notificações locais
+├── worker/         SyncWorker (sync offline), ReminderWorker (lembretes)
+├── notifications/  Helpers para notificações locais
 └── MayaApplication.java
-
-app/src/main/res/
-├── 📁 layout/          # XMLs de interface (ConstraintLayout)
-├── 📁 drawable/        # Ícones, backgrounds e recursos visuais
-├── 📁 values/          # Cores, strings e temas
-└── 📁 menu/            # Menus de navegação
 ```
 
 ---
 
-## ✅ Requisitos Implementados — Entrega 2
+## Build e Testes
 
-| Requisito | Status |
-|-----------|:------:|
-| Consumo de API REST via Retrofit + JSON/Gson | ✅ |
-| Autenticação JWT (login por e-mail ou CPF) | ✅ |
-| Persistência offline com Room (SQLite) | ✅ |
-| Check-in por exercício com `exerciseId` | ✅ |
-| Nível de dor 0–10 via Slider | ✅ |
-| Campo de observações no check-in | ✅ |
-| Sincronização automática ao reconectar (WorkManager) | ✅ |
-| Histórico e evolução do paciente | ✅ |
-| Gráfico de progresso (MPAndroidChart) | ✅ |
-| Push notifications (FCM) | ⚠️ Parcial — integrado ao código, diálogo de permissão FCM exibido no dispositivo (`Imagens/mobile/08-fcm-permission-dialog.png`); sem print de notificação push recebida |
-| Lembretes locais (WorkManager) | ⚠️ Parcial — `ReminderWorker` registrado no código; sem print de lembrete disparado |
-| Aceite de LGPD integrado ao fluxo de autenticação | ✅ |
-| Fragment real em `ExercisePlanActivity` | ✅ |
-| Múltiplas Activities com Intents | ✅ |
-| Layouts 100% em ConstraintLayout | ✅ |
-| TextView, ImageView e Button | ✅ |
+```powershell
+# Build APK debug
+.\gradlew.bat :app:assembleDebug
+
+# Testes unitários
+.\gradlew.bat :app:testDebugUnitTest
+```
+
+**Resultado (10/05/2026):** ambos finalizaram com código 0 fora do sandbox.
+
+Testes presentes em `app/src/test/`:
+
+| Arquivo | Cobre |
+|---------|-------|
+| `TokenManagerTest.java` | Lógica de tokens JWT |
+| `SyncWorkerLogicTest.java` | Decisão de sincronização |
+| `ExerciseSessionDaoTest.java` | Operações Room/DAO |
+| `ModelContractTest.java` | Contrato dos modelos de API |
 
 ---
 
-## ⚙️ Configuração
+## Requisitos da Entrega 2
 
-### Pré-requisitos
+| Requisito | Arquivo principal | Status |
+|-----------|------------------|:------:|
+| API REST via Retrofit + Gson | `api/ApiService.java` | ✅ |
+| Autenticação JWT | `api/TokenManager.java` | ✅ |
+| Room (SQLite) offline | `db/` | ✅ |
+| Check-in com `exerciseId` | `ui/exercises/CheckInActivity.java` | ✅ |
+| Slider de dor 0–10 | Layout + CheckInActivity | ✅ |
+| Observações no check-in | Formulário de check-in | ✅ |
+| Sync automático (WorkManager) | `worker/SyncWorker.java` | ✅ |
+| Histórico e evolução | `ui/evolution/` | ✅ |
+| Gráfico MPAndroidChart | EvolutionFragment | ✅ |
+| Aceite LGPD | `ui/auth/LgpdConsentActivity.java` | ✅ |
+| Fragment real | `ExercisePlanActivity` → Fragment | ✅ |
+| Múltiplas Activities + Intents | Toda a navegação | ✅ |
+| ConstraintLayout | `res/layout/*.xml` | ✅ |
+| TextView, ImageView, Button | Todas as telas | ✅ |
+| FCM push notifications | `fcm/` — permissão exibida no device | ⚠️ Parcial |
+| Lembretes WorkManager | `worker/ReminderWorker.java` | ⚠️ Parcial |
 
-- Java instalado e configurado
-- Android Studio com SDK configurado
-- `google-services.json` presente em `app/`
-- Backend rodando localmente ou em produção
+---
 
-> ℹ️ O `google-services.json` é o arquivo de configuração **cliente** do Firebase/FCM. Não contém chaves privadas de servidor.
+## Configuração da API
 
-### URL da API
+Definida em `app/build.gradle.kts`:
 
-Configurada em `app/build.gradle.kts`:
-
-```groovy
-buildConfigField(
-    "String",
-    "API_BASE_URL",
-    "\"https://maya-rpg-api-1t7v.onrender.com/api/\""
-)
+```kotlin
+buildConfigField("String", "API_BASE_URL", "\"https://maya-rpg-api-1t7v.onrender.com/api/\"")
 ```
-
-Para testes locais, substitua pela URL adequada:
 
 | Ambiente | URL |
 |----------|-----|
-| Emulador Android | `http://10.0.2.2:3000/api/` |
+| Produção | `https://maya-rpg-api-1t7v.onrender.com/api/` |
+| Emulador | `http://10.0.2.2:3000/api/` |
 | Dispositivo físico | `http://<IP_DA_MAQUINA>:3000/api/` |
 
-### Build e testes
-
-```bash
-gradlew.bat :app:assembleDebug
-gradlew.bat :app:testDebugUnitTest
-```
-
-Ambos os comandos finalizaram com código 0. Validado em **10/05/2026**.
-
-> ⚠️ No sandbox do Codex, o Gradle falhou ao baixar a distribuição por bloqueio de rede (`Permission denied: getsockopt`). Reexecutado fora do sandbox, testes e build passaram normalmente.
+> `google-services.json` deve estar em `app/`. É o arquivo de configuração **cliente** do Firebase — não contém chaves privadas de servidor.
 
 ---
 
-## 📱 Fluxo de Uso
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                      FLUXO DO PACIENTE                      │
-│                                                             │
-│  [Login]──▶[Aceite LGPD]──▶[Home / Dashboard]              │
-│                                   │                         │
-│              ┌────────────────────┼──────────────────┐      │
-│              ▼                    ▼                  ▼      │
-│       [Meus Exercícios]    [Realizar Check-in]  [Evolução]  │
-│        (lista + mídia)     (exercício + dor     (gráfico +  │
-│                             0–10 + notas)       histórico)  │
-│                                   │                         │
-│                    ┌──────────────┴──────────────┐          │
-│                    │         Sem internet?        │          │
-│                    ▼                             ▼          │
-│             [Salva no Room]          [Sync automático       │
-│                                       ao reconectar]        │
-└─────────────────────────────────────────────────────────────┘
-```
-
-1. **Login** — informe o e-mail cadastrado. No primeiro acesso, a senha é o CPF (apenas números).
-2. **Aceite LGPD** — exibido no primeiro acesso; obrigatório para prosseguir.
-3. **Plano de exercícios** — toque em "Meus Exercícios" na Home. Sem internet, carrega o último cache salvo.
-4. **Check-in:**
-   - Selecione o exercício realizado.
-   - Ajuste o slider para o **nível de dor** (0–10).
-   - Adicione uma observação (opcional) e toque em **Registrar Treino**.
-   - Offline: salva localmente e sincroniza ao reconectar.
-5. **Histórico** — toque em "Minha Evolução" para ver o gráfico de dor e as sessões concluídas.
-
----
-
-## 🔗 Contrato de Check-in
-
-Enviado para `POST /api/check-ins` (online) ou `POST /api/check-ins/sync` (sincronização em lote):
+## Contrato de Check-in
 
 ```json
+POST /api/check-ins
 {
-  "prescriptionId": "uuid-da-prescricao",
-  "exerciseId":     "uuid-do-exercicio",
+  "prescriptionId": "uuid",
+  "exerciseId":     "uuid",
   "painLevel":      4,
   "notes":          "Executei sem dor aguda",
   "executedAt":     "2026-05-02T12:00:00.000Z"
 }
 ```
 
-A sessão é armazenada localmente na tabela `exercise_sessions` (Room/SQLite) e sincronizada com o backend quando há conexão disponível.
+Sincronização em lote (offline): `POST /api/check-ins/sync`
 
 ---
 
-## 📚 Documentação Adicional
+## Evidências Visuais
 
-| Documento | Link |
-|-----------|------|
-| 📋 Requisitos Implementados | [REQUISITOS_IMPLEMENTADOS.md](../../../Documentos/Entrega2/ProgramacaoMobile/REQUISITOS_IMPLEMENTADOS.md) |
-| 🎬 Roteiro de Demonstração | [ROTEIRO_DEMONSTRACAO.md](../../../Documentos/Entrega2/ProgramacaoMobile/ROTEIRO_DEMONSTRACAO.md) |
-| ⚙️ Setup de Ambiente | [AMBIENTE_SETUP.md](../../../Documentos/Entrega2/ProgramacaoMobile/AMBIENTE_SETUP.md) |
-| 🔍 Validação Final | [VALIDACAO_FINAL.md](../../../Documentos/Entrega2/ProgramacaoMobile/VALIDACAO_FINAL.md) |
-| ☁️ Documento principal da Entrega 2 | [01-entrega-2-mobile-e-cloud.md](../../../Documentos/Entrega2/Sistemas%20Operacionais%20e%20Arquiteturas%20Cloud%20Native/docs/01-entrega-2-mobile-e-cloud.md) |
+17 prints em [`Imagens/mobile/`](../../../Imagens/mobile/) — fluxo completo validado em 11/05/2026.
 
----
-
-## 📸 Evidências visuais
-
-Prints da Entrega 2 em `Imagens/` (54 prints totais validados em 11/05/2026):
-
-- `Imagens/cloud-native/` — **25 prints** (build, lint, testes 23/23 PASS, Docker, scripts, k6 p95=2.42ms).
-- `Imagens/mobile/` — **17 prints** (splash, login, primeiro acesso, LGPD, FCM dialog, home, exercícios, evolução, agenda, configurações, editar perfil, mensagens).
-- `Imagens/postman-api/` — **12 prints** (admin login → criar paciente/exercício → login paciente → LGPD → prescrição → check-in → histórico).
-
-Guia ilustrado com cada comando/tela seguido do print real: [docs/00-guia-ilustrado.md](../../../Documentos/Entrega2/Sistemas%20Operacionais%20e%20Arquiteturas%20Cloud%20Native/docs/00-guia-ilustrado.md).
+Guia ilustrado com cada tela + print real: [`docs/00-guia-ilustrado.md`](../../Documentos/Entrega2/Sistemas%20Operacionais%20e%20Arquiteturas%20Cloud%20Native/docs/00-guia-ilustrado.md)
 
 ---
 

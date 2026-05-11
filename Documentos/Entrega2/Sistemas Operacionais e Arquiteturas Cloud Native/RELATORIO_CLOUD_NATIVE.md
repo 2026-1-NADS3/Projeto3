@@ -3,9 +3,9 @@
 > **Projeto:** Maya Fisioterapia/RPG — Backend/API
 > **Aluno responsável (escopo individual):** Programação Mobile + Cloud Native
 > **Validação técnica:** 11/05/2026 em ambiente local containerizado (Docker Desktop, Windows 11 + WSL/Git Bash)
-> **Evidências visuais:** [`imagens-maya/cloud-native/`](../../../imagens-maya/cloud-native/)
+> **Evidências visuais:** [`Imagens/cloud-native/`](../../../Imagens/cloud-native/)
 
-Documento principal da entrega individual de Cloud Native/Infraestrutura com Linux. Cobre Dockerfile, docker-compose, scripts Shell/Bash, healthchecks, persistência por volume, variáveis de ambiente, deploy automatizado e teste de carga com k6. Cada item abaixo aponta para um print real anexado em `imagens-maya/cloud-native/`.
+Documento principal da entrega individual de Cloud Native/Infraestrutura com Linux. Cobre Dockerfile, docker-compose, scripts Shell/Bash, healthchecks, persistência por volume, variáveis de ambiente, deploy automatizado e teste de carga com k6. Cada item abaixo aponta para um print real anexado em `Imagens/cloud-native/`.
 
 ---
 
@@ -227,7 +227,7 @@ Cenários validados pelo `load-test.js`:
 
 ## 12. Evidências visuais — índice completo
 
-Todos os prints estão em [`imagens-maya/cloud-native/`](../../../imagens-maya/cloud-native/). Ordem de leitura recomendada para o avaliador:
+Todos os prints estão em [`Imagens/cloud-native/`](../../../Imagens/cloud-native/). Ordem de leitura recomendada para o avaliador:
 
 1. **Pré-condições (build local fora de container)** — `01-env-configurado.png`, `02-npm-lint.png`, `03-npm-build.png`, `04-npm-test-23-passing.png`.
 2. **Validação do Compose** — `05-docker-compose-config-api.png`, `06-docker-compose-config-db.png`, `07-arquivos-docker.png`.
@@ -242,4 +242,4 @@ Todos os prints estão em [`imagens-maya/cloud-native/`](../../../imagens-maya/c
 
 ## 13. Conclusão
 
-A entrega de Cloud Native cobre todos os requisitos obrigatórios da Entrega 2 do PI (Dockerfile da API, Dockerfile do banco, `docker-compose.yml` com volume persistente, variáveis de ambiente, script de deploy automatizado, documentação e demonstração do sistema rodando em containers). Os 25 prints em `imagens-maya/cloud-native/` evidenciam execução real em 11/05/2026, incluindo o teste de carga com k6 (p95=2.42ms, 0% de falha em 5451 checks). A solução está pronta para demonstração acadêmica em ambiente local containerizado.
+A entrega de Cloud Native cobre todos os requisitos obrigatórios da Entrega 2 do PI (Dockerfile da API, Dockerfile do banco, `docker-compose.yml` com volume persistente, variáveis de ambiente, script de deploy automatizado, documentação e demonstração do sistema rodando em containers). Os 25 prints em `Imagens/cloud-native/` evidenciam execução real em 11/05/2026, incluindo o teste de carga com k6 (p95=2.42ms, 0% de falha em 5451 checks). A solução está pronta para demonstração acadêmica em ambiente local containerizado.

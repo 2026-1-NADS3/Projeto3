@@ -3,7 +3,7 @@
 > **Projeto:** Maya Fisioterapia/RPG — Backend/API
 > **Objetivo:** documentar a containerização da API, banco PostgreSQL, volumes, variáveis de ambiente e scripts de automação exigidos na Entrega 2.
 > **Validação técnica:** 11/05/2026 — ambiente local Windows 11 + Docker Desktop + Git Bash
-> **Evidências:** [`imagens-maya/cloud-native/`](../../../../imagens-maya/cloud-native/)
+> **Evidências:** [`Imagens/cloud-native/`](../../../../Imagens/cloud-native/)
 
 ---
 
@@ -396,10 +396,10 @@ Ordem cronológica recomendada para o avaliador:
 7. **Deploy automatizado** — 20–24
 8. **Teste de carga** — 25
 
-Todos em [`imagens-maya/cloud-native/`](../../../../imagens-maya/cloud-native/). Descrição arquivo a arquivo em `imagens-maya/README.md`.
+Todos em [`Imagens/cloud-native/`](../../../../Imagens/cloud-native/). Descrição arquivo a arquivo em `Imagens/README.md`.
 
 ---
 
 ## 15. Conclusão
 
-A infraestrutura cobre todos os itens obrigatórios da Entrega 2 de Cloud Native: Dockerfile da API, Dockerfile do banco, Compose com volume persistente, variáveis de ambiente, script de deploy automatizado, documentação de build/execução, demonstração do sistema em containers, relatório com vantagens/diferenças/persistência, scripts de monitoramento, backup, gerenciamento e demonstração de conceitos Linux/Bash. Os 25 prints em `imagens-maya/cloud-native/` evidenciam execução real em 11/05/2026, incluindo um teste de carga com 0% de falha e p95 de 2.42ms.
+A infraestrutura cobre todos os itens obrigatórios da Entrega 2 de Cloud Native: Dockerfile da API, Dockerfile do banco, Compose com volume persistente, variáveis de ambiente, script de deploy automatizado, documentação de build/execução, demonstração do sistema em containers, relatório com vantagens/diferenças/persistência, scripts de monitoramento, backup, gerenciamento e demonstração de conceitos Linux/Bash. Os 25 prints em `Imagens/cloud-native/` evidenciam execução real em 11/05/2026, incluindo um teste de carga com 0% de falha e p95 de 2.42ms.

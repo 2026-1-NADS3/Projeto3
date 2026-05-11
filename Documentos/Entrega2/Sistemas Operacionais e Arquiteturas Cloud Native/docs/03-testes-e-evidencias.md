@@ -3,7 +3,7 @@
 > **Projeto:** Maya Fisioterapia/RPG
 > **Objetivo:** apresentar comandos de validação, testes automatizados, teste de carga, prints e critérios de qualidade da Entrega 2.
 > **Validação técnica:** 11/05/2026 — ambiente local containerizado
-> **Evidências:** [`imagens-maya/`](../../../../imagens-maya/)
+> **Evidências:** [`Imagens/`](../../../../Imagens/)
 
 ---
 
@@ -77,7 +77,7 @@ Comando:
 npm test -- --runInBand
 ```
 
-**Resultado obtido em 11/05/2026 (print `imagens-maya/cloud-native/04-npm-test-23-passing.png`):**
+**Resultado obtido em 11/05/2026 (print `Imagens/cloud-native/04-npm-test-23-passing.png`):**
 
 ```text
 Test Suites: 6 passed, 6 total
@@ -123,7 +123,7 @@ Configuração:
   - `http_req_duration: ['p(95)<500']`
   - `http_req_failed: ['rate<0.01']`
 
-**Resultado obtido em 11/05/2026 (print `imagens-maya/cloud-native/25-k6-load-test.png`):**
+**Resultado obtido em 11/05/2026 (print `Imagens/cloud-native/25-k6-load-test.png`):**
 
 | Métrica | Valor | Threshold | Resultado |
 |---|---|---|---|
@@ -204,7 +204,7 @@ Requisitos → Implementação → Lint → Build → Testes → Docker → Carg
 
 ## 8. Guia de Prints — Backend / Cloud Native
 
-Já anexados em `imagens-maya/cloud-native/` (25 prints validados em 11/05/2026):
+Já anexados em `Imagens/cloud-native/` (25 prints validados em 11/05/2026):
 
 | Nº | Evidência | Print |
 |---:|---|---|
