@@ -232,36 +232,52 @@ Já anexados em `imagens-maya/cloud-native/` (25 prints validados em 11/05/2026)
 
 ---
 
-## 9. Prints pendentes
+## 9. Índice de prints anexados
 
 ### 9.1 Backend / API — opcional
 
 | Print sugerido | Comando para gerar |
 |---|---|
-| Testes e2e passando | `npm run test:e2e` (com print do terminal mostrando suites passando) |
+| Testes e2e passando | `npm run test:e2e` (print do terminal com suites passando) |
 
-### 9.2 Mobile — `imagens-maya/mobile/` (pendente)
+### 9.2 Mobile — `Imagens/mobile/` — 17 prints ✅
 
-| Print sugerido | Como gerar |
-|---|---|
-| `01-build-assembledebug.png` | `gradlew.bat :app:assembleDebug` → BUILD SUCCESSFUL |
-| `02-tela-login.png` | App aberto na tela de login |
-| `03-tela-lgpd.png` | Tela de aceite LGPD no primeiro acesso |
-| `04-tela-exercicios.png` | Lista do plano de exercícios |
-| `05-tela-detalhe-exercicio.png` | Detalhe (Fragment) |
-| `06-tela-checkin.png` | Slider de dor 0–10 + observações |
-| `07-tela-historico.png` | Histórico/evolução com gráfico |
-| `08-notificacao-fcm.png` | Notificação push no dispositivo |
+| # | Arquivo | Evidência |
+|---:|---|---|
+| 1 | `01-build-android-studio-successful.png` | BUILD SUCCESSFUL — assembleDebug |
+| 2 | `02-splash-bem-vindo.png` | Splash screen |
+| 3 | `03-login-vazio.png` | Tela de login (campos vazios) |
+| 4 | `04-login-preenchido.png` | Tela de login preenchida |
+| 5 | `05-primeiro-acesso-criar-senha.png` | Primeiro Acesso — criar senha |
+| 6 | `06-lgpd-termo-aceitar.png` | Termo LGPD — aguardando aceite |
+| 7 | `07-lgpd-salvando.png` | Termo LGPD — aceito, salvando |
+| 8 | `08-fcm-permission-dialog.png` | Diálogo FCM de permissão (Android nativo) |
+| 9 | `09-home-dashboard.png` | Home — dashboard do paciente |
+| 10 | `10-minha-evolucao-grafico.png` | Minha Evolução — gráfico de dor |
+| 11 | `11-plano-exercicios-lista.png` | Plano de Exercícios — lista |
+| 12 | `12-configuracoes.png` | Configurações |
+| 13 | `13-configuracoes-sair-confirmacao.png` | Confirmação de logout |
+| 14 | `14-editar-perfil.png` | Editar Perfil |
+| 15 | `15-agendar-sessao-calendario.png` | Agendar Sessão — calendário |
+| 16 | `16-mensagens.png` | Mensagens |
+| 17 | `17-minha-agenda.png` | Minha Agenda |
 
-### 9.3 Postman / API client — `imagens-maya/postman-api/` (pendente)
+### 9.3 Postman / API client — `Imagens/postman-api/` — 12 prints ✅
 
-| Print sugerido | Endpoint |
-|---|---|
-| `01-login-200.png` | `POST /api/auth/login` retornando token JWT |
-| `02-me-200.png` | `GET /api/auth/me` autenticado |
-| `03-exercises-200.png` | `GET /api/exercises` retornando lista |
-| `04-checkin-201.png` | `POST /api/check-ins` criando registro |
-| `05-dashboard-200.png` | `GET /api/dashboard/...` indicadores |
+| # | Arquivo | Endpoint | Status |
+|---:|---|---|:---:|
+| 1 | `01-admin-login-201-token.png` | `POST /api/auth/login` (admin) | 201 |
+| 2 | `02-auth-me-200-admin.png` | `GET /api/auth/me` | 200 |
+| 3 | `03-post-patients-201.png` | `POST /api/patients` | 201 |
+| 4 | `04-post-exercises-201.png` | `POST /api/exercises` | 201 |
+| 5 | `05-patient-login-201-primeiro-acesso.png` | `POST /api/auth/login` (paciente, CPF) | 201 |
+| 6 | `06-auth-change-password-201.png` | `POST /api/auth/change-password` | 201 |
+| 7 | `07-patient-login-201-token.png` | `POST /api/auth/login` (nova senha) | 201 |
+| 8 | `08-accept-lgpd-201.png` | `POST /api/auth/accept-lgpd` | 201 |
+| 9 | `09-post-prescriptions-201.png` | `POST /api/prescriptions` | 201 |
+| 10 | `10-get-prescriptions-me-full-200.png` | `GET /api/prescriptions/me/full` | 200 |
+| 11 | `11-post-check-ins-201.png` | `POST /api/check-ins` | 201 |
+| 12 | `12-get-check-ins-history-200.png` | `GET /api/check-ins/my-history` | 200 |
 
 ---
 
@@ -292,35 +308,38 @@ docker-compose.yml
 scripts/*.sh
 scripts/migrations/*.sql
 RELATORIO_CLOUD_NATIVE.md
+docs/00-guia-ilustrado.md
 docs/01-entrega-2-mobile-e-cloud.md
 docs/02-cloud-native-e-automacao.md
 docs/03-testes-e-evidencias.md
-imagens-maya/cloud-native/*.png (25 prints)
-imagens-maya/README.md
+Imagens/cloud-native/*.png  (25 prints)
+Imagens/mobile/*.png        (17 prints)
+Imagens/postman-api/*.png   (12 prints)
+Imagens/README.md
 ```
 
 ---
 
-## 11. Sugestão de Organização para Anexos
+## 11. Organização dos Anexos
 
 ```text
-imagens-maya/
-├── cloud-native/           # 25 prints (já anexados)
+Imagens/
+├── cloud-native/           # 25 prints validados em 11/05/2026
 │   ├── 01-env-configurado.png
 │   ├── ...
 │   └── 25-k6-load-test.png
-├── mobile/                 # 8 prints sugeridos (pendente)
-│   ├── 01-build-assembledebug.png
+├── mobile/                 # 17 prints validados em 11/05/2026
+│   ├── 01-build-android-studio-successful.png
 │   ├── ...
-│   └── 08-notificacao-fcm.png
-└── postman-api/            # 5 prints sugeridos (pendente)
-    ├── 01-login-200.png
+│   └── 17-minha-agenda.png
+└── postman-api/            # 12 prints validados em 11/05/2026
+    ├── 01-admin-login-201-token.png
     ├── ...
-    └── 05-dashboard-200.png
+    └── 12-get-check-ins-history-200.png
 ```
 
 ---
 
 ## 12. Conclusão
 
-A entrega tem evidência real e mensurável da parte Cloud Native: 25 prints cobrindo build, testes unitários (23/23 PASS), Compose configurado, containers healthy, persistência via volume nomeado, scripts de automação executados e teste de carga com p95 de 2.42ms e 0% de falha. As pendências (prints do mobile e do Postman) estão listadas com a forma exata de gerá-las — basta executar os comandos da Seção 9 e salvar os PNGs nas pastas correspondentes.
+A entrega tem evidência real e mensurável em todas as três áreas. Cloud Native: 25 prints cobrindo build, lint, 23/23 testes unitários PASS, Compose configurado, containers healthy, volume persistente, scripts de automação executados e teste de carga com p95=2.42ms e 0% de falha. Mobile Android: 17 prints cobrindo o fluxo completo do paciente (splash → login → primeiro acesso → LGPD → FCM → home → exercícios → evolução → agenda → configurações). API via Postman: 12 prints cobrindo o fluxo completo (admin → criar paciente/exercício → login paciente → LGPD → prescrição → check-in → histórico). Total: 54 prints validados em 11/05/2026.

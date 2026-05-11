@@ -8,6 +8,8 @@
 
 Este documento é o ponto de entrada da Entrega 2 para o avaliador. Apresenta de forma objetiva o que foi implementado, como executar e onde estão as evidências.
 
+> Para um roteiro visual completo com cada etapa seguida da sua captura de tela real, consulte **[00-guia-ilustrado.md](00-guia-ilustrado.md)**.
+
 ---
 
 ## 1. Visão Geral
@@ -47,10 +49,10 @@ Projeto3/
 E, fora do repositório acadêmico, a pasta de evidências:
 
 ```text
-imagens-maya/
+Imagens/
 ├── cloud-native/   # 25 prints validados em 11/05/2026
-├── mobile/         # pendente — ver Seção 9
-└── postman-api/    # pendente — ver Seção 9
+├── mobile/         # 17 prints validados em 11/05/2026
+└── postman-api/    # 12 prints validados em 11/05/2026
 ```
 
 ---
@@ -199,14 +201,16 @@ Execução em 11/05/2026. Print: `imagens-maya/cloud-native/25-k6-load-test.png`
 | Teste de carga (k6) | ✅ | p95=2.42ms, 0% falha |
 | Mobile: build e features principais | ✅ | Build OK fora do sandbox (10/05/2026) |
 | Mobile: notificações FCM/ReminderWorker | ⚠️ Parcial | Código presente, sem print de notificação real no dispositivo até esta versão |
-| Mobile: evidências visuais (telas) | ⚠️ Pendente | Prints listados na Seção 9 |
-| Postman/API client (prints) | ⚠️ Pendente | Prints listados na Seção 9 |
+| Mobile: evidências visuais (telas) | ✅ | 17 prints em `Imagens/mobile/` — fluxo completo do paciente |
+| Postman/API client (prints) | ✅ | 12 prints em `Imagens/postman-api/` — fluxo completo da API |
 
 ---
 
 ## 9. Evidências visuais
 
-### 9.1 Já anexadas — `imagens-maya/cloud-native/` (25 prints)
+Índice completo em [`../../../../Imagens/README.md`](../../../../Imagens/README.md). Guia visual ilustrado com cada etapa + print: [00-guia-ilustrado.md](00-guia-ilustrado.md).
+
+### 9.1 `Imagens/cloud-native/` — 25 prints
 
 ```
 01-env-configurado.png            14-volume-ls-pg-isready.png
@@ -224,30 +228,44 @@ Execução em 11/05/2026. Print: `imagens-maya/cloud-native/25-k6-load-test.png`
 13-swagger.png
 ```
 
-Descrição completa em `imagens-maya/README.md`.
+### 9.2 `Imagens/mobile/` — 17 prints
 
-### 9.2 Pendentes — `imagens-maya/mobile/`
+| # | Arquivo | Evidência |
+|---:|---|---|
+| 1 | `01-build-android-studio-successful.png` | BUILD SUCCESSFUL — assembleDebug, 31s |
+| 2 | `02-splash-bem-vindo.png` | Splash screen |
+| 3 | `03-login-vazio.png` | Tela de login (campos vazios) |
+| 4 | `04-login-preenchido.png` | Tela de login preenchida |
+| 5 | `05-primeiro-acesso-criar-senha.png` | Primeiro Acesso — criar senha |
+| 6 | `06-lgpd-termo-aceitar.png` | Termo LGPD — aguardando aceite |
+| 7 | `07-lgpd-salvando.png` | Termo LGPD — aceito, salvando |
+| 8 | `08-fcm-permission-dialog.png` | Diálogo FCM: "Allow notifications?" |
+| 9 | `09-home-dashboard.png` | Home — dashboard do paciente |
+| 10 | `10-minha-evolucao-grafico.png` | Minha Evolução — gráfico de dor |
+| 11 | `11-plano-exercicios-lista.png` | Plano de exercícios — lista |
+| 12 | `12-configuracoes.png` | Configurações — conta e preferências |
+| 13 | `13-configuracoes-sair-confirmacao.png` | Confirmação de logout |
+| 14 | `14-editar-perfil.png` | Editar Perfil |
+| 15 | `15-agendar-sessao-calendario.png` | Agendar Sessão — calendário |
+| 16 | `16-mensagens.png` | Mensagens |
+| 17 | `17-minha-agenda.png` | Minha Agenda |
 
-| Print sugerido | Como gerar |
-|---|---|
-| `01-build-assembledebug.png` | Terminal com `gradlew.bat :app:assembleDebug` → BUILD SUCCESSFUL |
-| `02-tela-login.png` | App aberto na tela de login (com identidade visual da Clínica) |
-| `03-tela-lgpd.png` | Tela de aceite LGPD após primeiro login |
-| `04-tela-exercicios.png` | Lista do plano de exercícios consumindo a API |
-| `05-tela-detalhe-exercicio.png` | Detalhe de um exercício (Fragment) |
-| `06-tela-checkin.png` | Slider de dor 0–10 + campo de observação |
-| `07-tela-historico.png` | Histórico/evolução com gráfico MPAndroidChart |
-| `08-notificacao-fcm.png` | Notificação push aparecendo no dispositivo |
+### 9.3 `Imagens/postman-api/` — 12 prints
 
-### 9.3 Pendentes — `imagens-maya/postman-api/`
-
-| Print sugerido | Como gerar |
-|---|---|
-| `01-login-200.png` | `POST /api/auth/login` retornando token JWT (status 200) |
-| `02-me-200.png` | `GET /api/auth/me` autenticado com Bearer token |
-| `03-exercises-200.png` | `GET /api/exercises` retornando lista |
-| `04-checkin-201.png` | `POST /api/check-ins` criando registro de execução |
-| `05-dashboard-200.png` | Endpoint de indicadores retornando dados agregados |
+| # | Arquivo | Endpoint | Status |
+|---:|---|---|:---:|
+| 1 | `01-admin-login-201-token.png` | `POST /api/auth/login` (admin) | 201 |
+| 2 | `02-auth-me-200-admin.png` | `GET /api/auth/me` | 200 |
+| 3 | `03-post-patients-201.png` | `POST /api/patients` | 201 |
+| 4 | `04-post-exercises-201.png` | `POST /api/exercises` | 201 |
+| 5 | `05-patient-login-201-primeiro-acesso.png` | `POST /api/auth/login` (paciente, CPF) | 201 |
+| 6 | `06-auth-change-password-201.png` | `POST /api/auth/change-password` | 201 |
+| 7 | `07-patient-login-201-token.png` | `POST /api/auth/login` (nova senha) | 201 |
+| 8 | `08-accept-lgpd-201.png` | `POST /api/auth/accept-lgpd` | 201 |
+| 9 | `09-post-prescriptions-201.png` | `POST /api/prescriptions` | 201 |
+| 10 | `10-get-prescriptions-me-full-200.png` | `GET /api/prescriptions/me/full` | 200 |
+| 11 | `11-post-check-ins-201.png` | `POST /api/check-ins` | 201 |
+| 12 | `12-get-check-ins-history-200.png` | `GET /api/check-ins/my-history` | 200 |
 
 ---
 
@@ -263,4 +281,4 @@ Descrição completa em `imagens-maya/README.md`.
 
 ## 11. Conclusão
 
-A entrega individual cobre Programação Mobile e Cloud Native conforme o PI 3ADS 2026 da Clínica Maya. Os 25 prints em `imagens-maya/cloud-native/` evidenciam a infraestrutura Docker, scripts Bash, persistência, healthchecks e teste de carga executados em 11/05/2026. As pendências são exclusivamente prints adicionais do app mobile e de requisições via Postman, listadas nas Seções 9.2 e 9.3 com a forma exata de gerá-los.
+A entrega individual cobre Programação Mobile e Cloud Native conforme o PI 3ADS 2026 da Clínica Maya. As evidências estão completas: 25 prints em `Imagens/cloud-native/` documentam a infraestrutura Docker, scripts Bash, persistência, healthchecks e teste de carga (p95=2.42ms, 0% falha, 5451/5451 checks); 17 prints em `Imagens/mobile/` cobrem o fluxo completo do paciente no app Android (splash → login → LGPD → FCM → home → exercícios → evolução); e 12 prints em `Imagens/postman-api/` documentam o fluxo completo da API (criação de dados → primeiro acesso → LGPD → prescrição → check-in → histórico). Total: 54 prints validados em 11/05/2026.

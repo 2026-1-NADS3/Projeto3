@@ -141,6 +141,8 @@ Validação objetiva em 10/05/2026: `npm run build` OK, `npm test -- --runInBand
 
 ## Evidências visuais
 
-- `imagens-maya/cloud-native/` — 25 prints anexados (build, lint, testes 23/23 PASS, Docker, scripts, k6).
-- `imagens-maya/mobile/` — **pendente**. Prints recomendados em `../Sistemas Operacionais e Arquiteturas Cloud Native/docs/03-testes-e-evidencias.md`, Seção 9.2.
-- `imagens-maya/postman-api/` — **pendente**. Prints recomendados em `../Sistemas Operacionais e Arquiteturas Cloud Native/docs/03-testes-e-evidencias.md`, Seção 9.3.
+- `Imagens/cloud-native/` — 25 prints validados em 11/05/2026 (build, lint, testes 23/23 PASS, Docker, scripts, k6).
+- `Imagens/mobile/` — 17 prints validados em 11/05/2026 (splash, login, LGPD, FCM, home, exercícios, evolução, configurações, agenda).
+- `Imagens/postman-api/` — 12 prints validados em 11/05/2026 (admin login, criar paciente/exercício, primeiro acesso paciente, LGPD, prescrição, check-in, histórico).
+
+Guia ilustrado completo: `../Sistemas Operacionais e Arquiteturas Cloud Native/docs/00-guia-ilustrado.md`.

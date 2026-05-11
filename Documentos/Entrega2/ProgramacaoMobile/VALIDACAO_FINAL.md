@@ -8,7 +8,7 @@ Validação técnica atualizada em 11/05/2026. Evidências em `imagens-maya/`.
 
 ## Escopo validado diretamente
 
-- **Mobile:** build debug OK, testes unitários OK, dor 0–10, Fragment real, ConstraintLayout, Room, Retrofit, SyncWorker. FCM e ReminderWorker integrados no código (status Parcial — sem print de notificação real no dispositivo).
+- **Mobile:** build debug OK, testes unitários OK, dor 0–10, Fragment real, ConstraintLayout, Room, Retrofit, SyncWorker. FCM integrado e diálogo de permissão exibido no dispositivo real (`Imagens/mobile/08-fcm-permission-dialog.png`). ReminderWorker registrado no código (sem print de lembrete disparado).
 - **Cloud/API containerizada:** build OK, 23 testes OK (`imagens-maya/cloud-native/04-npm-test-23-passing.png`), `docker compose config` OK, healthchecks documentados para API e DB, scripts mantidos (setup, monitoramento, backup, manage_services, deploy) — todos com prints de execução real.
 - **Teste de carga (k6):** executado com p95 = 2.42 ms, 0.00% falha, 5451/5451 checks (`imagens-maya/cloud-native/25-k6-load-test.png`).
 
@@ -103,10 +103,8 @@ Execução em 11/05/2026 (`imagens-maya/cloud-native/25-k6-load-test.png`):
 
 ## Pendências de evidências
 
-- Prints do app mobile em `imagens-maya/mobile/` (8 prints sugeridos).
-- Prints de requisições via Postman em `imagens-maya/postman-api/` (5 prints sugeridos).
-- Print do `npm run test:e2e` (opcional — testes unitários já cobertos).
+- Print do `npm run test:e2e` (opcional — testes unitários já cobertos por 23/23 PASS).
 
 ## Conclusão
 
-O projeto está pronto para demonstração acadêmica da Entrega 2 em ambiente local containerizado. A parte Cloud Native tem 25 prints anexados cobrindo todos os requisitos. As pendências são exclusivamente de prints adicionais do mobile e de requisições, listadas em `Sistemas Operacionais e Arquiteturas Cloud Native/docs/03-testes-e-evidencias.md`.
+O projeto está pronto para demonstração acadêmica da Entrega 2 em ambiente local containerizado. As evidências visuais estão completas: 25 prints em `Imagens/cloud-native/` (Cloud Native), 17 prints em `Imagens/mobile/` (fluxo completo do paciente no app Android) e 12 prints em `Imagens/postman-api/` (fluxo completo da API). Total: 54 prints validados em 11/05/2026. Guia ilustrado em `Sistemas Operacionais e Arquiteturas Cloud Native/docs/00-guia-ilustrado.md`.

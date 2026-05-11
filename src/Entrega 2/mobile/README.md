@@ -81,8 +81,8 @@ app/src/main/res/
 | Sincronização automática ao reconectar (WorkManager) | ✅ |
 | Histórico e evolução do paciente | ✅ |
 | Gráfico de progresso (MPAndroidChart) | ✅ |
-| Push notifications (FCM) | ⚠️ Parcial — código integrado, sem print de notificação real no dispositivo |
-| Lembretes locais (WorkManager) | ⚠️ Parcial — `ReminderWorker` registrado, sem print de lembrete disparado |
+| Push notifications (FCM) | ⚠️ Parcial — integrado ao código, diálogo de permissão FCM exibido no dispositivo (`Imagens/mobile/08-fcm-permission-dialog.png`); sem print de notificação push recebida |
+| Lembretes locais (WorkManager) | ⚠️ Parcial — `ReminderWorker` registrado no código; sem print de lembrete disparado |
 | Aceite de LGPD integrado ao fluxo de autenticação | ✅ |
 | Fragment real em `ExercisePlanActivity` | ✅ |
 | Múltiplas Activities com Intents | ✅ |
@@ -200,17 +200,13 @@ A sessão é armazenada localmente na tabela `exercise_sessions` (Room/SQLite) e
 
 ## 📸 Evidências visuais
 
-Prints da Entrega 2 organizados em `imagens-maya/`:
+Prints da Entrega 2 em `Imagens/` (54 prints totais validados em 11/05/2026):
 
-- `imagens-maya/cloud-native/` — **25 prints anexados** (build, lint, testes 23/23 PASS, Docker, scripts, k6 com p95=2.42ms).
-- `imagens-maya/mobile/` — **pendente**. Prints recomendados:
-  - `01-build-assembledebug.png` — terminal com BUILD SUCCESSFUL
-  - `02-tela-login.png`, `03-tela-lgpd.png`
-  - `04-tela-exercicios.png`, `05-tela-detalhe-exercicio.png`
-  - `06-tela-checkin.png` (slider de dor 0–10)
-  - `07-tela-historico.png` (gráfico de evolução)
-  - `08-notificacao-fcm.png` (push real no dispositivo)
-- `imagens-maya/postman-api/` — **pendente**. Prints recomendados de `POST /api/auth/login`, `GET /api/auth/me`, `GET /api/exercises`, `POST /api/check-ins`, `GET /api/dashboard/...`.
+- `Imagens/cloud-native/` — **25 prints** (build, lint, testes 23/23 PASS, Docker, scripts, k6 p95=2.42ms).
+- `Imagens/mobile/` — **17 prints** (splash, login, primeiro acesso, LGPD, FCM dialog, home, exercícios, evolução, agenda, configurações, editar perfil, mensagens).
+- `Imagens/postman-api/` — **12 prints** (admin login → criar paciente/exercício → login paciente → LGPD → prescrição → check-in → histórico).
+
+Guia ilustrado com cada comando/tela seguido do print real: [docs/00-guia-ilustrado.md](../../../Documentos/Entrega2/Sistemas%20Operacionais%20e%20Arquiteturas%20Cloud%20Native/docs/00-guia-ilustrado.md).
 
 ---
 

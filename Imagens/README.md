@@ -1,19 +1,19 @@
 # Evidências Visuais — Entrega 2 (Maya RPG)
 
-Pasta de prints e evidências da Entrega 2, organizada por área.
+Prints e evidências da Entrega 2, organizados por área.
 
 ## Estrutura
 
 ```
-imagens-maya/
-├── cloud-native/   # Prints de Docker, scripts Bash, k6, build, testes da API
-├── mobile/         # Prints do app Android (pendente)
-└── postman-api/    # Prints de requisições à API via Postman/Swagger (pendente)
+Imagens/
+├── cloud-native/   # 25 prints: Docker, scripts Bash, k6, build, testes da API
+├── mobile/         # 17 prints: app Android (splash → login → LGPD → home → exercícios → evolução)
+└── postman-api/    # 12 prints: fluxo completo da API via Postman (admin → paciente → check-in)
 ```
 
-## cloud-native/ (25 prints — todos validados em 11/05/2026)
+---
 
-Sequência cronológica seguida na demonstração local:
+## cloud-native/ — 25 prints (validados em 11/05/2026)
 
 | # | Arquivo | Evidência |
 |---:|---|---|
@@ -41,23 +41,51 @@ Sequência cronológica seguida na demonstração local:
 | 22 | `22-deploy-sh-npm-ci-2.png` | `deploy.sh` — `npm ci` parte 2 (audit, install) |
 | 23 | `23-deploy-sh-build.png` | `deploy.sh` — exportação da imagem da API + backup pré-deploy |
 | 24 | `24-deploy-sh-healthy.png` | `deploy.sh` — migrações aplicadas, containers `healthy`, deploy concluído |
-| 25 | `25-k6-load-test.png` | `k6 run test/load/load-test.js` — p95=2.42ms, 0% falha, 5451 checks |
+| 25 | `25-k6-load-test.png` | `k6 run test/load/load-test.js` — p95=2.42ms, 0% falha, 5451/5451 checks |
 
-## mobile/ — pendente
+---
 
-Prints recomendados (a tirar):
-- Build do app: `gradlew.bat :app:assembleDebug`
-- Tela de login
-- Tela de aceite LGPD
-- Tela do plano de exercícios
-- Tela de check-in com slider de dor
-- Tela de histórico/evolução com gráfico
-- Notificação FCM/ReminderWorker no dispositivo
+## mobile/ — 17 prints (validados em 11/05/2026)
 
-## postman-api/ — pendente
+Fluxo do paciente: build → splash → login → primeiro acesso → LGPD → FCM → home → exercícios → evolução → configurações → agenda.
 
-Prints recomendados (a tirar):
-- `POST /api/auth/login` retornando token JWT
-- `GET /api/exercises` autenticado
-- `POST /api/check-ins` registrando execução
-- `GET /api/dashboard/...` indicadores
+| # | Arquivo | Tela / Evidência |
+|---:|---|---|
+| 1 | `01-build-android-studio-successful.png` | Android Studio — BUILD SUCCESSFUL (assembleDebug, 31s) |
+| 2 | `02-splash-bem-vindo.png` | Tela de splash — logo Maya Yamamoto RPG + "Bem-Vindo" |
+| 3 | `03-login-vazio.png` | Tela de login (campos vazios) |
+| 4 | `04-login-preenchido.png` | Tela de login preenchida (andre@gmail.com + senha) |
+| 5 | `05-primeiro-acesso-criar-senha.png` | Primeiro Acesso — criação de nova senha |
+| 6 | `06-lgpd-termo-aceitar.png` | Termo de uso e LGPD (checkbox desmarcado, "Aceitar e continuar") |
+| 7 | `07-lgpd-salvando.png` | Termo de uso e LGPD (checkbox marcado, "Salvando...") |
+| 8 | `08-fcm-permission-dialog.png` | Diálogo do Android: "Allow Maya RPG to send you notifications?" |
+| 9 | `09-home-dashboard.png` | Home — Evolução Semanal + planos de exercícios + agenda da semana |
+| 10 | `10-minha-evolucao-grafico.png` | Minha Evolução — gráfico Nível de Dor, tabs Melhora / Frequência |
+| 11 | `11-plano-exercicios-lista.png` | Bem-Vindo ao Seu Plano de Exercícios (lista com busca) |
+| 12 | `12-configuracoes.png` | Configurações — Conta (Editar Perfil, Segurança, Privacidade) + Preferências |
+| 13 | `13-configuracoes-sair-confirmacao.png` | Diálogo de confirmação de logout |
+| 14 | `14-editar-perfil.png` | Editar Perfil — dados pessoais + Minha Saúde (Notificações, Idioma, Tema) |
+| 15 | `15-agendar-sessao-calendario.png` | Agendar Sessão — calendário May 2026 + horários disponíveis |
+| 16 | `16-mensagens.png` | Tela de Mensagens (suas conversas) |
+| 17 | `17-minha-agenda.png` | Minha Agenda — tabs Todos / Próximos / Histórico |
+
+---
+
+## postman-api/ — 12 prints (validados em 11/05/2026)
+
+Fluxo completo: login admin → criar dados → login paciente (primeiro acesso) → LGPD → prescrição → check-in → histórico.
+
+| # | Arquivo | Endpoint | Status | Evidência |
+|---:|---|---|:---:|---|
+| 1 | `01-admin-login-201-token.png` | `POST /api/auth/login` | 201 | Login admin@mayarpg.com → accessToken + role: ADMIN |
+| 2 | `02-auth-me-200-admin.png` | `GET /api/auth/me` | 200 | Perfil do usuário autenticado (ADMIN) |
+| 3 | `03-post-patients-201.png` | `POST /api/patients` | 201 | Criação de paciente "Paciente Print" |
+| 4 | `04-post-exercises-201.png` | `POST /api/exercises` | 201 | Criação de exercício "Alongamento Cervical" |
+| 5 | `05-patient-login-201-primeiro-acesso.png` | `POST /api/auth/login` | 201 | Login paciente (CPF como senha, isFirstAccess: true) |
+| 6 | `06-auth-change-password-201.png` | `POST /api/auth/change-password` | 201 | "Senha alterada com sucesso" |
+| 7 | `07-patient-login-201-token.png` | `POST /api/auth/login` | 201 | Login paciente com nova senha → token JWT |
+| 8 | `08-accept-lgpd-201.png` | `POST /api/auth/accept-lgpd` | 201 | "Termo LGPD aceito" + lgpdAcceptedAt |
+| 9 | `09-post-prescriptions-201.png` | `POST /api/prescriptions` | 201 | Prescrição "Entrega 2 - Teste" criada |
+| 10 | `10-get-prescriptions-me-full-200.png` | `GET /api/prescriptions/me/full` | 200 | Plano completo do paciente com exercícios |
+| 11 | `11-post-check-ins-201.png` | `POST /api/check-ins` | 201 | Check-in criado (painLevel: 3, notes: "Teste Entrega 2") |
+| 12 | `12-get-check-ins-history-200.png` | `GET /api/check-ins/my-history` | 200 | Histórico retornando registros do paciente |
