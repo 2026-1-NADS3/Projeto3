@@ -116,6 +116,21 @@ buildConfigField("String", "API_BASE_URL", "\"https://maya-rpg-api-1t7v.onrender
 
 ---
 
+## Credenciais de Teste
+
+Ative o seed de dados com `SEED_DEMO_DATA=true` no `.env` do backend antes de subir os containers.
+
+| E-mail | Senha (primeiro acesso: CPF) | Perfil |
+|--------|------------------------------|--------|
+| `ana.silva.demo@mayarpg.com` | `11122233344` | **PACIENTE** (use no app mobile) |
+| `bruno.costa.demo@mayarpg.com` | `22233344455` | PACIENTE |
+| `maya.profissional@mayarpg.com` | `senhaSuperSegura123` | PROFISSIONAL |
+
+> No primeiro acesso o app solicita criação de nova senha — basta redefinir após o login inicial.  
+> O admin é configurado via variáveis `SEED_ADMIN_EMAIL` e `SEED_ADMIN_PASSWORD` no `.env`.
+
+---
+
 ## Contrato de Check-in
 
 ```json

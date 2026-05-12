@@ -38,6 +38,31 @@ API REST em NestJS para gerenciamento clínico de RPG (Reeducação Postural Glo
 
 ---
 
+## Credenciais de Teste
+
+Para ativar os dados de demonstração, configure o `.env` antes de subir os containers:
+
+```env
+SEED_DEMO_DATA=true
+SEED_ADMIN_DEFAULT=true
+SEED_ADMIN_EMAIL=admin@mayarpg.com
+SEED_ADMIN_PASSWORD=admin123
+```
+
+Usuários criados automaticamente pelo seed:
+
+| E-mail | Senha | Perfil |
+|--------|-------|--------|
+| `admin@mayarpg.com` | `admin123` | **ADMIN** |
+| `maya.profissional@mayarpg.com` | `senhaSuperSegura123` | PROFISSIONAL |
+| `ana.silva.demo@mayarpg.com` | `11122233344` (CPF) | PACIENTE |
+| `bruno.costa.demo@mayarpg.com` | `22233344455` (CPF) | PACIENTE |
+
+> Pacientes usam o CPF como senha no **primeiro acesso** — o app solicita criação de nova senha na sequência.  
+> Swagger em `http://localhost:3000/api/docs` para testar os endpoints diretamente.
+
+---
+
 ## Início Rápido
 
 ```bash
