@@ -119,6 +119,28 @@ npm run dev                 # http://localhost:5173
 
 ---
 
+## 🔑 Credenciais de Teste
+
+Ative o seed de dados adicionando estas variáveis no `backend/.env` antes de `docker compose up`:
+
+```env
+SEED_DEMO_DATA=true
+SEED_ADMIN_DEFAULT=true
+SEED_ADMIN_EMAIL=admin@mayarpg.com
+SEED_ADMIN_PASSWORD=admin123
+```
+
+| E-mail | Senha | Perfil | Onde usar |
+|--------|-------|--------|-----------|
+| `admin@mayarpg.com` | `admin123` | **ADMIN** | Painel web |
+| `maya.profissional@mayarpg.com` | `senhaSuperSegura123` | PROFISSIONAL | Painel web |
+| `ana.silva.demo@mayarpg.com` | `11122233344` *(CPF — primeiro acesso)* | **PACIENTE** | **App mobile** |
+| `bruno.costa.demo@mayarpg.com` | `22233344455` *(CPF — primeiro acesso)* | PACIENTE | App mobile |
+
+> No primeiro acesso de pacientes, o app solicita a criação de uma nova senha antes de liberar o dashboard.
+
+---
+
 ## 📚 Documentação Complementar
 
 | Documento | Descrição |
